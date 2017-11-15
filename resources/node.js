@@ -30,3 +30,20 @@ Node.prototype.isInside = function(px,py)
     var radius = (2*NODERADIUS)*(2*NODERADIUS);
     return dist <= radius;
 }
+
+Node.prototype.dotProduct = function(node) {
+	return this.x*node.x + this.y*node.y;
+}
+
+Node.prototype.norm = function() {
+	return Math.sqrt(this.x*this.x + this.y*this.y);
+}
+
+
+Node.prototype.normalize = function() {
+	result = new Node(this.x, this.y);
+	norm = result.norm();
+	result.x /= norm;
+	result.y /= norm;
+	return result; 
+}
