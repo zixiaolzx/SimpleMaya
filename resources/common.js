@@ -253,6 +253,8 @@ var Task2 = function(gl)
 	// create two bones and push them into skeleton
 	this.mJoint1 = new Joint ( 	      null, [-2, 0, 0], [0, 1, 0], 1.8, "Upper Arm", gl);
 	this.mJoint2 = new Joint (this.mJoint1, [ 2, 0, 0], [0, 0, 1], 1.8, "Forearm", gl);
+    this.mJoint3 = new Joint (this.mJoint2, [ 4, 0, 0], [0, 0, 1], 1.8, "Torus", gl);
+
 	
 	this.skeleton.addJoint(this.mJoint1);
 	this.skeleton.addJoint(this.mJoint2);
