@@ -51,15 +51,17 @@ function setupTask(canvasId, taskFunction) {
     });
 
     var uiContainer = div();
+
     var weightSelector = ["Save"];
     var sliderTarget = div();
     var jointName = "a";
     var jointId = 1;
+    
     uiContainer.appendChild(div('slider-container', sliderTarget));
-    // new Slider(sliderTarget, 0, 120, 0, true, function(jointId, jointName, angle) {
-    //         this.setLabel(jointName + ': ' + angle + ' deg');
-    //         task.setJointAngle(jointId, angle);
-    //     }, [jointId, jointName]);
+    new Slider(sliderTarget, 0, 120, 0, true, function(jointId, jointName, angle) {
+            this.setLabel(jointName + ': ' + angle + ' deg');
+            task.setJointAngle(jointId, angle);
+        }, [jointId, jointName]);
     
     // var groupTarget = div();
     // uiContainer.appendChild(div('button-group-container', groupTarget));
