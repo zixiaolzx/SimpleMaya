@@ -81,7 +81,7 @@ Slider.prototype.mouseMove = function(event) {
 
 Slider.prototype.setTimer = function(time) {
     var rect = timer.sliderBackground.getBoundingClientRect();
-    timer.setPosition(time/(rect.right - rect.left));
+    timer.setPosition(time/720);
 
 }
 

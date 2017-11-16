@@ -77,20 +77,15 @@ function setupTask(canvasId, taskFunction) {
         i = play_time;
         interval = setInterval(function(){
             value = 0
-            if (task5Curve) {
-                task5Curve.drawTask5(i);
-                value = 153 - task5Curve.getValue(i);
-            }
             task.setJointAngle(jointId, value);
+            timer.setTimer(play_time);
+            timer.setLabel(jointName + ': ' + i + ' frame');
             i = (i + 1) % 720;
             play_time = i;
-
-            timer.setLabel(jointName + ': ' + i + ' frame');
         }, 1);
     }
 
     else {
-        timer.setTimer(play_time);
         clearInterval(interval);
     }
 
