@@ -23,7 +23,6 @@
 
     <script src="resources/catmullromspline.js"></script>
 	<script src="resources/drawutils.js"></script>
-    <script src="resources/beziercurve.js"></script>
     <script src="resources/node.js"></script>
 	<!-- Add all tasks -->
 	<script src="resources/task3.js"></script>
@@ -59,7 +58,7 @@
                     <button>Load</button>
                     </div>
                     <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none;margin:0 0 160px 0;">
-                    <button>Play</button>
+                    <button id="play">Play</button>
                     </div>
                     <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none;margin:0 0 40px 0;">
                     <button>Translate</button>
@@ -137,6 +136,8 @@
     </div>
     <script>
         var task5Curve = null;
+        var animation_play = false;
+        var play_time = 0;
         
         function setupAssignment() {
             

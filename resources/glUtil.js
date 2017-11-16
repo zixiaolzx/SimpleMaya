@@ -62,6 +62,46 @@ function setupTask(canvasId, taskFunction) {
             this.setLabel(jointName + ': ' + angle + ' deg');
             task.setJointAngle(jointId, angle);
         }, [jointId, jointName]);
+
+
+    timer = new Slider(sliderTarget, 0, 720, 0, true, function(jointId, jointName, time) {
+        console.log("test" + sliderTarget);
+        value = 0
+        if (task5Curve) {
+            task5Curve.drawTask5(time)
+            value = 153 - task5Curve.getValue(time);
+        }
+        this.setLabel(jointName + ': ' + time + ' frame');
+        task.setJointAngle(jointId, value);
+    }, [jointId, jointName]);
+
+
+    document.getElementById("play").addEventListener('click', function(event) {
+        animation_play = !animation_play;
+        console.log(animation_play)
+
+
+    // play not continue with the frame number, jump to last stop
+    if (animation_play) {
+        i = play_time;
+        interval = setInterval(function(){
+            value = 0
+            if (task5Curve) {
+                task5Curve.drawTask5(i)
+                value = 153 - task5Curve.getValue(i);
+            }
+            timer.setLabel(jointName + ': ' + i + ' frame');
+            task.setJointAngle(jointId, value);
+            i = (i + 1) % 720;
+            play_time = i;
+        }, 1);
+    }
+
+    else {
+        clearInterval(interval);
+    }
+
+    });
     
     // var groupTarget = div();
     // uiContainer.appendChild(div('button-group-container', groupTarget));
@@ -81,6 +121,8 @@ function setupTask(canvasId, taskFunction) {
         window.requestAnimationFrame(renderLoop);
     }
     window.requestAnimationFrame(renderLoop);
+
+    console.log(animation_play);
     
     return task;
 }
