@@ -58,6 +58,7 @@ function setupTask(canvasId, taskFunction) {
     uiContainer.appendChild(div('slider-container', sliderTarget));
 
     timer = new Slider(sliderTarget, 0, 720, 0, true, function(jointId, jointName, time) {
+        play_time = time;
         console.log("test" + sliderTarget);
         value = 0
         if (task5Curve) {
