@@ -31,6 +31,9 @@ var CatmullRomSpline = function(canvasId)
 	// closure
 	var that = this;
 
+	//setup active node
+	this.activeID = -1;
+
 	// Event listeners
 	this.dCanvas.addEventListener('mousedown', function(event) {
         that.mousePress(event);
@@ -78,18 +81,9 @@ CatmullRomSpline.prototype.mousePress = function(event) {
 		for (var i = 0; i < this.nodes.length; i++) {
 			if (this.nodes[i].isInside(pos.x,pos.y)) {
 				this.activeNode = this.nodes[i];
-				this.ctx.clearRect(0, 0, this.dCanvas.width, this.dCanvas.height);
-				console.log(this.ctx);
-				this.ctx.beginPath();
-				setColors(this.ctx,'rgb(160,160,160)','red');
-				this.activeNode.draw(this.ctx);
-				
-				// this.ctx.arc(this.nodes[i].x, this.nodes[i].y , 5,0,2*Math.PI);
-				// this.ctx.fillStyle ='rgb(160,160,160)';
-				drawCircle(this.ctx, this.nodes[i].x, this.nodes[i].y , 5);
-				console.log(this.ctx);
-				//this.ctx.fill();
-				
+				this.activeID = i;
+				//this.ctx.clearRect(0, 0, this.dCanvas.width, this.dCanvas.height);
+				console.log("activeNode");				
 				this.activeTangent = this.tangents[i];
 				break;
 			}
@@ -256,9 +250,20 @@ CatmullRomSpline.prototype.drawTask5 = function(time)
         //     drawLine(this.ctx, this.nodes[i-1].x, this.nodes[i-1].y, this.nodes[i].x, this.nodes[i].y);
         // }
 		// Draw nodes
-		setColors(this.ctx,'rgb(10,70,160)','undefined');
+		
 		for (var i = 0; i < this.nodes.length; i++) {
-			this.nodes[i].draw(this.ctx);
+			if(i == this.activeID){
+				setColors(this.ctx,'rgb(10,70,160)','red');
+				this.nodes[this.activeID].draw(this.ctx);
+
+				setColors(this.ctx,'rgb(10,70,160)','undefined');
+				//this.nodes[i+1].draw(this.ctx);
+				console.log(this.activeID);	
+			}else{
+				setColors(this.ctx,'rgb(10,70,160)','undefined');
+				this.nodes[i].draw(this.ctx);
+			}
+			
 		}
     }
 
