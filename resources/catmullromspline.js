@@ -36,7 +36,7 @@ var CatmullRomSpline = function(canvasId)
         that.mousePress(event);
     });
 
-	this.dCanvas.addEventListener('mousemove', function(event) {
+	document.addEventListener('mousemove', function(event) {
 		that.mouseMove(event);
 	});
 
@@ -44,7 +44,7 @@ var CatmullRomSpline = function(canvasId)
 		that.mouseRelease(event);
 	});
 
-	this.dCanvas.addEventListener('mouseleave', function(event) {
+	document.addEventListener('mouseleave', function(event) {
 		that.mouseRelease(event);
 	});
 }
@@ -96,6 +96,7 @@ CatmullRomSpline.prototype.mousePress = function(event) {
 
 CatmullRomSpline.prototype.mouseMove = function(event) {
 	if (this.cvState == CVSTATE.SelectPoint || this.cvState == CVSTATE.MovePoint) {
+		console.log(getMousePos(event));
 		var pos = getMousePos(event);
 		if (this.activeTangent) {
 			temp_x = pos.x - this.activeNode.x;
