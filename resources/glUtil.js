@@ -58,11 +58,6 @@ function setupTask(canvasId, taskFunction) {
     var jointId = 1;
     
     uiContainer.appendChild(div('slider-container', sliderTarget));
-    new Slider(sliderTarget, 0, 120, 0, true, function(jointId, jointName, angle) {
-            this.setLabel(jointName + ': ' + angle + ' deg');
-            task.setJointAngle(jointId, angle);
-        }, [jointId, jointName]);
-
 
     timer = new Slider(sliderTarget, 0, 720, 0, true, function(jointId, jointName, time) {
         console.log("test" + sliderTarget);
@@ -87,7 +82,7 @@ function setupTask(canvasId, taskFunction) {
         interval = setInterval(function(){
             value = 0
             if (task5Curve) {
-                task5Curve.drawTask5(i)
+                task5Curve.drawTask5(i);
                 value = 153 - task5Curve.getValue(i);
             }
             timer.setLabel(jointName + ': ' + i + ' frame');
@@ -100,6 +95,16 @@ function setupTask(canvasId, taskFunction) {
     else {
         clearInterval(interval);
     }
+
+    });
+
+    document.getElementById("set").addEventListener('click', function(event) {
+
+        if (task5Curve) {
+                var v = parseInt(document.getElementById("value").value);
+               // task5Curve.drawTask5(1);
+                task5Curve.addNode(play_time, v);
+            }
 
     });
     
