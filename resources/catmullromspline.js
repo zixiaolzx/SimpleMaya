@@ -31,6 +31,9 @@ var CatmullRomSpline = function(canvasId)
 	// closure
 	var that = this;
 
+	//setup active node
+	this.activeID = -1;
+
 	// Event listeners
 	this.dCanvas.addEventListener('mousedown', function(event) {
         that.mousePress(event);
@@ -77,7 +80,10 @@ CatmullRomSpline.prototype.mousePress = function(event) {
 		// Try to find a tangent below the mouse
 		for (var i = 0; i < this.nodes.length; i++) {
 			if (this.nodes[i].isInside(pos.x,pos.y)) {
-				this.activeNode = this.nodes[i]
+				this.activeNode = this.nodes[i];
+				this.activeID = i;
+				//this.ctx.clearRect(0, 0, this.dCanvas.width, this.dCanvas.height);
+				console.log("activeNode");				
 				this.activeTangent = this.tangents[i];
 				break;
 			}
@@ -245,7 +251,18 @@ CatmullRomSpline.prototype.drawTask5 = function(time)
 		// Draw nodes
 		setColors(this.ctx,'rgb(10,70,160)','white');
 		for (var i = 0; i < this.nodes.length; i++) {
-			this.nodes[i].draw(this.ctx);
+			if(i == this.activeID){
+				setColors(this.ctx,'rgb(10,70,160)','red');
+				this.nodes[this.activeID].draw(this.ctx);
+
+				setColors(this.ctx,'rgb(10,70,160)','undefined');
+				//this.nodes[i+1].draw(this.ctx);
+				console.log(this.activeID);	
+			}else{
+				setColors(this.ctx,'rgb(10,70,160)','undefined');
+				this.nodes[i].draw(this.ctx);
+			}
+			
 		}
     }
 
