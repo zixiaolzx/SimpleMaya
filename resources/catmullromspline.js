@@ -77,7 +77,19 @@ CatmullRomSpline.prototype.mousePress = function(event) {
 		// Try to find a tangent below the mouse
 		for (var i = 0; i < this.nodes.length; i++) {
 			if (this.nodes[i].isInside(pos.x,pos.y)) {
-				this.activeNode = this.nodes[i]
+				this.activeNode = this.nodes[i];
+				this.ctx.clearRect(0, 0, this.dCanvas.width, this.dCanvas.height);
+				console.log(this.ctx);
+				this.ctx.beginPath();
+				setColors(this.ctx,'rgb(160,160,160)','red');
+				this.activeNode.draw(this.ctx);
+				
+				// this.ctx.arc(this.nodes[i].x, this.nodes[i].y , 5,0,2*Math.PI);
+				// this.ctx.fillStyle ='rgb(160,160,160)';
+				drawCircle(this.ctx, this.nodes[i].x, this.nodes[i].y , 5);
+				console.log(this.ctx);
+				//this.ctx.fill();
+				
 				this.activeTangent = this.tangents[i];
 				break;
 			}
@@ -149,6 +161,7 @@ CatmullRomSpline.prototype.drawTangents = function()
 	for (var i = 0; i < this.nodes.length; i++) {
 		tangent = this.tangents[i].normalize();
         setColors(this.ctx,'rgb(250,0,0)');
+
 		drawLine(this.ctx, 
 			 	 this.nodes[i].x - tangent.x*30, 
 				 this.nodes[i].y - tangent.y*30, 
@@ -243,7 +256,7 @@ CatmullRomSpline.prototype.drawTask5 = function(time)
         //     drawLine(this.ctx, this.nodes[i-1].x, this.nodes[i-1].y, this.nodes[i].x, this.nodes[i].y);
         // }
 		// Draw nodes
-		setColors(this.ctx,'rgb(10,70,160)','white');
+		setColors(this.ctx,'rgb(10,70,160)','undefined');
 		for (var i = 0; i < this.nodes.length; i++) {
 			this.nodes[i].draw(this.ctx);
 		}
