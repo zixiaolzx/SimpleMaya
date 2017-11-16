@@ -7,7 +7,7 @@ CVSTATE = {
 
 function setColors(ctx,stroke,fill) {
 	if(typeof(stroke)==='undefined') stroke = 'black';
-	if(typeof(fill)==='undefined') fill = 'blue';
+	if(typeof(fill)==='undefined') fill = 'transparent';
 	ctx.fillStyle = fill;
 	ctx.strokeStyle = stroke;
 }
