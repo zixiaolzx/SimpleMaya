@@ -30,9 +30,6 @@ var Task3 = function(gl)
 	this.mJoint10 = new Joint (this.mJoint9, [ -1, -0.3, 0.2], [0, 0, 1], -0.7, "RingFinger-top", gl);
 	this.mJoint11 = new Joint (this.mJoint3, [ -1.8, -0.5, 1.2], [0, 0, 1], -0.8, "LittleFinger", gl);
 
-
-
-
 	this.skeleton.addJoint(this.mJoint1);
 	this.skeleton.addJoint(this.mJoint2);
 	this.skeleton.addJoint(this.mJoint3);
@@ -46,8 +43,6 @@ var Task3 = function(gl)
 	this.skeleton.addJoint(this.mJoint11);
 
 
-
-	
 	// set the skeleton
 	this.mShowWeights = false;
 	

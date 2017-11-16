@@ -9,7 +9,9 @@ var CatmullRomSpline = function(canvasId)
 
 	// Setup all the data related to the actual curve.
 	this.nodes = new Array();
+	this.nodes.push(new Node(0, 153))
 	this.tangents = new Array();
+	this.tangents.push(new Node(0, 0))
 	this.showControlPolygon = true;
 	this.showTangents = true;
 
@@ -24,6 +26,7 @@ var CatmullRomSpline = function(canvasId)
 	this.cvState = CVSTATE.Idle;
 	this.activeNode = null;
 	this.activeTangent = null;
+	this.timeline = 0;
 
 	// closure
 	var that = this;
@@ -95,7 +98,11 @@ CatmullRomSpline.prototype.mouseMove = function(event) {
 	if (this.cvState == CVSTATE.SelectPoint || this.cvState == CVSTATE.MovePoint) {
 		var pos = getMousePos(event);
 		if (this.activeTangent) {
-			this.activeTangent.setPos(pos.x - this.activeNode.x, pos.y - this.activeNode.y);
+			temp_x = pos.x - this.activeNode.x;
+			temp_y = pos.y - this.activeNode.y;
+			// temp_x = Math.min(Math.max(pos.x - this.activeNode.x, -50), 200);
+			// temp_y = Math.min(Math.max(pos.y - this.activeNode.y, -50), 200);
+			this.activeTangent.setPos(temp_x, temp_y);
 			this.activeTangent = this.activeTangent;
 		}
 	} else {
@@ -142,10 +149,10 @@ CatmullRomSpline.prototype.drawTangents = function()
 		tangent = this.tangents[i].normalize();
         setColors(this.ctx,'rgb(250,0,0)');
 		drawLine(this.ctx, 
-			 	 this.nodes[i].x, 
-				 this.nodes[i].y, 
-				 this.nodes[i].x + tangent.x*50, 
-				 this.nodes[i].y + tangent.y*50);
+			 	 this.nodes[i].x - tangent.x*30, 
+				 this.nodes[i].y - tangent.y*30, 
+				 this.nodes[i].x + tangent.x*30, 
+				 this.nodes[i].y + tangent.y*30);
 	}
 }
 
@@ -185,41 +192,48 @@ CatmullRomSpline.prototype.draw = function()
 			p = f_u;
 		}
 	}
-    
 }
 
-// // NOTE: Task 4 code.
-// CatmullRomSpline.prototype.drawTask4 = function()
-// {
-// 	// clear the rect
-// 	this.ctx.clearRect(0, 0, this.dCanvas.width, this.dCanvas.height);
 
-//     if (this.showControlPolygon) {
-// 		// Connect nodes with a line
-//         setColors(this.ctx,'rgb(10,70,160)');
-//         for (var i = 1; i < this.nodes.length; i++) {
-//             drawLine(this.ctx, this.nodes[i-1].x, this.nodes[i-1].y, this.nodes[i].x, this.nodes[i].y);
-//         }
-// 		// Draw nodes
-// 		setColors(this.ctx,'rgb(10,70,160)','white');
-// 		for (var i = 0; i < this.nodes.length; i++) {
-// 			this.nodes[i].draw(this.ctx);
-// 		}
-//     }
 
-// 	// We need atleast 4 points to start rendering the curve.
-//     if(this.nodes.length < 4) return;
+CatmullRomSpline.prototype.getValue = function(time)
+{
+    for (var i = 1; i < this.nodes.length; i++) {
 
-// 	// draw all tangents
-// 	if(this.showTangents)
-// 		this.drawTangents();
-// }
+    	if (time >= this.nodes[i-1].x && time < this.nodes[i].x) {
+    		p0 = this.nodes[i-1];
+			p1 = this.nodes[i];
+			v0 = this.tangents[i-1];
+			v1 = this.tangents[i];
+
+			a = new Node(2*p0.x - 2*p1.x + v0.x + v1.x, 2*p0.y - 2*p1.y + v0.y + v1.y);
+			b = new Node(-3*p0.x + 3*p1.x - 2*v0.x - v1.x, -3*p0.y + 3*p1.y - 2*v0.y - v1.y);
+			c = v0
+			d = p0
+			u = (time - this.nodes[i-1].x) / (this.nodes[i].x - this.nodes[i-1].x);
+			f_u = new Node(d.x + c.x*u + b.x*u*u + a.x*u*u*u, 
+					       d.y + c.y*u + b.y*u*u + a.y*u*u*u);
+			p = f_u;
+		}
+	}
+	return p.y;
+}
+
+
+
 
 // NOTE: Task 4 code.
-CatmullRomSpline.prototype.drawTask5 = function()
+CatmullRomSpline.prototype.drawTask5 = function(time)
 {
 	// clear the rect
 	this.ctx.clearRect(0, 0, this.dCanvas.width, this.dCanvas.height);
+
+	// draw timeline
+	if (time) {
+		this.timeline = time
+	}
+    setColors(this.ctx,'rgb(250,0,0)');
+	drawLine(this.ctx, this.timeline, 0, this.timeline, 153);
 
     if (this.showControlPolygon) {
 		// Connect nodes with a line
@@ -242,6 +256,7 @@ CatmullRomSpline.prototype.drawTask5 = function()
 
 	if(this.showTangents)
 		this.drawTangents();
+
 }
 
 
