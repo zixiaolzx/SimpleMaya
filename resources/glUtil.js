@@ -96,7 +96,9 @@ function setupTask(canvasId, taskFunction) {
         if (task5Curve) {
                 var v = parseInt(document.getElementById("value").value);
                // task5Curve.drawTask5(1);
+               if (v) {
                 task5Curve.addNode(play_time, v);
+               }
             }
 
     });
@@ -136,53 +138,8 @@ var FragmentSource = `
     }
 `;
 
-function createVertexBuffer(gl, vertexData) {
-    var vbo = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexData), gl.STATIC_DRAW);
-    return vbo;
-}
-function createIndexBuffer(gl, indexData) {
-    var ibo = gl.createBuffer();
-    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, ibo);
-    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indexData), gl.STATIC_DRAW);
-    return ibo;
-}
-function createShaderObject(gl, shaderSource, shaderType) {
-    var shaderObject = gl.createShader(shaderType);
-    gl.shaderSource(shaderObject, shaderSource);
-    gl.compileShader(shaderObject);
-    
-    if (!gl.getShaderParameter(shaderObject, gl.COMPILE_STATUS)) {
-        // Add some line numbers for convenience
-        var lines = shaderSource.split("\n");
-        for (var i = 0; i < lines.length; ++i)
-            lines[i] = ("   " + (i + 1)).slice(-4) + " | " + lines[i];
-        shaderSource = lines.join("\n");
-    
-        throw new Error(
-            (shaderType == gl.FRAGMENT_SHADER ? "Fragment" : "Vertex") + " shader compilation error for shader '" + name + "':\n\n    " +
-            gl.getShaderInfoLog(shaderObject).split("\n").join("\n    ") +
-            "\nThe shader source code was:\n\n" +
-            shaderSource);
-    }
-    
-    
-    return shaderObject;
-}
-function createShaderProgram(gl, vertexSource, fragmentSource) {
-    var   vertexShader = createShaderObject(gl,   vertexSource, gl.  VERTEX_SHADER);
-    var fragmentShader = createShaderObject(gl, fragmentSource, gl.FRAGMENT_SHADER);
-    
-    var program = gl.createProgram();
-    gl.attachShader(program,   vertexShader);
-    gl.attachShader(program, fragmentShader);
-    gl.linkProgram(program);
-    
-    return program;
-}
 
-var TriangleMesh = function(gl, vertexPositions, indices, edgeIndices) {
+var TriangleMesh2 = function(gl, vertexPositions, indices, edgeIndices) {
     this.indexCount = indices.length;
     this.edgeIndexCount = edgeIndices.length;
     this.positionVbo = createVertexBuffer(gl, vertexPositions);
@@ -191,7 +148,7 @@ var TriangleMesh = function(gl, vertexPositions, indices, edgeIndices) {
     this.shaderProgram = createShaderProgram(gl, VertexSource, FragmentSource);
 }
 
-TriangleMesh.prototype.render = function(gl, model, view, projection, drawFaces, drawWireframe, wireColor) {
+TriangleMesh2.prototype.render = function(gl, model, view, projection, drawFaces, drawWireframe, wireColor) {
     drawFaces = defaultArg(drawFaces, true);
     drawWireframe = defaultArg(drawWireframe, true);
     wireColor = defaultArg(wireColor, new Vector(0, 0, 0));
