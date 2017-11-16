@@ -93,7 +93,10 @@
                       <input type="text" name="Time" value = "Value" style = "width:50px">
                     </form>
                     <form>
-                        <input type="submit" value = "Set" style="margin:20px 0 0 0">
+                        <input type="Submit" value = "Set" style="margin:20px 0 0 0">
+                    </form>
+                    <form>
+                        <input type="Submit" value = "Delete" style="margin:20px 0 0 0">
                     </form>
                 </div>
 
@@ -105,7 +108,7 @@
                 
 
                 <div class="canvas-container" style="float:center">
-                    <canvas id="task-2" width="820" height="150" style="margin:0 30px 0 0; border: 1px solid black;"></canvas>
+                    <canvas id="task-5" width="820" height="150" style="margin:0 30px 0 0; border: 1px solid black;"></canvas>
                 </div>
 
                 <div style="text-align: center; user-select: none; -webkit-user-select: none; -moz-user-select: none;">
@@ -138,7 +141,7 @@
             setupTask("task-1", Task2);
 
             // Set up the curves
-            task5Curve = new CatmullRomSpline("task-2");
+            task5Curve = new CatmullRomSpline("task-5");
             // Call the draw function
             draw();
         }
@@ -152,8 +155,8 @@
         }
         
         function clearCurve(canvasId) {
-            if(canvasId == 2)
-                task5Curve = new CatmullRomSpline("task-2");
+            if(canvasId == 5)
+                task5Curve = new CatmullRomSpline("task-5");
         }
         
         window.requestAnimFrame = (function(callback) {
