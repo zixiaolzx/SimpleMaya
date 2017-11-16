@@ -40,7 +40,7 @@ var CatmullRomSpline = function(canvasId)
 		that.mouseMove(event);
 	});
 
-	this.dCanvas.addEventListener('mouseup', function(event) {
+	document.addEventListener('mouseup', function(event) {
 		that.mouseRelease(event);
 	});
 
