@@ -79,6 +79,12 @@ Slider.prototype.mouseMove = function(event) {
     this.setPosition((event.clientX - rect.left)/(rect.right - rect.left));
 }
 
+Slider.prototype.setTimer = function(time) {
+    var rect = timer.sliderBackground.getBoundingClientRect();
+    timer.setPosition(time/(rect.right - rect.left));
+
+}
+
 Slider.prototype.setLabel = function(text) {
     if (this.label)
         this.label.textContent = text;

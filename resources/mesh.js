@@ -67,7 +67,9 @@ Mesh.prototype.toTriangleMesh = function(gl) {
         for (var j = 0, k = this.faces[i].length - 1; j < this.faces[i].length; k = j, ++j)
             edgeIndices.push(this.faces[i][k], this.faces[i][j]);
     }
+
     return new TriangleMesh(this.gl, positions, indices, shader, true, true, new Vector(0.7,0.7,0.4));
+
 }
 
 var Task3 = function(gl) {

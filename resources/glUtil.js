@@ -51,16 +51,15 @@ function setupTask(canvasId, taskFunction) {
     });
 
     var uiContainer = div();
-
     var weightSelector = ["Save"];
     var sliderTarget = div();
     var jointName = "a";
     var jointId = 1;
-    
+
     uiContainer.appendChild(div('slider-container', sliderTarget));
 
-    timer = new Slider(sliderTarget, 0, 720, 0, true, function(jointId, jointName, time) {
-        console.log("test" + sliderTarget);
+    timer = new Slider(sliderTarget, 0, 720, play_time, true, function(jointId, jointName, time) {
+        play_time = time;
         value = 0
         if (task5Curve) {
             task5Curve.drawTask5(time)
@@ -73,10 +72,7 @@ function setupTask(canvasId, taskFunction) {
 
     document.getElementById("play").addEventListener('click', function(event) {
         animation_play = !animation_play;
-        console.log(animation_play)
 
-
-    // play not continue with the frame number, jump to last stop
     if (animation_play) {
         i = play_time;
         interval = setInterval(function(){
@@ -85,18 +81,21 @@ function setupTask(canvasId, taskFunction) {
                 task5Curve.drawTask5(i);
                 value = 153 - task5Curve.getValue(i);
             }
-            timer.setLabel(jointName + ': ' + i + ' frame');
             task.setJointAngle(jointId, value);
             i = (i + 1) % 720;
             play_time = i;
+
+            timer.setLabel(jointName + ': ' + i + ' frame');
         }, 1);
     }
 
     else {
+        timer.setTimer(play_time);
         clearInterval(interval);
     }
 
     });
+
 
     document.getElementById("set").addEventListener('click', function(event) {
 
@@ -107,6 +106,7 @@ function setupTask(canvasId, taskFunction) {
             }
 
     });
+
     
     // var groupTarget = div();
     // uiContainer.appendChild(div('button-group-container', groupTarget));
