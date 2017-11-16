@@ -77,7 +77,6 @@ function setupTask(canvasId, taskFunction) {
         i = play_time;
         interval = setInterval(function(){
             value = 0
-            task.setJointAngle(jointId, value);
             timer.setTimer(play_time);
             timer.setLabel(jointName + ': ' + i + ' frame');
             i = (i + 1) % 720;
@@ -102,17 +101,6 @@ function setupTask(canvasId, taskFunction) {
 
     });
 
-    
-    // var groupTarget = div();
-    // uiContainer.appendChild(div('button-group-container', groupTarget));
-    // new ButtonGroup(groupTarget, "Save", function(idx) {
-    //     task.showJointWeights(idx - 1);
-    // });
-    // uiContainer.appendChild(div('button', groupTarget));
-    // new Button(groupTarget, "Save", function(idx) {
-    //     this.setLabel("Save");
-    // });
-
     canvas.parentNode.appendChild(uiContainer);
     this.angle = 1;
     var flag = true;//increase
@@ -125,4 +113,113 @@ function setupTask(canvasId, taskFunction) {
     console.log(animation_play);
     
     return task;
+}
+
+
+
+var VertexSource = `
+    uniform mat4 ModelViewProjection;
+    
+    attribute vec3 Position;
+    
+    void main() {
+        gl_Position = ModelViewProjection*vec4(Position, 1.0);
+    }
+`;
+var FragmentSource = `
+    precision highp float;
+    
+    uniform vec4 Color;
+
+    void main() {
+        gl_FragColor = Color;
+    }
+`;
+
+function createVertexBuffer(gl, vertexData) {
+    var vbo = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexData), gl.STATIC_DRAW);
+    return vbo;
+}
+function createIndexBuffer(gl, indexData) {
+    var ibo = gl.createBuffer();
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, ibo);
+    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indexData), gl.STATIC_DRAW);
+    return ibo;
+}
+function createShaderObject(gl, shaderSource, shaderType) {
+    var shaderObject = gl.createShader(shaderType);
+    gl.shaderSource(shaderObject, shaderSource);
+    gl.compileShader(shaderObject);
+    
+    if (!gl.getShaderParameter(shaderObject, gl.COMPILE_STATUS)) {
+        // Add some line numbers for convenience
+        var lines = shaderSource.split("\n");
+        for (var i = 0; i < lines.length; ++i)
+            lines[i] = ("   " + (i + 1)).slice(-4) + " | " + lines[i];
+        shaderSource = lines.join("\n");
+    
+        throw new Error(
+            (shaderType == gl.FRAGMENT_SHADER ? "Fragment" : "Vertex") + " shader compilation error for shader '" + name + "':\n\n    " +
+            gl.getShaderInfoLog(shaderObject).split("\n").join("\n    ") +
+            "\nThe shader source code was:\n\n" +
+            shaderSource);
+    }
+    
+    
+    return shaderObject;
+}
+function createShaderProgram(gl, vertexSource, fragmentSource) {
+    var   vertexShader = createShaderObject(gl,   vertexSource, gl.  VERTEX_SHADER);
+    var fragmentShader = createShaderObject(gl, fragmentSource, gl.FRAGMENT_SHADER);
+    
+    var program = gl.createProgram();
+    gl.attachShader(program,   vertexShader);
+    gl.attachShader(program, fragmentShader);
+    gl.linkProgram(program);
+    
+    return program;
+}
+
+var TriangleMesh = function(gl, vertexPositions, indices, edgeIndices) {
+    this.indexCount = indices.length;
+    this.edgeIndexCount = edgeIndices.length;
+    this.positionVbo = createVertexBuffer(gl, vertexPositions);
+    this.indexIbo = createIndexBuffer(gl, indices);
+    this.edgeIndexIbo = createIndexBuffer(gl, edgeIndices);
+    this.shaderProgram = createShaderProgram(gl, VertexSource, FragmentSource);
+}
+
+TriangleMesh.prototype.render = function(gl, model, view, projection, drawFaces, drawWireframe, wireColor) {
+    drawFaces = defaultArg(drawFaces, true);
+    drawWireframe = defaultArg(drawWireframe, true);
+    wireColor = defaultArg(wireColor, new Vector(0, 0, 0));
+
+    var modelViewProjection = projection.multiply(view).multiply(model);
+    
+    gl.useProgram(this.shaderProgram);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.positionVbo);
+    var positionAttrib = gl.getAttribLocation(this.shaderProgram, "Position");
+    gl.enableVertexAttribArray(positionAttrib);
+    gl.vertexAttribPointer(positionAttrib, 3, gl.FLOAT, false, 0, 0);
+    
+    if (drawFaces) {
+        gl.uniformMatrix4fv(gl.getUniformLocation(this.shaderProgram, "ModelViewProjection"), false, modelViewProjection.transpose().m); 
+        gl.uniform4f(gl.getUniformLocation(this.shaderProgram, "Color"), 0.95, 0.95, 0.95, 1); 
+        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.indexIbo);
+        gl.drawElements(gl.TRIANGLES, this.indexCount, gl.UNSIGNED_SHORT, 0);
+    }
+    
+    if (drawWireframe) {
+        gl.lineWidth(2.0);
+        
+        modelViewProjection = Matrix.translate(0, 0, -1e-4).multiply(modelViewProjection);
+        gl.uniformMatrix4fv(gl.getUniformLocation(this.shaderProgram, "ModelViewProjection"), false, modelViewProjection.transpose().m); 
+        
+        gl.uniform4f(gl.getUniformLocation(this.shaderProgram, "Color"), wireColor.x, wireColor.y, wireColor.z, 1); 
+        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.edgeIndexIbo);
+        gl.drawElements(gl.LINES, this.edgeIndexCount, gl.UNSIGNED_SHORT, 0);
+    }
 }
