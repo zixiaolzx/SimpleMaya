@@ -67,7 +67,7 @@ Mesh.prototype.toTriangleMesh = function(gl) {
         for (var j = 0, k = this.faces[i].length - 1; j < this.faces[i].length; k = j, ++j)
             edgeIndices.push(this.faces[i][k], this.faces[i][j]);
     }
-    return new TriangleMesh(gl, positions, indices, edgeIndices);
+    return new TriangleMesh2(gl, positions, indices, edgeIndices);
 }
 
 
@@ -107,6 +107,8 @@ function yourMesh() {
 
 
 var Task3 = function(gl) {
+    this.translate = [0, 0, 0]
+    this.rotation = [0, 0, 0]
     this.pitch = 0;
     this.yaw = 0;
     this.subdivisionLevel = 0;
@@ -155,17 +157,26 @@ Task3.prototype.render = function(gl, w, h) {
     gl.clearColor(0.0, 0.0, 0.0, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-    var projection = Matrix.perspective(35, w/h, 0.1, 100);
+
+
+    var projection = Matrix.perspective(50, w/h, 0.5, 100);
     var view =
-        Matrix.translate(0, 0, -5).multiply(
+        Matrix.translate(-2.5, 0, -20).multiply(
         Matrix.rotate(this.pitch, 1, 0, 0)).multiply(
-        Matrix.rotate(this.yaw, 0, 1, 0));
+        Matrix.rotate(this.yaw+5, 0, 1, 0));
+
+
+    translate_transform = Matrix.translate(this.translate[0], this.translate[1], this.translate[2]);
+    transform = view.multiply(translate_transform);
+
+
     var model = new Matrix();
 
     if (this.subdivisionLevel > 0)
-        this.baseMeshes[this.selectedModel].render(gl, model, view, projection, false, true, new Vector(0.7, 0.7, 0.7));
+        this.baseMeshes[this.selectedModel].render(gl, model, transform, projection, false, true, new Vector(0.7, 0.7, 0.7));
 
-    this.mesh.render(gl, model, view, projection);
+
+    this.mesh.render(gl, model, transform, projection);
 }
 
 
@@ -176,5 +187,10 @@ Task3.prototype.dragCamera = function(dx, dy) {
 
 
 Task3.prototype.setJointAngle = function(id, value) {
-    
+    if (value) {
+        t = -5 + value / 130 * 10;
+        this.translate = [0, t, 0];
+    }
 }
+
+ 

@@ -58,6 +58,87 @@ function setupTask(canvasId, taskFunction) {
 
     uiContainer.appendChild(div('slider-container', sliderTarget));
 
+    var x_nodes = new Array();
+    var x_tangents = new Array();
+
+    var y_nodes = new Array();
+    var y_tangents = new Array();
+    
+    var z_nodes = new Array();
+    var z_tangents = new Array();
+
+    document.getElementById("axis_x").addEventListener('click', function(event) {
+        saveCurves(task5Curve, axis);
+        if (axis != 1) {
+            axis = 1;
+            task5Curve.nodes = x_nodes;
+            task5Curve.tangents = x_tangents;
+        }
+        console.log(axis);
+    });
+
+    document.getElementById("axis_y").addEventListener('click', function(event) {
+        saveCurves(task5Curve, axis);
+        if (axis != 2) {
+            axis = 2;
+            task5Curve.nodes = y_nodes;
+            task5Curve.tangents = y_tangents;
+        }
+        console.log(axis);
+    });
+
+    document.getElementById("axis_z").addEventListener('click', function(event) {
+        saveCurves(task5Curve, axis);
+        if (axis != 3) {
+            axis = 3;
+            task5Curve.nodes = z_nodes;
+            task5Curve.tangents = z_tangents;
+        }
+        console.log(axis);
+    });
+
+   document.getElementById("load0").addEventListener('click', function(event) {
+        task.selectModel(0);
+        console.log("load cube");
+    });
+
+   document.getElementById("load1").addEventListener('click', function(event) {
+        task.selectModel(1);
+        console.log("load Torus");
+    });
+
+   document.getElementById("load2").addEventListener('click', function(event) {
+        task.selectModel(2);
+        console.log("load Sphere");
+    });
+
+   document.getElementById("load3").addEventListener('click', function(event) {
+        task.selectModel(3);
+        console.log("load Icosahedron");
+    });
+
+   document.getElementById("load4").addEventListener('click', function(event) {
+        task.selectModel(4);
+        console.log("load Octahedron");
+    });
+
+
+    var saveCurves = function(curve, axis) {
+        if (axis == 1) {
+            x_nodes = curve.nodes;
+            x_tangents = curve.tangents;
+        }
+        if (axis == 2) {
+            y_nodes = curve.nodes;
+            y_tangents = curve.tangents;
+        }
+        if (axis == 3) {
+            z_nodes = curve.nodes;
+            z_tangents = curve.tangents;
+        }
+    }
+
+
     timer = new Slider(sliderTarget, 0, 720, play_time, true, function(jointId, jointName, time) {
         play_time = time;
         value = 0
@@ -94,9 +175,11 @@ function setupTask(canvasId, taskFunction) {
     document.getElementById("set").addEventListener('click', function(event) {
 
         if (task5Curve) {
-                var v = parseInt(document.getElementById("value").value);
+                var v = 153 - parseInt(document.getElementById("value").value);
                // task5Curve.drawTask5(1);
-                task5Curve.addNode(play_time, v);
+               if (v) {
+                    task5Curve.addNode(play_time, v);
+               }
             }
 
     });
@@ -122,8 +205,6 @@ function setupTask(canvasId, taskFunction) {
     }
     window.requestAnimationFrame(renderLoop);
 
-    console.log(animation_play);
-    
     return task;
 }
 
@@ -148,53 +229,8 @@ var FragmentSource = `
     }
 `;
 
-function createVertexBuffer(gl, vertexData) {
-    var vbo = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexData), gl.STATIC_DRAW);
-    return vbo;
-}
-function createIndexBuffer(gl, indexData) {
-    var ibo = gl.createBuffer();
-    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, ibo);
-    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indexData), gl.STATIC_DRAW);
-    return ibo;
-}
-function createShaderObject(gl, shaderSource, shaderType) {
-    var shaderObject = gl.createShader(shaderType);
-    gl.shaderSource(shaderObject, shaderSource);
-    gl.compileShader(shaderObject);
-    
-    if (!gl.getShaderParameter(shaderObject, gl.COMPILE_STATUS)) {
-        // Add some line numbers for convenience
-        var lines = shaderSource.split("\n");
-        for (var i = 0; i < lines.length; ++i)
-            lines[i] = ("   " + (i + 1)).slice(-4) + " | " + lines[i];
-        shaderSource = lines.join("\n");
-    
-        throw new Error(
-            (shaderType == gl.FRAGMENT_SHADER ? "Fragment" : "Vertex") + " shader compilation error for shader '" + name + "':\n\n    " +
-            gl.getShaderInfoLog(shaderObject).split("\n").join("\n    ") +
-            "\nThe shader source code was:\n\n" +
-            shaderSource);
-    }
-    
-    
-    return shaderObject;
-}
-function createShaderProgram(gl, vertexSource, fragmentSource) {
-    var   vertexShader = createShaderObject(gl,   vertexSource, gl.  VERTEX_SHADER);
-    var fragmentShader = createShaderObject(gl, fragmentSource, gl.FRAGMENT_SHADER);
-    
-    var program = gl.createProgram();
-    gl.attachShader(program,   vertexShader);
-    gl.attachShader(program, fragmentShader);
-    gl.linkProgram(program);
-    
-    return program;
-}
 
-var TriangleMesh = function(gl, vertexPositions, indices, edgeIndices) {
+var TriangleMesh2 = function(gl, vertexPositions, indices, edgeIndices) {
     this.indexCount = indices.length;
     this.edgeIndexCount = edgeIndices.length;
     this.positionVbo = createVertexBuffer(gl, vertexPositions);
@@ -203,7 +239,7 @@ var TriangleMesh = function(gl, vertexPositions, indices, edgeIndices) {
     this.shaderProgram = createShaderProgram(gl, VertexSource, FragmentSource);
 }
 
-TriangleMesh.prototype.render = function(gl, model, view, projection, drawFaces, drawWireframe, wireColor) {
+TriangleMesh2.prototype.render = function(gl, model, view, projection, drawFaces, drawWireframe, wireColor) {
     drawFaces = defaultArg(drawFaces, true);
     drawWireframe = defaultArg(drawWireframe, true);
     wireColor = defaultArg(wireColor, new Vector(0, 0, 0));
@@ -235,3 +271,5 @@ TriangleMesh.prototype.render = function(gl, model, view, projection, drawFaces,
         gl.drawElements(gl.LINES, this.edgeIndexCount, gl.UNSIGNED_SHORT, 0);
     }
 }
+
+

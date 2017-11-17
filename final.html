@@ -64,11 +64,11 @@
                     <div class = "dropdown" style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none;margin:20px 0 120px 5px;">
                         <button id="load" class = "dropbtn" style="text-align: center" onclick="loadmesh()">Mesh</button>
                         <div id="myDropdown" class="dropdown-content">
-                            <button onclick="loadcube()">Cube</button>
-                            <button onclick = "load1()">Torus</button>
-                            <button onclick = "load2()" onclick= "loadsphere()">Sphere</a>
-                            <button onclick = "load3()">Icosahedron</a>
-                            <button onclick = "load4()">Octahedron</a>
+                            <button id="load0">Cube</button>
+                            <button id="load1">Torus</button>
+                            <button id="load2">Sphere</button>
+                            <button id="load3">Icosahedron</button>
+                            <button id="load4"">Octahedron</button>
                         </div>
                     </div>
 
@@ -96,13 +96,13 @@
                 <div style="float:left;margin:0 0 0 40px">
                     Translation:
                     <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none; margin:10px 0 20px 0;">
-                    <button>X</button>
+                    <button id="axis_x">X</button>
                     </div>
                     <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none;margin:0 0 20px 0;">
-                    <button>Y</button>
+                    <button id="axis_y">Y</button>
                     </div>
                     <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none;margin:0 0 20px 0;">
-                    <button>Z</button>
+                    <button id="axis_z">Z</button>
                     </div>
                 </div>
 
@@ -115,14 +115,11 @@
                     <form>
                         <input type="Submit" value = "Delete" style="margin:20px 0 0 0">
                     </form>
-                </div>
+                    </div>
 
                 <!-- <div style="float:left;margin:30px 0 0 40px"> -->
-                    
-                
                 </div>
 
-                
 
                 <div class="canvas-container" style="float:center">
                     <canvas id="task-5" width="820" height="150" style="margin:0 30px 0 0; border: 1px solid black;"></canvas>
@@ -208,11 +205,11 @@
             }
         }
 
-        function loadcube() {
-            Task3.selectModel(0);
-            console.log("load0");
-            setupTask("task-1", Task3);
-        }
+        // function loadcube() {
+        //     Task3.selectModel(0);
+        //     console.log("load0");
+        //     setupTask("task-1", Task3);
+        // }
 
 
     }

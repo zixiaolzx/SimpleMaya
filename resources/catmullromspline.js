@@ -9,7 +9,7 @@ var CatmullRomSpline = function(canvasId)
 
 	// Setup all the data related to the actual curve.
 	this.nodes = new Array();
-	this.nodes.push(new Node(0, 153))
+	// this.nodes.push(new Node(0, 153))
 	this.tangents = new Array();
 	this.tangents.push(new Node(0, 0))
 	this.showControlPolygon = true;
@@ -83,7 +83,6 @@ CatmullRomSpline.prototype.mousePress = function(event) {
 				this.activeNode = this.nodes[i];
 				this.activeID = i;
 				//this.ctx.clearRect(0, 0, this.dCanvas.width, this.dCanvas.height);
-				console.log("activeNode");				
 				this.activeTangent = this.tangents[i];
 				break;
 			}
@@ -102,7 +101,6 @@ CatmullRomSpline.prototype.mousePress = function(event) {
 
 CatmullRomSpline.prototype.mouseMove = function(event) {
 	if (this.cvState == CVSTATE.SelectPoint || this.cvState == CVSTATE.MovePoint) {
-		console.log(getMousePos(event));
 		var pos = getMousePos(event);
 		if (this.activeTangent) {
 			temp_x = pos.x - this.activeNode.x;
@@ -155,7 +153,6 @@ CatmullRomSpline.prototype.drawTangents = function()
 	for (var i = 0; i < this.nodes.length; i++) {
 		tangent = this.tangents[i].normalize();
         setColors(this.ctx,'rgb(250,0,0)');
-
 		drawLine(this.ctx, 
 			 	 this.nodes[i].x - tangent.x*30, 
 				 this.nodes[i].y - tangent.y*30, 
@@ -250,7 +247,7 @@ CatmullRomSpline.prototype.drawTask5 = function(time)
         //     drawLine(this.ctx, this.nodes[i-1].x, this.nodes[i-1].y, this.nodes[i].x, this.nodes[i].y);
         // }
 		// Draw nodes
-		
+		setColors(this.ctx,'rgb(10,70,160)','white');
 		for (var i = 0; i < this.nodes.length; i++) {
 			if(i == this.activeID){
 				setColors(this.ctx,'rgb(10,70,160)','red');
@@ -258,7 +255,6 @@ CatmullRomSpline.prototype.drawTask5 = function(time)
 
 				setColors(this.ctx,'rgb(10,70,160)','undefined');
 				//this.nodes[i+1].draw(this.ctx);
-				console.log(this.activeID);	
 			}else{
 				setColors(this.ctx,'rgb(10,70,160)','undefined');
 				this.nodes[i].draw(this.ctx);
@@ -286,7 +282,9 @@ CatmullRomSpline.prototype.addNode = function(x,y)
 	tangent = new Node(50, 0);
 	if (this.nodes.length > 2) {
 		i = this.nodes.length-1;
-		this.tangents[i-1] = new Node((this.nodes[i].x - this.nodes[i-2].x)/2, (this.nodes[i].y - this.nodes[i-2].y)/2);
+		this.tangents[i-1] = 
+		new Node((this.nodes[i].x - this.nodes[i-2].x)/2, 
+			     (this.nodes[i].y - this.nodes[i-2].y)/2);
 	}
 	this.tangents.push(tangent);
 }
