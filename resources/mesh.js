@@ -192,22 +192,20 @@ Task3.prototype.setJointAngle = function(id, value) {
         if (axis == 1) {
             this.translate = [t, 0, 0];
         }
-        if (axis == 2) {
+        else if (axis == 2) {
             this.translate = [0, t, 0];
         }
-        if (axis == 3) {
+        else if (axis == 3) {
             this.translate = [0, 0, t];
         }
     }
 }
 
 Task3.prototype.setTranslation = function(x, y, z) {
-    if (x && y && z) {
-        x = -5 + x / 130 * 10;
-        y = -5 + y / 130 * 10;
-        z = -5 + z / 130 * 10;
-        this.translate = [x, y, z];
-    }
+    if (x != 0) x = -5 + x / 130 * 10;
+    if (y != 0) y = -5 + y / 130 * 10;
+    if (z != 0) z = -5 + z / 130 * 10;
+    this.translate = [x, y, z];
 }
 
  
