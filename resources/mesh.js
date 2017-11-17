@@ -159,11 +159,11 @@ Task3.prototype.render = function(gl, w, h) {
 
 
 
-    var projection = Matrix.perspective(100, w/h, 0.1, 100);
+    var projection = Matrix.perspective(50, w/h, 0.5, 100);
     var view =
-        Matrix.translate(-1, 0, -5).multiply(
+        Matrix.translate(-2.5, 0, -20).multiply(
         Matrix.rotate(this.pitch, 1, 0, 0)).multiply(
-        Matrix.rotate(this.yaw, 0, 1, 0));
+        Matrix.rotate(this.yaw+5, 0, 1, 0));
 
 
     translate_transform = Matrix.translate(this.translate[0], this.translate[1], this.translate[2]);
@@ -173,7 +173,7 @@ Task3.prototype.render = function(gl, w, h) {
     var model = new Matrix();
 
     if (this.subdivisionLevel > 0)
-        this.baseMeshes[this.selectedModel].render(gl, model, view, projection, false, true, new Vector(0.7, 0.7, 0.7));
+        this.baseMeshes[this.selectedModel].render(gl, model, transform, projection, false, true, new Vector(0.7, 0.7, 0.7));
 
 
     this.mesh.render(gl, model, transform, projection);
@@ -189,7 +189,6 @@ Task3.prototype.dragCamera = function(dx, dy) {
 Task3.prototype.setJointAngle = function(id, value) {
     if (value) {
         t = -5 + value / 130 * 10;
-        this.translate = [t, 0, 0];
-        console.log(this.translate);
+        this.translate = [0, t, 0];
     }
 }

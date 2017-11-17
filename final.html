@@ -81,13 +81,13 @@
                 <div style="float:left;margin:0 0 0 40px">
                     Translation:
                     <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none; margin:10px 0 20px 0;">
-                    <button>X</button>
+                    <button id="axis_x">X</button>
                     </div>
                     <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none;margin:0 0 20px 0;">
-                    <button>Y</button>
+                    <button id="axis_y">Y</button>
                     </div>
                     <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none;margin:0 0 20px 0;">
-                    <button>Z</button>
+                    <button id="axis_z">Z</button>
                     </div>
                 </div>
 
@@ -126,7 +126,7 @@
         var task5Curve = null;
         var animation_play = false;
         var play_time = 0;
-        var axis = 0;
+        var axis = 1;
         
         function setupAssignment() {
             

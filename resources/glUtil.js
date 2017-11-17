@@ -58,6 +58,63 @@ function setupTask(canvasId, taskFunction) {
 
     uiContainer.appendChild(div('slider-container', sliderTarget));
 
+    var x_nodes = new Array();
+    var x_tangents = new Array();
+
+    var y_nodes = new Array();
+    var y_tangents = new Array();
+    
+    var z_nodes = new Array();
+    var z_tangents = new Array();
+
+    document.getElementById("axis_x").addEventListener('click', function(event) {
+        saveCurves(task5Curve, axis);
+        if (axis != 1) {
+            axis = 1;
+            task5Curve.nodes = x_nodes;
+            task5Curve.tangents = x_tangents;
+        }
+        console.log(axis);
+    });
+
+    document.getElementById("axis_y").addEventListener('click', function(event) {
+        saveCurves(task5Curve, axis);
+        if (axis != 2) {
+            axis = 2;
+            task5Curve.nodes = y_nodes;
+            task5Curve.tangents = y_tangents;
+        }
+        console.log(axis);
+    });
+
+    document.getElementById("axis_z").addEventListener('click', function(event) {
+        saveCurves(task5Curve, axis);
+        if (axis != 3) {
+            axis = 3;
+            task5Curve.nodes = z_nodes;
+            task5Curve.tangents = z_tangents;
+        }
+        console.log(axis);
+    });
+
+
+
+    var saveCurves = function(curve, axis) {
+        if (axis == 1) {
+            x_nodes = curve.nodes;
+            x_tangents = curve.tangents;
+        }
+        if (axis == 2) {
+            y_nodes = curve.nodes;
+            y_tangents = curve.tangents;
+        }
+        if (axis == 3) {
+            z_nodes = curve.nodes;
+            z_tangents = curve.tangents;
+        }
+    }
+
+
     timer = new Slider(sliderTarget, 0, 720, play_time, true, function(jointId, jointName, time) {
         play_time = time;
         value = 0
@@ -94,10 +151,10 @@ function setupTask(canvasId, taskFunction) {
     document.getElementById("set").addEventListener('click', function(event) {
 
         if (task5Curve) {
-                var v = parseInt(document.getElementById("value").value);
+                var v = 153 - parseInt(document.getElementById("value").value);
                // task5Curve.drawTask5(1);
                if (v) {
-                task5Curve.addNode(play_time, v);
+                    task5Curve.addNode(play_time, v);
                }
             }
 
@@ -112,8 +169,6 @@ function setupTask(canvasId, taskFunction) {
     }
     window.requestAnimationFrame(renderLoop);
 
-    console.log(animation_play);
-    
     return task;
 }
 
@@ -180,3 +235,5 @@ TriangleMesh2.prototype.render = function(gl, model, view, projection, drawFaces
         gl.drawElements(gl.LINES, this.edgeIndexCount, gl.UNSIGNED_SHORT, 0);
     }
 }
+
+

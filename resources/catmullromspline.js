@@ -9,7 +9,7 @@ var CatmullRomSpline = function(canvasId)
 
 	// Setup all the data related to the actual curve.
 	this.nodes = new Array();
-	this.nodes.push(new Node(0, 153))
+	// this.nodes.push(new Node(0, 153))
 	this.tangents = new Array();
 	this.tangents.push(new Node(0, 0))
 	this.showControlPolygon = true;
@@ -83,7 +83,6 @@ CatmullRomSpline.prototype.mousePress = function(event) {
 				this.activeNode = this.nodes[i];
 				this.activeID = i;
 				//this.ctx.clearRect(0, 0, this.dCanvas.width, this.dCanvas.height);
-				console.log("activeNode");				
 				this.activeTangent = this.tangents[i];
 				break;
 			}
@@ -102,7 +101,6 @@ CatmullRomSpline.prototype.mousePress = function(event) {
 
 CatmullRomSpline.prototype.mouseMove = function(event) {
 	if (this.cvState == CVSTATE.SelectPoint || this.cvState == CVSTATE.MovePoint) {
-		console.log(getMousePos(event));
 		var pos = getMousePos(event);
 		if (this.activeTangent) {
 			temp_x = pos.x - this.activeNode.x;
@@ -257,7 +255,6 @@ CatmullRomSpline.prototype.drawTask5 = function(time)
 
 				setColors(this.ctx,'rgb(10,70,160)','undefined');
 				//this.nodes[i+1].draw(this.ctx);
-				console.log(this.activeID);	
 			}else{
 				setColors(this.ctx,'rgb(10,70,160)','undefined');
 				this.nodes[i].draw(this.ctx);
