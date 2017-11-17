@@ -201,4 +201,13 @@ Task3.prototype.setJointAngle = function(id, value) {
     }
 }
 
+Task3.prototype.setTranslation = function(x, y, z) {
+    if (x && y && z) {
+        x = -5 + x / 130 * 10;
+        y = -5 + y / 130 * 10;
+        z = -5 + z / 130 * 10;
+        this.translate = [x, y, z];
+    }
+}
+
  

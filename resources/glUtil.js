@@ -141,13 +141,21 @@ function setupTask(canvasId, taskFunction) {
 
     timer = new Slider(sliderTarget, 0, 720, play_time, true, function(jointId, jointName, time) {
         play_time = time;
-        value = 0
+        value = 0;
+        value_x = 0;
+        value_y = 0;
+        value_z = 0;
         if (task5Curve) {
+            saveCurves(task5Curve, axis);
             task5Curve.drawTask5(time)
             value = 153 - task5Curve.getValue(time);
+            // value_x = 153 - task5Curve.getValueByAxis(time, x_nodes, x_tangents);
+            value_y = 153 - task5Curve.getValueByAxis(time, y_nodes, y_tangents);
+            // value_z = 153 - task5Curve.getValueByAxis(time, z_nodes, z_tangents);
+            task.setTranslation(value_x, value_y, value_z);
         }
         this.setLabel(jointName + ': ' + time + ' frame');
-        task.setJointAngle(jointId, value);
+        // task.setJointAngle(jointId, value);
     }, [jointId, jointName]);
 
 
