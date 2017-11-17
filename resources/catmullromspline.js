@@ -39,15 +39,15 @@ var CatmullRomSpline = function(canvasId)
         that.mousePress(event);
     });
 
-	document.addEventListener('mousemove', function(event) {
+	this.dCanvas.addEventListener('mousemove', function(event) {
 		that.mouseMove(event);
 	});
 
-	document.addEventListener('mouseup', function(event) {
+	this.dCanvas.addEventListener('mouseup', function(event) {
 		that.mouseRelease(event);
 	});
 
-	document.addEventListener('mouseleave', function(event) {
+	this.dCanvas.addEventListener('mouseleave', function(event) {
 		that.mouseRelease(event);
 	});
 }
@@ -103,12 +103,21 @@ CatmullRomSpline.prototype.mouseMove = function(event) {
 	if (this.cvState == CVSTATE.SelectPoint || this.cvState == CVSTATE.MovePoint) {
 		var pos = getMousePos(event);
 		if (this.activeTangent) {
-			temp_x = pos.x - this.activeNode.x;
-			temp_y = pos.y - this.activeNode.y;
-			// temp_x = Math.min(Math.max(pos.x - this.activeNode.x, -50), 200);
-			// temp_y = Math.min(Math.max(pos.y - this.activeNode.y, -50), 200);
+			temp_x = pos.x - this.activeNode.x + 1;
+			temp_y = pos.y - this.activeNode.y + 1;
+			temp_node = new Node(temp_x, temp_y);
+			temp_norm = temp_node.norm();
+			if (temp_norm == 0) {
+				temp_norm += 0.001;
+			}
+			cosTheta = temp_node.normalize().dotProduct((new Node(temp_x, 0)).normalize());
+			if (cosTheta != cosTheta) {
+				cosTheta = 0.01;
+			}
+			temp_x = temp_x / temp_norm * (100 + 300*(1-cosTheta));
+			temp_y = temp_y / temp_norm * (100 + 300*(1-cosTheta));
+			console.log(norm, temp_y);
 			this.activeTangent.setPos(temp_x, temp_y);
-			this.activeTangent = this.activeTangent;
 		}
 	} else {
 		// No button pressed. Ignore movement.
