@@ -249,15 +249,21 @@ CatmullRomSpline.prototype.drawTask5 = function(time)
 		// Draw nodes
 		setColors(this.ctx,'rgb(10,70,160)','white');
 		for (var i = 0; i < this.nodes.length; i++) {
+			//console.log(this.activeID);
 			if(i == this.activeID){
 				setColors(this.ctx,'rgb(10,70,160)','red');
-				this.nodes[this.activeID].draw(this.ctx);
-
-				setColors(this.ctx,'rgb(10,70,160)','undefined');
+				this.nodes[i].draw(this.ctx);
+				//console.log("draw");
+				//console.log(i);
+				//setColors(this.ctx,'rgb(10,70,160)','undefined');
+				//this.nodes[i++].draw(this.ctx);
+				//console.log("draw next");
+				//console.log(i);
 				//this.nodes[i+1].draw(this.ctx);
 			}else{
 				setColors(this.ctx,'rgb(10,70,160)','undefined');
 				this.nodes[i].draw(this.ctx);
+				//console.log("not")
 			}
 			
 		}
