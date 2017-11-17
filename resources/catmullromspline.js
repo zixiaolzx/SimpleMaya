@@ -227,6 +227,7 @@ CatmullRomSpline.prototype.getValue = function(time)
 
 
 CatmullRomSpline.prototype.getValueByAxis = function(time, axis_nodes, axis_tangents) {
+	p = new Node(153, 153);
     for (var i = 1; i < axis_nodes.length; i++) {
 
     	if (time >= axis_nodes[i-1].x && time < axis_nodes[i].x) {
