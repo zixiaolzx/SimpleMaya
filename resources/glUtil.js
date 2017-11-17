@@ -101,6 +101,18 @@ function setupTask(canvasId, taskFunction) {
 
     });
 
+    document.getElementById("set").addEventListener('click', function(event) {
+
+        if (task5Curve) {
+                var v = parseInt(document.getElementById("value").value);
+               // task5Curve.drawTask5(1);
+                task5Curve.addNode(play_time, v);
+            }
+
+    });
+
+
+
     canvas.parentNode.appendChild(uiContainer);
     this.angle = 1;
     var flag = true;//increase

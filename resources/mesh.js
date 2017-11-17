@@ -74,31 +74,31 @@ Mesh.prototype.toTriangleMesh = function(gl) {
 function yourMesh() {
     // TODO: Insert your own creative mesh here
     var vertices = [
-        new Vector( 0,  1,  0),
-        new Vector(-1, -1,  0),
-        new Vector( 0, -1, -1),
-        new Vector( 1, -1,  0),
-        new Vector( 0, -1,  1),
+        // new Vector( 0,  1,  0),
+        // new Vector(-1, -1,  0),
+        // new Vector( 0, -1, -1),
+        // new Vector( 1, -1,  0),
+        // new Vector( 0, -1,  1),
         
-        new Vector( 0, -1,  0),
-        new Vector(-1,  1,  0),
-        new Vector( 0,  1, -1),
-        new Vector( 1,  1,  0),
-        new Vector( 0,  1,  1)
+        // new Vector( 0, -1,  0),
+        // new Vector(-1,  1,  0),
+        // new Vector( 0,  1, -1),
+        // new Vector( 1,  1,  0),
+        // new Vector( 0,  1,  1)
     ];
 
     var faces = [
-        [0, 1, 2],
-        [0, 2, 3],
-        [0, 3, 4],
-        [0, 4, 1],
-        [1, 2, 3, 4],
+        // [0, 1, 2],
+        // [0, 2, 3],
+        // [0, 3, 4],
+        // [0, 4, 1],
+        // [1, 2, 3, 4],
         
-        [5, 6, 7],
-        [5, 7, 8],
-        [5, 8, 9],
-        [5, 9, 6],
-        [6, 7, 8, 9]
+        // [5, 6, 7],
+        // [5, 7, 8],
+        // [5, 8, 9],
+        // [5, 9, 6],
+        // [6, 7, 8, 9]
     ];
 
     return new Mesh(vertices, faces);
@@ -110,7 +110,7 @@ var Task3 = function(gl) {
     this.pitch = 0;
     this.yaw = 0;
     this.subdivisionLevel = 0;
-    this.selectedModel = 0;
+    this.selectedModel = 5;
     this.gl = gl;
 
     gl.enable(gl.DEPTH_TEST);
