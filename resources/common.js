@@ -173,6 +173,7 @@ WeightShadedTriangleMesh.prototype.render = function(gl, model, view, projection
 // This class is concerned with the task-2 of the assignment.
 var Task2 = function(gl)
 {
+    this.name = "arms";
 	this.pitch = 0;
     this.yaw = 0;
 	

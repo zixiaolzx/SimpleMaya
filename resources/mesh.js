@@ -107,6 +107,7 @@ function yourMesh() {
 
 
 var Task3 = function(gl) {
+    this.name = "mesh";
     this.translate = [0, 0, 0]
     this.rotation = [0, 0, 0]
     this.pitch = 0;
