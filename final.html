@@ -36,7 +36,9 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+<style>
 
+</style>
 </head>
 
 <body onload="setupAssignment();">
@@ -51,20 +53,33 @@
             <p> </p>
             <div>
                 <div style="float:left;margin:30px 0 0 100px">
-                    <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none; margin:0 0 40px 0;">
-                    <button>Save</button>
+                    <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none; margin:0 0 20px 0;">
+                    <button class = "dropbtn">Save</button>
                     </div>
+
+                    <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none;">
+                    <button id="play" class = "dropbtn" onclick="changeText()">Play</button>
+                    </div>
+
+                    <div class = "dropdown" style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none;margin:20px 0 120px 5px;">
+                        <button id="load" class = "dropbtn" style="text-align: center" onclick="loadmesh()">Mesh</button>
+                        <div id="myDropdown" class="dropdown-content">
+                            <button id="load0">Cube</button>
+                            <button id="load1">Torus</button>
+                            <button id="load2">Sphere</button>
+                            <button id="load3">Icosahedron</button>
+                            <button id="load4"">Octahedron</button>
+                        </div>
+                    </div>
+
+                    
+
                     <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none;margin:0 0 40px 0;">
-                    <button id="load">Load</button>
+                    <button class = "dropdown">Translate</button>
                     </div>
-                    <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none;margin:0 0 160px 0;">
-                    <button id="play" onclick="changeText()">Play</button>
-                    </div>
+
                     <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none;margin:0 0 40px 0;">
-                    <button>Translate</button>
-                    </div>
-                    <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none;margin:0 0 40px 0;">
-                    <button>Rotation</button>
+                    <button class = "dropdown">Rotation</button>
                     </div>
                 </div>
                 
@@ -100,14 +115,11 @@
                     <form>
                         <input type="Submit" value = "Delete" style="margin:20px 0 0 0">
                     </form>
-                </div>
+                    </div>
 
                 <!-- <div style="float:left;margin:30px 0 0 40px"> -->
-                    
-                
                 </div>
 
-                
 
                 <div class="canvas-container" style="float:center">
                     <canvas id="task-5" width="820" height="150" style="margin:0 30px 0 0; border: 1px solid black;"></canvas>
@@ -122,14 +134,16 @@
             <!-- ================================================================= -->
         </div>
     </div>
+
     <script>
         var task5Curve = null;
         var animation_play = false;
         var play_time = 0;
-        var axis = 1;
+        var axis = 0;
+        var meshid = -1;
         
         function setupAssignment() {
-            
+
             setupTask("task-1", Task3);
 
             // Set up the curves
@@ -173,6 +187,32 @@
                 text.innerHTML = 'Play';
             }
         }
+
+        function loadmesh() {
+        document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+        if (!event.target.matches('.dropbtn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+
+        // function loadcube() {
+        //     Task3.selectModel(0);
+        //     console.log("load0");
+        //     setupTask("task-1", Task3);
+        // }
+
+
+    }
 
     </script>
 </body>
