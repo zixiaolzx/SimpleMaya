@@ -68,7 +68,8 @@
                             <button id="load1">Torus</button>
                             <button id="load2">Sphere</button>
                             <button id="load3">Icosahedron</button>
-                            <button id="load4"">Octahedron</button>
+                            <button id="load4">Octahedron</button>
+                            <button id="load5" onclick="loadarm()">Arm</button>
                         </div>
                     </div>
 
@@ -111,10 +112,9 @@
                       <input id = "value" type="text" name="Time" value = "Value" style = "width:50px;margin:0 0 0 10px;">
                     </form>
                     <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none;margin:20px 0 20px 0;">
-                    <button id= "set">Set</button>
-                    <form>
-                        <input type="Submit" value = "Delete" style="margin:20px 0 0 0">
-                    </form>
+                    <button id= "setnode">Set</button>
+                    <!-- function: setnode -->
+                    <button id= "deletenode">Delete</button>
                     </div>
 
                 <!-- <div style="float:left;margin:30px 0 0 40px"> -->
@@ -139,8 +139,12 @@
         var task5Curve = null;
         var animation_play = false;
         var play_time = 0;
-        var axis = 0;
+        var axis = 1;
         var meshid = -1;
+        
+        function loadarm() {
+            setupTask("task-1", Task2);
+        }
         
         function setupAssignment() {
 
@@ -205,11 +209,7 @@
             }
         }
 
-        // function loadcube() {
-        //     Task3.selectModel(0);
-        //     console.log("load0");
-        //     setupTask("task-1", Task3);
-        // }
+        
 
 
     }

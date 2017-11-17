@@ -226,6 +226,33 @@ CatmullRomSpline.prototype.getValue = function(time)
 
 
 
+CatmullRomSpline.prototype.getValueByAxis = function(time, axis_nodes, axis_tangents) {
+    for (var i = 1; i < axis_nodes.length; i++) {
+
+    	if (time >= axis_nodes[i-1].x && time < axis_nodes[i].x) {
+    		p0 = axis_nodes[i-1];
+			p1 = axis_nodes[i];
+			v0 = axis_tangents[i-1];
+			v1 = axis_tangents[i];
+
+			a = new Node(2*p0.x - 2*p1.x + v0.x + v1.x, 2*p0.y - 2*p1.y + v0.y + v1.y);
+			b = new Node(-3*p0.x + 3*p1.x - 2*v0.x - v1.x, -3*p0.y + 3*p1.y - 2*v0.y - v1.y);
+			c = v0
+			d = p0
+			u = (time - axis_nodes[i-1].x) / (axis_nodes[i].x - axis_nodes[i-1].x);
+			f_u = new Node(d.x + c.x*u + b.x*u*u + a.x*u*u*u, 
+					       d.y + c.y*u + b.y*u*u + a.y*u*u*u);
+			p = f_u;
+		}
+	}
+
+	return p.y;
+}
+
+
+
+
+
 
 // NOTE: Task 4 code.
 CatmullRomSpline.prototype.drawTask5 = function(time)
@@ -252,20 +279,13 @@ CatmullRomSpline.prototype.drawTask5 = function(time)
 			//console.log(this.activeID);
 			if(i == this.activeID){
 				setColors(this.ctx,'rgb(10,70,160)','red');
-				this.nodes[i].draw(this.ctx);
-				//console.log("draw");
-				//console.log(i);
-				//setColors(this.ctx,'rgb(10,70,160)','undefined');
-				//this.nodes[i++].draw(this.ctx);
-				//console.log("draw next");
-				//console.log(i);
-				//this.nodes[i+1].draw(this.ctx);
-			}else{
-				setColors(this.ctx,'rgb(10,70,160)','undefined');
+				this.nodes[this.activeID].draw(this.ctx);
+			}
+			else{
+				setColors(this.ctx,'rgb(10,70,160)','white');
 				this.nodes[i].draw(this.ctx);
 				//console.log("not")
 			}
-			
 		}
     }
 
@@ -293,4 +313,11 @@ CatmullRomSpline.prototype.addNode = function(x,y)
 			     (this.nodes[i].y - this.nodes[i-2].y)/2);
 	}
 	this.tangents.push(tangent);
+}
+
+	
+CatmullRomSpline.prototype.deleteNode = function(array, index) {
+    if (index !== -1 && index < array.length) {
+        array.splice(index, 1);
+    }
 }
