@@ -64,11 +64,11 @@
                     <div class = "dropdown" style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none;margin:20px 0 120px 5px;">
                         <button id="load" class = "dropbtn" style="text-align: center" onclick="loadmesh()">Mesh</button>
                         <div id="myDropdown" class="dropdown-content">
-                            <button id="load0">Cube</button>
-                            <button id="load1">Torus</button>
-                            <button id="load2">Sphere</button>
-                            <button id="load3">Icosahedron</button>
-                            <button id="load4">Octahedron</button>
+                            <button id="load0" onclick="loadm()">Cube</button>
+                            <button id="load1" onclick="loadm()">Torus</button>
+                            <button id="load2" onclick="loadm()">Sphere</button>
+                            <button id="load3" onclick="loadm()">Icosahedron</button>
+                            <button id="load4" onclick="loadm()">Octahedron</button>
                             <button id="load5" onclick="loadarm()">Arm</button>
                         </div>
                     </div>
@@ -140,7 +140,8 @@
         var animation_play = false;
         var play_time = 0;
         var axis = 1;
-        var meshid = -1;    
+        var meshid = -1; 
+        var sliderflag = false;   
 
         var x_nodes = new Array();
         var x_tangents = new Array();
@@ -152,12 +153,28 @@
         var z_tangents = new Array();
         
         function loadarm() {
-            setupTask("task-1", Task2);
+            sliderflag = true;
+            window.location.reload();
+            console.log("reload for arm");
+        }
+
+        function loadm() {
+            if(sliderflag){
+                sliderflag = false;
+                window.location.reload();
+
+            }
         }
         
         function setupAssignment() {
-
-            setupTask("task-1", Task3);
+            if(sliderflag){
+                 setupTask("task-1", Task2);
+                 console.log("arm shows");
+            }else{
+                setupTask("task-1", Task3);
+                console.log("mesh shows");
+            }
+              
 
             // Set up the curves
             task5Curve = new CatmullRomSpline("task-5");

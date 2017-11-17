@@ -1,4 +1,5 @@
 function setupTask(canvasId, taskFunction) {
+    console.log("setuptask");
     var canvas = document.getElementById(canvasId);
     if (!canvas) {
         console.log("Could not find canvas with id", canvasId);
@@ -56,7 +57,8 @@ function setupTask(canvasId, taskFunction) {
     var jointName = "a";
     var jointId = 1;
 
-    uiContainer.appendChild(div('slider-container', sliderTarget));
+
+    uiContainer.appendChild(div('slider-container', sliderTarget));    
 
 
 
@@ -196,9 +198,12 @@ function setupTask(canvasId, taskFunction) {
     document.getElementById("deletenode").addEventListener('click', function(event) {
         console.log("delete here");
         if (task5Curve) {
-               if(task5Curve.activeNode){
+            console.log(task5Curve.activeID);
+               if(task5Curve.activeID != -1){
                  var i = task5Curve.activeID;
-                 deleteNode(task5Curve.nodes, i);
+                 console.log("::");
+                 task5Curve.deleteNode(task5Curve.nodes, i);
+                 task5Curve.activeID = -1;
                }
             }
 

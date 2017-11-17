@@ -81,7 +81,13 @@ CatmullRomSpline.prototype.mousePress = function(event) {
 		for (var i = 0; i < this.nodes.length; i++) {
 			if (this.nodes[i].isInside(pos.x,pos.y)) {
 				this.activeNode = this.nodes[i];
-				this.activeID = i;
+				console.log("acnode");
+				if(this.activeID = -1){
+					this.activeID = i;
+				}else if(this.activeID == i){
+					this.activeID = -1;
+				}
+				
 				//this.ctx.clearRect(0, 0, this.dCanvas.width, this.dCanvas.height);
 				this.activeTangent = this.tangents[i];
 				break;
@@ -305,7 +311,26 @@ CatmullRomSpline.prototype.drawTask5 = function(time)
 // Add a contro point to the Bezier curve
 CatmullRomSpline.prototype.addNode = function(x,y)
 {
-	this.nodes.push(new Node(x, y));
+	var n = this.nodes.length;
+	if( n == 0){
+		this.nodes.push(new Node(x, y));
+		console.log(x);
+		console.log(y);
+	}else{
+		for(var i = 0; i < n; i++){
+			if(x < this.nodes[i].x){
+				this.nodes.splice(i,0,new Node(x,y));
+				console.log(x);
+				console.log(this.nodes[i].x);
+				break;
+			}
+			if(i == n - 1){
+				this.nodes.push(new Node(x, y));
+			}
+			console.log("i = " + i);
+		}	
+	}
+	
 	tangent = new Node(50, 0);
 	if (this.nodes.length > 2) {
 		i = this.nodes.length-1;
@@ -314,6 +339,7 @@ CatmullRomSpline.prototype.addNode = function(x,y)
 			     (this.nodes[i].y - this.nodes[i-2].y)/2);
 	}
 	this.tangents.push(tangent);
+	console.log(this.nodes.length);
 }
 
 	
@@ -321,4 +347,5 @@ CatmullRomSpline.prototype.deleteNode = function(array, index) {
     if (index !== -1 && index < array.length) {
         array.splice(index, 1);
     }
+    console.log(array.length);
 }
