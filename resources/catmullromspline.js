@@ -81,12 +81,13 @@ CatmullRomSpline.prototype.mousePress = function(event) {
 		for (var i = 0; i < this.nodes.length; i++) {
 			if (this.nodes[i].isInside(pos.x,pos.y)) {
 				this.activeNode = this.nodes[i];
-				console.log("acnode");
-				if(this.activeID = -1){
+				// console.log("acnode" + this.activeID);
+				if(this.activeID == -1){
 					this.activeID = i;
 				}else if(this.activeID == i){
 					this.activeID = -1;
 				}
+				// console.log("acID" + this.activeID);
 				
 				//this.ctx.clearRect(0, 0, this.dCanvas.width, this.dCanvas.height);
 				this.activeTangent = this.tangents[i];
@@ -106,27 +107,29 @@ CatmullRomSpline.prototype.mousePress = function(event) {
 }
 
 CatmullRomSpline.prototype.mouseMove = function(event) {
-	if (this.cvState == CVSTATE.SelectPoint || this.cvState == CVSTATE.MovePoint) {
-		var pos = getMousePos(event);
-		if (this.activeTangent) {
-			temp_x = pos.x - this.activeNode.x + 1;
-			temp_y = pos.y - this.activeNode.y + 1;
-			temp_node = new Node(temp_x, temp_y);
-			temp_norm = temp_node.norm();
-			if (temp_norm == 0) {
-				temp_norm += 0.001;
+	if (event.button == 0) {
+		if (this.cvState == CVSTATE.SelectPoint || this.cvState == CVSTATE.MovePoint) {
+			var pos = getMousePos(event);
+			if (this.activeTangent) {
+				temp_x = pos.x - this.activeNode.x + 1;
+				temp_y = pos.y - this.activeNode.y + 1;
+				temp_node = new Node(temp_x, temp_y);
+				temp_norm = temp_node.norm();
+				if (temp_norm == 0) {
+					temp_norm += 0.001;
+				}
+				cosTheta = temp_node.normalize().dotProduct((new Node(temp_x, 0)).normalize());
+				if (cosTheta != cosTheta) {
+					cosTheta = 0.01;
+				}
+				temp_x = temp_x / temp_norm * (150 + 300*(1-cosTheta));
+				temp_y = temp_y / temp_norm * (150 + 300*(1-cosTheta));
+				console.log(norm, temp_y);
+				this.activeTangent.setPos(temp_x, temp_y);
 			}
-			cosTheta = temp_node.normalize().dotProduct((new Node(temp_x, 0)).normalize());
-			if (cosTheta != cosTheta) {
-				cosTheta = 0.01;
-			}
-			temp_x = temp_x / temp_norm * (150 + 300*(1-cosTheta));
-			temp_y = temp_y / temp_norm * (150 + 300*(1-cosTheta));
-			console.log(norm, temp_y);
-			this.activeTangent.setPos(temp_x, temp_y);
+		} else {
+			// No button pressed. Ignore movement.
 		}
-	} else {
-		// No button pressed. Ignore movement.
 	}
 }
 
@@ -323,20 +326,20 @@ CatmullRomSpline.prototype.addNode = function(x,y)
 	var n = this.nodes.length;
 	if( n == 0){
 		this.nodes.push(new Node(x, y));
-		console.log(x);
-		console.log(y);
+		//console.log(x);
+		//console.log(y);
 	}else{
 		for(var i = 0; i < n; i++){
 			if(x < this.nodes[i].x){
 				this.nodes.splice(i,0,new Node(x,y));
-				console.log(x);
-				console.log(this.nodes[i].x);
+				//console.log(x);
+				//console.log(this.nodes[i].x);
 				break;
 			}
 			if(i == n - 1){
 				this.nodes.push(new Node(x, y));
 			}
-			console.log("i = " + i);
+			//console.log("i = " + i);
 		}	
 	}
 	
@@ -348,7 +351,7 @@ CatmullRomSpline.prototype.addNode = function(x,y)
 			     (this.nodes[i].y - this.nodes[i-2].y)/2);
 	}
 	this.tangents.push(tangent);
-	console.log(this.nodes.length);
+	//console.log(this.nodes.length);
 }
 
 	
@@ -356,5 +359,5 @@ CatmullRomSpline.prototype.deleteNode = function(array, index) {
     if (index !== -1 && index < array.length) {
         array.splice(index, 1);
     }
-    console.log(array.length);
+    //console.log(array.length);
 }
