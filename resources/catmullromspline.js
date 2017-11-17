@@ -114,8 +114,8 @@ CatmullRomSpline.prototype.mouseMove = function(event) {
 			if (cosTheta != cosTheta) {
 				cosTheta = 0.01;
 			}
-			temp_x = temp_x / temp_norm * (100 + 300*(1-cosTheta));
-			temp_y = temp_y / temp_norm * (100 + 300*(1-cosTheta));
+			temp_x = temp_x / temp_norm * (150 + 300*(1-cosTheta));
+			temp_y = temp_y / temp_norm * (150 + 300*(1-cosTheta));
 			console.log(norm, temp_y);
 			this.activeTangent.setPos(temp_x, temp_y);
 		}
