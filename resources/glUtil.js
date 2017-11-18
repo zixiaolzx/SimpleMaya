@@ -350,7 +350,6 @@ var readFile = function(evt) {
     var files = evt.target.files;
     var x = document.getElementById("keyFile").value;
 
-
     var reader = new FileReader();
     reader.onload = function(e) {
         try {
@@ -374,6 +373,9 @@ var readFile = function(evt) {
             task5Curve.nodes = tx_nodes;
             task5Curve.tangents = tx_tangents;
             changeBtnColor(axis);
+
+            f = document.getElementById("keyFile");
+            f.value = '';
         } catch (ex) {
             console.error(ex);
         }
