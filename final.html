@@ -68,9 +68,7 @@
 
                     <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none; margin:0 0 20px 0;">
                     <button class = "dropbtn btn" id="loadKey">Load Keys</button>
-                    <!-- <input type="file" id="files" name="files[]" multiple /> -->
                     </div>
-
 
                     <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none;  margin:0 0 120px 0;">
                     <button id="play" class = "dropbtn btn" onclick="changeText()">Play</button>
@@ -89,7 +87,7 @@
             <div style ="margin:0 0 0 0">
 
                 <div class="btn-group-vertical" style="float:left;margin:-15px 0px 0px 20px">
-                    <button id="axis_tx" class="btn btn-default">translation X</button>
+                    <button id="axis_tx" class="btn btn-primary">translation X</button>
                     <button id="axis_ty" class="btn btn-default">translation Y</button>
                     <button id="axis_tz" class="btn btn-default">translation Z</button>
                     <button id="axis_rx" class="btn btn-default">rotation X</button>
@@ -131,14 +129,25 @@
         var meshid = -1; 
         var sliderflag = false;   
 
-        var x_nodes = new Array();
-        var x_tangents = new Array();
+        var tx_nodes = new Array();
+        var tx_tangents = new Array();
 
-        var y_nodes = new Array();
-        var y_tangents = new Array();
+        var ty_nodes = new Array();
+        var ty_tangents = new Array();
         
-        var z_nodes = new Array();
-        var z_tangents = new Array();
+        var tz_nodes = new Array();
+        var tz_tangents = new Array();
+
+
+        var rx_nodes = new Array();
+        var rx_tangents = new Array();
+
+        var ry_nodes = new Array();
+        var ry_tangents = new Array();
+        
+        var rz_nodes = new Array();
+        var rz_tangents = new Array();
+
         
         function loadarm() {
             sliderflag = true;

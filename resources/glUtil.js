@@ -64,29 +64,63 @@ function setupTask(canvasId, taskFunction) {
     document.getElementById("axis_tx").addEventListener('click', function(event) {
         if (axis != 1) {
             axis = 1;
-            task5Curve.nodes = x_nodes;
-            task5Curve.tangents = x_tangents;
+            task5Curve.nodes = tx_nodes;
+            task5Curve.tangents = tx_tangents;
         }
-        console.log(axis);
+        changeBtnColor(axis);
     });
 
     document.getElementById("axis_ty").addEventListener('click', function(event) {
         if (axis != 2) {
             axis = 2;
-            task5Curve.nodes = y_nodes;
-            task5Curve.tangents = y_tangents;
+            task5Curve.nodes = ty_nodes;
+            task5Curve.tangents = ty_tangents;
         }
-        console.log(axis);
+        changeBtnColor(axis);
     });
 
     document.getElementById("axis_tz").addEventListener('click', function(event) {
         if (axis != 3) {
             axis = 3;
-            task5Curve.nodes = z_nodes;
-            task5Curve.tangents = z_tangents;
+            task5Curve.nodes = tz_nodes;
+            task5Curve.tangents = tz_tangents;
         }
-        console.log(axis);
+        changeBtnColor(axis);
     });
+
+
+    document.getElementById("axis_rx").addEventListener('click', function(event) {
+        if (axis != 4) {
+            axis = 4;
+            task5Curve.nodes = rx_nodes;
+            task5Curve.tangents = rx_tangents;
+        }
+        changeBtnColor(axis);
+    });
+
+    document.getElementById("axis_ry").addEventListener('click', function(event) {
+        if (axis != 5) {
+            axis = 5;
+            task5Curve.nodes = ry_nodes;
+            task5Curve.tangents = ry_tangents;
+        }
+        changeBtnColor(axis);
+    });
+
+    document.getElementById("axis_rz").addEventListener('click', function(event) {
+        if (axis != 6) {
+            axis = 6;
+            task5Curve.nodes = rz_nodes;
+            task5Curve.tangents = rz_tangents;
+        }
+        changeBtnColor(axis);
+    });
+
+
+
+
+
+
 
     document.getElementById("load0").addEventListener('click', function(event) {
         task.selectModel(0);
@@ -130,9 +164,9 @@ function setupTask(canvasId, taskFunction) {
         if (task5Curve) {
             task5Curve.drawTask5(time)
             value = 153 - task5Curve.getValue(time);
-            value_x = 153 - task5Curve.getValueByAxis(time, x_nodes, x_tangents);
-            value_y = 153 - task5Curve.getValueByAxis(time, y_nodes, y_tangents);
-            value_z = 153 - task5Curve.getValueByAxis(time, z_nodes, z_tangents);
+            value_x = 153 - task5Curve.getValueByAxis(time, tx_nodes, tx_tangents);
+            value_y = 153 - task5Curve.getValueByAxis(time, ty_nodes, ty_tangents);
+            value_z = 153 - task5Curve.getValueByAxis(time, tz_nodes, tz_tangents);
         }
 
         if (task.name == "arms") {
@@ -141,7 +175,7 @@ function setupTask(canvasId, taskFunction) {
         else {
             task.setTranslation(value_x, value_y, value_z);
         }
-        this.setLabel(jointName + ': ' + time + ' frame');
+        this.setLabel(time + ' frame');
         
     }, [jointId, jointName]);
 
@@ -154,7 +188,7 @@ function setupTask(canvasId, taskFunction) {
         interval = setInterval(function(){
             value = 0
             timer.setTimer(play_time);
-            timer.setLabel(jointName + ': ' + i + ' frame');
+            timer.setLabel(i + ' frame');
             i = (i + 1) % 720;
             play_time = i;
         }, 1);
@@ -275,21 +309,30 @@ TriangleMesh2.prototype.render = function(gl, model, view, projection, drawFaces
 var writeFile = function() {
      var data = {
         mesh: meshid,
-        translate_x: x_nodes,
-        translate_x_tangent: x_tangents,
+        translate_x: tx_nodes,
+        translate_x_tangent: tx_tangents,
 
-        translate_y: y_nodes,
-        translate_y_tangent: y_tangents,
+        translate_y: ty_nodes,
+        translate_y_tangent: ty_tangents,
 
-        translate_z: z_nodes,
-        translate_z_tangent: z_tangents
+        translate_z: tz_nodes,
+        translate_z_tangent: tz_tangents, 
+
+        rotate_x: rx_nodes,
+        rotate_x_tangent: rx_tangents,
+
+        rotate_y: ry_nodes,
+        rotate_y_tangent: ry_tangents,
+
+        rotate_z: rz_nodes,
+        rotate_z_tangent: rz_tangents
         }
 
     var jsonData = JSON.stringify(data);
     var a = document.createElement("a");
-    var file = new Blob([jsonData], {type: 'text/json'});
+    var file = new Blob([jsonData], {type: 'text/plain'});
     a.href = URL.createObjectURL(file);
-    a.download = 'keys.json';
+    a.download = 'keys.txt';
     a.click();
 }
 
@@ -301,4 +344,27 @@ var readFile = function() {
     } else {
       alert('The File APIs are not fully supported in this browser.');
     }
+}
+
+
+var changeBtnColor = function(id) {
+    document.getElementById("axis_tx").className = 'btn btn-default'
+    document.getElementById("axis_ty").className = 'btn btn-default'
+    document.getElementById("axis_tz").className = 'btn btn-default'
+    document.getElementById("axis_rx").className = 'btn btn-default'
+    document.getElementById("axis_ry").className = 'btn btn-default'
+    document.getElementById("axis_rz").className = 'btn btn-default'
+
+    if (id == 1) 
+        document.getElementById("axis_tx").className = 'btn btn-primary'
+    if (id == 2)
+        document.getElementById("axis_ty").className = 'btn btn-primary'
+    if (id == 3)
+        document.getElementById("axis_tz").className = 'btn btn-primary'
+    if (id == 4)
+        document.getElementById("axis_rx").className = 'btn btn-primary'
+    if (id == 5)
+        document.getElementById("axis_ry").className = 'btn btn-primary'
+    if (id == 6)
+        document.getElementById("axis_rz").className = 'btn btn-primary'
 }

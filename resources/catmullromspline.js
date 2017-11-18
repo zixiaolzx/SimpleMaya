@@ -367,15 +367,15 @@ CatmullRomSpline.prototype.deleteNode = function(array, index) {
 
 CatmullRomSpline.prototype.saveCurves = function(curve, axis) {
     if (axis == 1) {
-        x_nodes = curve.nodes;
-        x_tangents = curve.tangents;
+        tx_nodes = curve.nodes;
+        tx_tangents = curve.tangents;
     }
     if (axis == 2) {
-        y_nodes = curve.nodes;
-        y_tangents = curve.tangents;
+        ty_nodes = curve.nodes;
+        ty_tangents = curve.tangents;
     }
     if (axis == 3) {
-        z_nodes = curve.nodes;
-        z_tangents = curve.tangents;
+        tz_nodes = curve.nodes;
+        tz_tangents = curve.tangents;
     }
 }
