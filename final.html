@@ -31,12 +31,6 @@
     <script src="resources/mesh.js"></script>
 
 
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
 <style>
 
 </style>
@@ -53,36 +47,35 @@
             
             <p> </p>
             <div>
-                <div style="float:left;margin:30px 0 0 100px">
+                <div style="float:left;margin:100px 0 0 50px">
+
+
                     <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none; margin:0 0 20px 0;">
-                    <button class = "dropbtn" id="saveKey">Save</button>
-                    </div>
-
-                    <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none;">
-                    <button id="play" class = "dropbtn" onclick="changeText()">Play</button>
-                    </div>
-
-                    <div class = "dropdown" style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none;margin:20px 0 120px 5px;">
-                        <button id="load" class = "dropbtn" style="text-align: center" onclick="loadmesh()">Mesh</button>
+                        <button id="load" class = "dropbtn btn" style="text-align: center" onclick="loadmesh()">Mesh</button>
                         <div id="myDropdown" class="dropdown-content">
-                            <button id="load0" onclick="loadm()">Cube</button>
-                            <button id="load1" onclick="loadm()">Torus</button>
-                            <button id="load2" onclick="loadm()">Sphere</button>
-                            <button id="load3" onclick="loadm()">Icosahedron</button>
-                            <button id="load4" onclick="loadm()">Octahedron</button>
-                            <button id="load5" onclick="loadarm()">Arm</button>
+                            <button id="load0" onclick="loadm()" class="btn btn-default">Cube</button>
+                            <button id="load1" onclick="loadm()" class="btn btn-default">Torus</button>
+                            <button id="load2" onclick="loadm()" class="btn btn-default">Sphere</button>
+                            <button id="load3" onclick="loadm()" class="btn btn-default">Icosahedron</button>
+                            <button id="load4" onclick="loadm()" class="btn btn-default">Octahedron</button>
+                            <button id="load5" onclick="loadarm()" class="btn btn-default">Arm</button>
                         </div>
                     </div>
 
+                    <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none; margin:0 0 20px 0;">
+                    <button class = "dropbtn btn" id="saveKey">Save Keys</button>
+                    </div>
+
+                    <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none; margin:0 0 20px 0;">
+                    <button class = "dropbtn btn" id="loadKey">Load Keys</button>
+                    <!-- <input type="file" id="files" name="files[]" multiple /> -->
+                    </div>
+
+
+                    <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none;  margin:0 0 120px 0;">
+                    <button id="play" class = "dropbtn btn" onclick="changeText()">Play</button>
+                    </div>
                     
-
-                    <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none;margin:0 0 40px 0;">
-                    <button class = "dropdown">Translate</button>
-                    </div>
-
-                    <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none;margin:0 0 40px 0;">
-                    <button class = "dropdown">Rotation</button>
-                    </div>
                 </div>
                 
                 </div>
@@ -95,27 +88,23 @@
 
             <div style ="margin:0 0 0 0">
 
-                <div style="float:left;margin:0 0 0 40px">
-                    Translation:
-                    <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none; margin:10px 0 20px 0;">
-                    <button id="axis_x">X</button>
-                    </div>
-                    <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none;margin:0 0 20px 0;">
-                    <button id="axis_y">Y</button>
-                    </div>
-                    <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none;margin:0 0 20px 0;">
-                    <button id="axis_z">Z</button>
-                    </div>
+                <div class="btn-group-vertical" style="float:left;margin:-15px 0px 0px 20px">
+                    <button id="axis_tx" class="btn btn-default">translation X</button>
+                    <button id="axis_ty" class="btn btn-default">translation Y</button>
+                    <button id="axis_tz" class="btn btn-default">translation Z</button>
+                    <button id="axis_rx" class="btn btn-default">rotation X</button>
+                    <button id="axis_ry" class="btn btn-default">rotation Y</button>
+                    <button id="axis_rz" class="btn btn-default">rotation Z</button>
                 </div>
 
-                <div style = "float:left;margin:30px 0 0 30px;"">
-                    <form>
-                      <input id = "value" type="text" name="Time" value = "Value" style = "width:50px;margin:0 0 0 10px;">
+                <div style = "width:50px;float:left;margin:25px 0 0 20px;"">
+                    <form class="form-inline" action="/action_page.php">
+                      <input id = "value" type="text" name="Time" placeholder = "Value" class="form-control" style = "width:68.5px"">
                     </form>
-                    <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none;margin:20px 0 20px 0;">
-                    <button id= "setnode">Set</button>
+                    <div class="btn-group-vertical" style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none;margin:10px 0 20px 0;">
+                    <button id= "setnode" class="btn btn-default">Set</button>
                     <!-- function: setnode -->
-                    <button id= "deletenode">Delete</button>
+                    <button id= "deletenode" class="btn btn-default">Delete</button>
                     </div>
 
                 <!-- <div style="float:left;margin:30px 0 0 40px"> -->
@@ -123,7 +112,7 @@
 
 
                 <div class="canvas-container" style="float:center">
-                    <canvas id="task-5" width="820" height="150" style="margin:0 30px 0 0; border: 1px solid black;"></canvas>
+                    <canvas id="task-5" width="820" height="150" style="margin:0 40px 0 0; border: 1px solid black;"></canvas>
                 </div>
 
                 <div style="text-align: center; user-select: none; -webkit-user-select: none; -moz-user-select: none;">

@@ -61,7 +61,7 @@ function setupTask(canvasId, taskFunction) {
     uiContainer.appendChild(div('slider-container', sliderTarget));    
 
 
-    document.getElementById("axis_x").addEventListener('click', function(event) {
+    document.getElementById("axis_tx").addEventListener('click', function(event) {
         if (axis != 1) {
             axis = 1;
             task5Curve.nodes = x_nodes;
@@ -70,7 +70,7 @@ function setupTask(canvasId, taskFunction) {
         console.log(axis);
     });
 
-    document.getElementById("axis_y").addEventListener('click', function(event) {
+    document.getElementById("axis_ty").addEventListener('click', function(event) {
         if (axis != 2) {
             axis = 2;
             task5Curve.nodes = y_nodes;
@@ -79,7 +79,7 @@ function setupTask(canvasId, taskFunction) {
         console.log(axis);
     });
 
-    document.getElementById("axis_z").addEventListener('click', function(event) {
+    document.getElementById("axis_tz").addEventListener('click', function(event) {
         if (axis != 3) {
             axis = 3;
             task5Curve.nodes = z_nodes;
@@ -289,7 +289,7 @@ var writeFile = function() {
     var a = document.createElement("a");
     var file = new Blob([jsonData], {type: 'text/json'});
     a.href = URL.createObjectURL(file);
-    a.download = 'test.txt';
+    a.download = 'keys.json';
     a.click();
 }
 
