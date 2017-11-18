@@ -61,9 +61,7 @@ function setupTask(canvasId, taskFunction) {
     uiContainer.appendChild(div('slider-container', sliderTarget));    
 
 
-
     document.getElementById("axis_x").addEventListener('click', function(event) {
-        saveCurves(task5Curve, axis);
         if (axis != 1) {
             axis = 1;
             task5Curve.nodes = x_nodes;
@@ -73,7 +71,6 @@ function setupTask(canvasId, taskFunction) {
     });
 
     document.getElementById("axis_y").addEventListener('click', function(event) {
-        saveCurves(task5Curve, axis);
         if (axis != 2) {
             axis = 2;
             task5Curve.nodes = y_nodes;
@@ -83,7 +80,6 @@ function setupTask(canvasId, taskFunction) {
     });
 
     document.getElementById("axis_z").addEventListener('click', function(event) {
-        saveCurves(task5Curve, axis);
         if (axis != 3) {
             axis = 3;
             task5Curve.nodes = z_nodes;
@@ -92,46 +88,37 @@ function setupTask(canvasId, taskFunction) {
         console.log(axis);
     });
 
-   document.getElementById("load0").addEventListener('click', function(event) {
+    document.getElementById("load0").addEventListener('click', function(event) {
         task.selectModel(0);
         console.log("load cube");
     });
 
-   document.getElementById("load1").addEventListener('click', function(event) {
+    document.getElementById("load1").addEventListener('click', function(event) {
         task.selectModel(1);
         console.log("load Torus");
     });
 
-   document.getElementById("load2").addEventListener('click', function(event) {
+    document.getElementById("load2").addEventListener('click', function(event) {
         task.selectModel(2);
         console.log("load Sphere");
     });
 
-   document.getElementById("load3").addEventListener('click', function(event) {
+    document.getElementById("load3").addEventListener('click', function(event) {
         task.selectModel(3);
         console.log("load Icosahedron");
     });
 
-   document.getElementById("load4").addEventListener('click', function(event) {
+    document.getElementById("load4").addEventListener('click', function(event) {
         task.selectModel(4);
         console.log("load Octahedron");
     });
 
 
-    var saveCurves = function(curve, axis) {
-        if (axis == 1) {
-            x_nodes = curve.nodes;
-            x_tangents = curve.tangents;
-        }
-        if (axis == 2) {
-            y_nodes = curve.nodes;
-            y_tangents = curve.tangents;
-        }
-        if (axis == 3) {
-            z_nodes = curve.nodes;
-            z_tangents = curve.tangents;
-        }
-    }
+    document.getElementById("saveKey").addEventListener('click', function(event) {
+        writeFile()
+        // console.log("save key");
+        // window.alert("You saved the keys!");
+    });
 
 
     timer = new Slider(sliderTarget, 0, 720, play_time, true, function(jointId, jointName, time) {
@@ -141,9 +128,7 @@ function setupTask(canvasId, taskFunction) {
         value_y = 0;
         value_z = 0;
         if (task5Curve) {
-            saveCurves(task5Curve, axis);
             task5Curve.drawTask5(time)
-
             value = 153 - task5Curve.getValue(time);
             value_x = 153 - task5Curve.getValueByAxis(time, x_nodes, x_tangents);
             value_y = 153 - task5Curve.getValueByAxis(time, y_nodes, y_tangents);
@@ -183,7 +168,6 @@ function setupTask(canvasId, taskFunction) {
 
 
     document.getElementById("setnode").addEventListener('click', function(event) {
-
         if (task5Curve) {
                 var v = 153 - parseInt(document.getElementById("value").value);
                // task5Curve.drawTask5(1);
@@ -287,3 +271,34 @@ TriangleMesh2.prototype.render = function(gl, model, view, projection, drawFaces
 }
 
 
+
+var writeFile = function() {
+     var data = {
+        mesh: meshid,
+        translate_x: x_nodes,
+        translate_x_tangent: x_tangents,
+
+        translate_y: y_nodes,
+        translate_y_tangent: y_tangents,
+
+        translate_z: z_nodes,
+        translate_z_tangent: z_tangents
+        }
+
+    var jsonData = JSON.stringify(data);
+    var a = document.createElement("a");
+    var file = new Blob([jsonData], {type: 'text/json'});
+    a.href = URL.createObjectURL(file);
+    a.download = 'test.txt';
+    a.click();
+}
+
+
+var readFile = function() {
+    // https://www.html5rocks.com/en/tutorials/file/dndfiles/
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+        console.log("write")
+    } else {
+      alert('The File APIs are not fully supported in this browser.');
+    }
+}

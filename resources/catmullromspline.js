@@ -352,6 +352,9 @@ CatmullRomSpline.prototype.addNode = function(x,y)
 	}
 	this.tangents.push(tangent);
 	//console.log(this.nodes.length);
+
+
+    this.saveCurves(this, axis);
 }
 
 	
@@ -360,4 +363,19 @@ CatmullRomSpline.prototype.deleteNode = function(array, index) {
         array.splice(index, 1);
     }
     //console.log(array.length);
+}
+
+CatmullRomSpline.prototype.saveCurves = function(curve, axis) {
+    if (axis == 1) {
+        x_nodes = curve.nodes;
+        x_tangents = curve.tangents;
+    }
+    if (axis == 2) {
+        y_nodes = curve.nodes;
+        y_tangents = curve.tangents;
+    }
+    if (axis == 3) {
+        z_nodes = curve.nodes;
+        z_tangents = curve.tangents;
+    }
 }
