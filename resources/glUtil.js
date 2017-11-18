@@ -158,22 +158,29 @@ function setupTask(canvasId, taskFunction) {
     timer = new Slider(sliderTarget, 0, 720, play_time, true, function(jointId, jointName, time) {
         play_time = time;
         value = 0;
-        value_x = 0;
-        value_y = 0;
-        value_z = 0;
+        value_tx = 0;
+        value_ty = 0;
+        value_tz = 0;
+        value_rx = 0;
+        value_ry = 0;
+        value_rz = 0;
         if (task5Curve) {
             task5Curve.drawTask5(time)
             value = 153 - task5Curve.getValue(time);
-            value_x = 153 - task5Curve.getValueByAxis(time, tx_nodes, tx_tangents);
-            value_y = 153 - task5Curve.getValueByAxis(time, ty_nodes, ty_tangents);
-            value_z = 153 - task5Curve.getValueByAxis(time, tz_nodes, tz_tangents);
+            value_tx = 153 - task5Curve.getValueByAxis(time, tx_nodes, tx_tangents);
+            value_ty = 153 - task5Curve.getValueByAxis(time, ty_nodes, ty_tangents);
+            value_tz = 153 - task5Curve.getValueByAxis(time, tz_nodes, tz_tangents);
+            value_rx = 153 - task5Curve.getValueByAxis(time, rx_nodes, rx_tangents);
+            value_ry = 153 - task5Curve.getValueByAxis(time, ry_nodes, ry_tangents);
+            value_rz = 153 - task5Curve.getValueByAxis(time, rz_nodes, rz_tangents);
         }
 
         if (task.name == "arms") {
             task.setJointAngle(jointId, value);
         }
         else {
-            task.setTranslation(value_x, value_y, value_z);
+            task.setTranslation(value_tx, value_ty, value_tz);
+            task.setRotation(value_rx, value_ry, value_rz);
         }
         this.setLabel(time + ' frame');
         
