@@ -353,12 +353,9 @@ var readFile = function(evt) {
 
     var reader = new FileReader();
     reader.onload = function(e) {
-        // e.target.result should contain the text
-        // console.log(e.target.result);
         try {
             var loadedData = JSON.parse(e.target.result)
             meshid = loadedData.mesh;
-            console.log(tx_nodes);
             tx_nodes = convertToNode(loadedData.translate_x);
             tx_tangents = convertToNode(loadedData.translate_x_tangent);
             ty_nodes = convertToNode(loadedData.translate_y);
@@ -372,7 +369,7 @@ var readFile = function(evt) {
             ry_tangents = convertToNode(loadedData.rotate_y_tangent);
             rz_nodes = convertToNode(loadedData.rotate_z);
             rz_tangents = convertToNode(loadedData.rotate_z_tangent);
-            
+
             axis = 1;
             task5Curve.nodes = tx_nodes;
             task5Curve.tangents = tx_tangents;
@@ -382,9 +379,8 @@ var readFile = function(evt) {
         }
     };
     reader.readAsText(files[0]);
-
-
 }
+
 
 var convertToNode = function(list) {
     nodes = new Array();

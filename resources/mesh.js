@@ -215,9 +215,9 @@ Task3.prototype.setTranslation = function(x, y, z) {
 }
 
 Task3.prototype.setRotation = function(x, y, z) {
-    if (x != 0) x = x;
-    if (y != 0) y = y;
-    if (z != 0) z = z;
+    if (x != 0) x = x/152 * 360;
+    if (y != 0) y = y/152 * 360;
+    if (z != 0) z = z/152 * 360;
     this.rotation = [x, y, z];
 }
 
