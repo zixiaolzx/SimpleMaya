@@ -9,6 +9,8 @@
 
     <link href="resources/bootstrap.min.css" rel="stylesheet">
     <link href="resources/custom2016.css" rel="stylesheet">
+    <script src="resources/jquery.min.js"></script>
+    <script src="resources/bootstrap.min.js"></script>
     
 	<script src="resources/common.js"></script>
     <script src="resources/glUtil.js"></script>
@@ -47,11 +49,11 @@
             
             <p> </p>
             <div>
-                <div style="float:left;margin:100px 0 0 50px">
+                <div style="float:left;margin:80px 0 0 50px">
 
 
-                    <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none; margin:0 0 20px 0;">
-                        <button id="load" class = "dropbtn btn" style="text-align: center" onclick="loadmesh()">Mesh</button>
+<!--                     <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none; margin:0 0 60px 0;">
+                        <button id="load" class = "dropbtn btn" style="width:120px; height:50px; text-align:center" onclick="loadmesh()">Mesh</button>
                         <div id="myDropdown" class="dropdown-content">
                             <button id="load0" onclick="loadm()" class="btn btn-default">Cube</button>
                             <button id="load1" onclick="loadm()" class="btn btn-default">Torus</button>
@@ -60,18 +62,40 @@
                             <button id="load4" onclick="loadm()" class="btn btn-default">Octahedron</button>
                             <button id="load5" onclick="loadarm()" class="btn btn-default">Arm</button>
                         </div>
+                    </div> -->
+
+
+                    <div class="dropdown" style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none; margin:0 0 60px 0;">
+                        <button id="load" 
+                                class="btn btn-success dropdown-toggle" 
+                                type="button" 
+                                data-toggle="dropdown"
+                                style="width:120px; height:50px; text-align:center">
+                            Mesh
+                        <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" id="myDropdown">
+                            <li><a id="load0" onclick="loadm()" >Cube</a></li>
+                            <li><a id="load1" onclick="loadm()" >Torus</a></li>
+                            <li><a id="load2" onclick="loadm()" >Sphere</a></li>
+                            <li><a id="load3" onclick="loadm()" >Icosahedron</a></li>
+                            <li><a id="load4" onclick="loadm()" >Octahedron</a></li>
+                            <li class="divider"></li>
+                            <li><a id="load5" onclick="loadarm()" >Arm</a></li>
+                        </ul>
                     </div>
 
-                    <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none; margin:0 0 20px 0;">
-                    <button class = "dropbtn btn" id="saveKey">Save Keys</button>
+
+                    <div style="text-align: center; user-select: none; -webkit-user-select: none; -moz-user-select: none; margin:0 0 5px 0;">
+                    <button class = "btn btn-default" id="saveKey" style="width:120px; height:50px">Save Keys</button>
                     </div>
 
-                    <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none; margin:0 0 20px 0;">
-                    <button class = "dropbtn btn" id="loadKey">Load Keys</button>
+                    <div style="text-align: center; user-select: none; -webkit-user-select: none; -moz-user-select: none; margin:0 0 60px 0;">
+                    <button class = "btn btn-default" id="loadKey" style="width:120px; height:50px">Load Keys</button>
                     </div>
 
-                    <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none;  margin:0 0 120px 0;">
-                    <button id="play" class = "dropbtn btn" onclick="changeText()">Play</button>
+                    <div style="text-align:center; user-select: none; -webkit-user-select: none; -moz-user-select: none;  margin:0 0 120px 0;">
+                    <button id="play" class = "btn btn-danger" style="width:120px; height:50px" onclick="changeText()">Play</button>
                     </div>
 
                 </div>
