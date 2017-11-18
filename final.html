@@ -84,7 +84,8 @@
 
 
                     <div style="text-align:center; user-select: none; -webkit-user-select: none; -moz-user-select: none;  margin:0 0 120px 0;">
-                    <button id="play" class = "btn btn-danger" style="width:120px; height:50px" onclick="changeText()">Play</button>
+                    <button id="play" class = "btn btn-danger" style="width:120px; height:50px" 
+                                        onclick="changeText()">Play</button>
                     </div>
 
                 </div>
@@ -119,7 +120,7 @@
                     </div>
 
                     <form>
-                        <input type="Submit" class="btn btn-default" value="Clear All" style="width:75px"">
+                        <input id="clearAll" onclick="clearCurve()" class="btn btn-default" value="Clear" style="width:75px"">
                     </form>
                 <!-- <div style="float:left;margin:30px 0 0 40px"> -->
                 </div>
@@ -200,8 +201,19 @@
         }
         
         function clearCurve(canvasId) {
-            if(canvasId == 5)
-                task5Curve = new CatmullRomSpline("task-5");
+            tx_nodes = new Array();
+            tx_tangents = new Array();
+            ty_nodes = new Array();
+            ty_tangents = new Array();
+            tz_nodes = new Array();
+            tz_tangents = new Array();
+            rx_nodes = new Array();
+            rx_tangents = new Array();
+            ry_nodes = new Array();
+            ry_tangents = new Array();
+            rz_nodes = new Array();
+            rz_tangents = new Array();
+            task5Curve = new CatmullRomSpline("task-5");
         }
         
         window.requestAnimFrame = (function(callback) {
