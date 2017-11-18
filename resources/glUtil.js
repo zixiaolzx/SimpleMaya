@@ -149,10 +149,12 @@ function setupTask(canvasId, taskFunction) {
 
 
     document.getElementById("saveKey").addEventListener('click', function(event) {
-        writeFile()
+        writeFile();
         // console.log("save key");
         // window.alert("You saved the keys!");
     });
+
+    document.getElementById("keyFile").addEventListener('change', readFile, false);
 
 
     timer = new Slider(sliderTarget, 0, 720, play_time, true, function(jointId, jointName, time) {
@@ -344,13 +346,52 @@ var writeFile = function() {
 }
 
 
-var readFile = function() {
-    // https://www.html5rocks.com/en/tutorials/file/dndfiles/
-    if (window.File && window.FileReader && window.FileList && window.Blob) {
-        console.log("write")
-    } else {
-      alert('The File APIs are not fully supported in this browser.');
+var readFile = function(evt) {
+    var files = evt.target.files;
+    var x = document.getElementById("keyFile").value;
+
+
+    var reader = new FileReader();
+    reader.onload = function(e) {
+        // e.target.result should contain the text
+        // console.log(e.target.result);
+        try {
+            var loadedData = JSON.parse(e.target.result)
+            meshid = loadedData.mesh;
+            console.log(tx_nodes);
+            tx_nodes = convertToNode(loadedData.translate_x);
+            tx_tangents = convertToNode(loadedData.translate_x_tangent);
+            ty_nodes = convertToNode(loadedData.translate_y);
+            ty_tangents = convertToNode(loadedData.translate_y_tangent);
+            tz_nodes = convertToNode(loadedData.translate_z);
+            tz_tangents = convertToNode(loadedData.translate_z_tangent);
+
+            rx_nodes = convertToNode(loadedData.rotate_x);
+            rx_tangents = convertToNode(loadedData.rotate_x_tangent);
+            ry_nodes = convertToNode(loadedData.rotate_y);
+            ry_tangents = convertToNode(loadedData.rotate_y_tangent);
+            rz_nodes = convertToNode(loadedData.rotate_z);
+            rz_tangents = convertToNode(loadedData.rotate_z_tangent);
+            
+            axis = 1;
+            task5Curve.nodes = tx_nodes;
+            task5Curve.tangents = tx_tangents;
+            changeBtnColor(axis);
+        } catch (ex) {
+            console.error(ex);
+        }
+    };
+    reader.readAsText(files[0]);
+
+
+}
+
+var convertToNode = function(list) {
+    nodes = new Array();
+    for (var i = 0; i < list.length; i++) {
+        nodes.push(new Node(list[i].x, list[i].y))
     }
+    return nodes;
 }
 
 

@@ -51,21 +51,7 @@
             <div>
                 <div style="float:left;margin:80px 0 0 50px">
 
-
-<!--                     <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none; margin:0 0 60px 0;">
-                        <button id="load" class = "dropbtn btn" style="width:120px; height:50px; text-align:center" onclick="loadmesh()">Mesh</button>
-                        <div id="myDropdown" class="dropdown-content">
-                            <button id="load0" onclick="loadm()" class="btn btn-default">Cube</button>
-                            <button id="load1" onclick="loadm()" class="btn btn-default">Torus</button>
-                            <button id="load2" onclick="loadm()" class="btn btn-default">Sphere</button>
-                            <button id="load3" onclick="loadm()" class="btn btn-default">Icosahedron</button>
-                            <button id="load4" onclick="loadm()" class="btn btn-default">Octahedron</button>
-                            <button id="load5" onclick="loadarm()" class="btn btn-default">Arm</button>
-                        </div>
-                    </div> -->
-
-
-                    <div class="dropdown" style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none; margin:0 0 60px 0;">
+                    <div class="dropdown" style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none; margin:0 0 80px 0;">
                         <button id="load" 
                                 class="btn btn-success dropdown-toggle" 
                                 type="button" 
@@ -87,12 +73,15 @@
 
 
                     <div style="text-align: center; user-select: none; -webkit-user-select: none; -moz-user-select: none; margin:0 0 5px 0;">
-                    <button class = "btn btn-default" id="saveKey" style="width:120px; height:50px">Save Keys</button>
+                    <button class = "btn btn-default" id="saveKey" style="width:120px;">Save Keys</button>
                     </div>
 
-                    <div style="text-align: center; user-select: none; -webkit-user-select: none; -moz-user-select: none; margin:0 0 60px 0;">
-                    <button class = "btn btn-default" id="loadKey" style="width:120px; height:50px">Load Keys</button>
+                    <div style="text-align: center; user-select: none; -webkit-user-select: none; -moz-user-select: none; margin:0 0 80px 0;">
+                    <label class = "btn btn-default btn-file" id="loadKey" style="width:120px;">
+                        Load Keys <input id="keyFile" type="file" style="display: none;">
+                    </label>
                     </div>
+
 
                     <div style="text-align:center; user-select: none; -webkit-user-select: none; -moz-user-select: none;  margin:0 0 120px 0;">
                     <button id="play" class = "btn btn-danger" style="width:120px; height:50px" onclick="changeText()">Play</button>
