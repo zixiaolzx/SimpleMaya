@@ -34,6 +34,9 @@ var CatmullRomSpline = function(canvasId)
 	//setup active node
 	this.activeID = -1;
 
+	var rightclick = false;
+	var leftclick = false;
+
 	// Event listeners
 	this.dCanvas.addEventListener('mousedown', function(event) {
         that.mousePress(event);
@@ -73,7 +76,11 @@ CatmullRomSpline.prototype.setNumSegments = function(val)
 }
 
 CatmullRomSpline.prototype.mousePress = function(event) {
-	if (event.button == 0) {
+	if (event.button == 0 || event.button == 2) {
+		if(event.button == 2){
+			this.rightclick = true;
+		}
+		
 		this.activeNode = null;
 		var pos = getMousePos(event);
 
@@ -82,10 +89,10 @@ CatmullRomSpline.prototype.mousePress = function(event) {
 			if (this.nodes[i].isInside(pos.x,pos.y)) {
 				this.activeNode = this.nodes[i];
 				
-				if(this.activeID == -1){
+				// if(this.activeID == -1){
 					this.activeID = i;
-				}
-				console.log("acnode" + this.activeID);
+				// }
+				console.log("acnode" + this.activeNode);
 				this.activeTangent = this.tangents[i];
 				break;
 			}
@@ -93,14 +100,20 @@ CatmullRomSpline.prototype.mousePress = function(event) {
 
 	
 		// No node selected: add a new node
-		if (this.activeNode == null) {
+		if (this.activeNode == null && !this.rightclick) {
 			this.addNode(pos.x,pos.y);
 			this.activeNode = this.nodes[this.nodes.length-1];
 		}
+		console.log(this.activeID + "rc "+ this.rightclick);
+		if(this.activeID != -1 && this.rightclick && !this.nodes[this.activeID].isInside(pos.x,pos.y)){
+				this.activeID = -1;
+				this.activeNode = null;
+		
+		} 
 			
 		this.cvState = CVSTATE.SelectPoint;
 		event.preventDefault();
-		}
+	}
 		// else if(event.button == 2){
 		// 	if(this.activeID != -1){
 		// 		this.activeID = -1;
@@ -110,8 +123,9 @@ CatmullRomSpline.prototype.mousePress = function(event) {
 }
 
 CatmullRomSpline.prototype.mouseMove = function(event) {
-	if (event.button == 0) {
-		console.log("right click");
+	
+	if (this.rightclick) {
+		
 		if (this.cvState == CVSTATE.SelectPoint || this.cvState == CVSTATE.MovePoint) {
 			var pos = getMousePos(event);
 			if (this.activeTangent) {
@@ -128,11 +142,17 @@ CatmullRomSpline.prototype.mouseMove = function(event) {
 				}
 				temp_x = temp_x / temp_norm * (150 + 300*(1-cosTheta));
 				temp_y = temp_y / temp_norm * (150 + 300*(1-cosTheta));
-				console.log(norm, temp_y);
+				//console.log(norm, temp_y);
 				this.activeTangent.setPos(temp_x, temp_y);
 			}
 		} else {
 			// No button pressed. Ignore movement.
+		}
+	}else if(event.button == 0){
+		if (this.cvState == CVSTATE.SelectPoint || this.cvState == CVSTATE.MovePoint) {
+			var pos = getMousePos(event);
+			this.activeNode.x = pos.x;
+			this.activeNode.y = pos.y;
 		}
 	}
 }
@@ -142,6 +162,7 @@ CatmullRomSpline.prototype.mouseRelease = function(event)
 	this.cvState = CVSTATE.Idle;
 	this.activeNode = null;
 	this.activeTangent = null;
+	this.rightclick = false;
 }
 
 CatmullRomSpline.prototype.computeCanvasSize = function()
@@ -356,6 +377,9 @@ CatmullRomSpline.prototype.addNode = function(x,y)
 	}
 	this.tangents.push(tangent);
 	//console.log(this.nodes.length);
+
+
+    this.saveCurves(this, axis);
 }
 
 	
@@ -364,4 +388,41 @@ CatmullRomSpline.prototype.deleteNode = function(array, index) {
         array.splice(index, 1);
     }
     //console.log(array.length);
+}
+
+CatmullRomSpline.prototype.saveCurves = function(curve, axis) {
+    if (axis == 1) {
+        tx_nodes = curve.nodes;
+        tx_tangents = curve.tangents;
+    }
+    if (axis == 2) {
+        ty_nodes = curve.nodes;
+        ty_tangents = curve.tangents;
+    }
+    if (axis == 3) {
+        tz_nodes = curve.nodes;
+        tz_tangents = curve.tangents;
+    }
+
+    if (axis == 4) {
+        rx_nodes = curve.nodes;
+        rx_tangents = curve.tangents;
+    }
+    if (axis == 5) {
+        ry_nodes = curve.nodes;
+        ry_tangents = curve.tangents;
+    }
+    if (axis == 6) {
+        rz_nodes = curve.nodes;
+        rz_tangents = curve.tangents;
+    }
+
+    if (axis == 7) {
+        j7_nodes = curve.nodes;
+        j7_tangent = curve.tangents;
+    }
+    if (axis == 8) {
+        j8_nodes = curve.nodes;
+        j8_tangent = curve.tangents;
+    }
 }

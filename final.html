@@ -5,10 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Final Project</title>
+    <title>Animation Graph Editor</title>
 
     <link href="resources/bootstrap.min.css" rel="stylesheet">
     <link href="resources/custom2016.css" rel="stylesheet">
+    <script src="resources/jquery.min.js"></script>
+    <script src="resources/bootstrap.min.js"></script>
     
 	<script src="resources/common.js"></script>
     <script src="resources/glUtil.js"></script>
@@ -30,11 +32,6 @@
     <script src="resources/geometry.js"></script>
     <script src="resources/mesh.js"></script>
 
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
 
 <style>
 
@@ -43,93 +40,107 @@
 
 <body onload="setupAssignment();">
     <div class="container headerBar">
-        <h1>Graph Editor</h1>
+        <h1>Animation Graph Editor</h1>
     </div>
     <div class="container contentWrapper">
         <div class="pageContent">
             <!-- ================================================================= -->
-            <h2>View Window</h2>
+            <h2>Animation Graph Editor</h2>
             
             <p> </p>
             <div>
-                <div style="float:left;margin:30px 0 0 100px">
-                    <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none; margin:0 0 20px 0;">
-                    <button class = "dropbtn">Save</button>
+                <div style="float:left;margin:80px 0 0 50px">
+
+                    <div class="dropdown" style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none; margin:0 0 80px 0;">
+                        <button id="load" 
+                                class="btn btn-success dropdown-toggle" 
+                                type="button" 
+                                data-toggle="dropdown"
+                                style="width:120px; height:50px; text-align:center">
+                            Mesh
+                        <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" id="myDropdown">
+                            <li><a id="load0" onclick="loadm(0)" >Cube</a></li>
+                            <li><a id="load1" onclick="loadm(1)" >Torus</a></li>
+                            <li><a id="load2" onclick="loadm(2)" >Sphere</a></li>
+                            <li><a id="load3" onclick="loadm(3)" >Icosahedron</a></li>
+                            <li><a id="load4" onclick="loadm(4)" >Octahedron</a></li>
+                            <li class="divider"></li>
+                            <li><a id="load5" onclick="loadarm()" >Arm</a></li>
+                        </ul>
                     </div>
 
-                    <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none;">
-                    <button id="play" class = "dropbtn" onclick="changeText()">Play</button>
+
+                    <div style="text-align: center; user-select: none; -webkit-user-select: none; -moz-user-select: none; margin:0 0 5px 0;">
+                    <button class = "btn btn-default" id="saveKey" style="width:120px;">Save Keys</button>
                     </div>
 
-                    <div class = "dropdown" style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none;margin:20px 0 120px 5px;">
-                        <button id="load" class = "dropbtn" style="text-align: center" onclick="loadmesh()">Mesh</button>
-                        <div id="myDropdown" class="dropdown-content">
-                            <button id="load0" onclick="loadm()">Cube</button>
-                            <button id="load1" onclick="loadm()">Torus</button>
-                            <button id="load2" onclick="loadm()">Sphere</button>
-                            <button id="load3" onclick="loadm()">Icosahedron</button>
-                            <button id="load4" onclick="loadm()">Octahedron</button>
-                            <button id="load5" onclick="loadarm()">Arm</button>
-                        </div>
+                    <div style="text-align: center; user-select: none; -webkit-user-select: none; -moz-user-select: none; margin:0 0 80px 0;">
+                    <label class = "btn btn-default btn-file" id="loadKey" style="width:120px;">
+                        Load Keys <input id="keyFile" type="file" style="display: none;">
+                    </label>
                     </div>
 
-                    
 
-                    <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none;margin:0 0 40px 0;">
-                    <button class = "dropdown">Translate</button>
-                    </div>
-
-                    <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none;margin:0 0 40px 0;">
-                    <button class = "dropdown">Rotation</button>
+                    <div style="text-align:center; user-select: none; -webkit-user-select: none; -moz-user-select: none;  margin:0 0 120px 0;">
+                    <button id="play" class = "btn btn-danger" style="width:120px; height:50px" 
+                                        onclick="changeText()">Play</button>
                     </div>
                 </div>
-                
                 </div>
+
                 <div class="canvas-container">
-                <div style="float:center;margin:30px 0 0 220px">
+                <div id="canvasWithSlider" style="float:center;margin:30px 0 0 220px">
     				<canvas id="task-1" width="820" height="461"></canvas>
                 </div>
                 </div>
+
             </div>
 
             <div style ="margin:0 0 0 0">
 
-                <div style="float:left;margin:0 0 0 40px">
-                    Translation:
-                    <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none; margin:10px 0 20px 0;">
-                    <button id="axis_x">X</button>
-                    </div>
-                    <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none;margin:0 0 20px 0;">
-                    <button id="axis_y">Y</button>
-                    </div>
-                    <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none;margin:0 0 20px 0;">
-                    <button id="axis_z">Z</button>
-                    </div>
+                <div id="mesh_dof" class="btn-group-vertical" style="float:left;margin:-8px 0px 0px 20px">
+                    <button id="axis_tx" class="btn btn-primary">translation X</button>
+                    <button id="axis_ty" class="btn btn-default">translation Y</button>
+                    <button id="axis_tz" class="btn btn-default">translation Z</button>
+                    <button id="axis_rx" class="btn btn-default">rotation X</button>
+                    <button id="axis_ry" class="btn btn-default">rotation Y</button>
+                    <button id="axis_rz" class="btn btn-default">rotation Z</button>
                 </div>
 
-                <div style = "float:left;margin:30px 0 0 30px;"">
-                    <form>
-                      <input id = "value" type="text" name="Time" value = "Value" style = "width:50px;margin:0 0 0 10px;">
+                <div id="arm_dof" class="btn-group-vertical" style="float:left;margin:-50px 0px 0px 20px">
+                    <button id="joint_0" class="btn btn-primary">Upper Arm</button>
+                    <button id="joint_1" class="btn btn-default">Forearm</button>
+                    <button id="joint_2" class="btn btn-default">Hand</button>
+                    <button id="joint_3" class="btn btn-default">Thumb</button>
+                    <button id="joint_4" class="btn btn-default">Index</button>
+                    <button id="joint_5" class="btn btn-default">Middle</button>
+                    <button id="joint_6" class="btn btn-default">Ring</button>
+                    <button id="joint_7" class="btn btn-default">Pinky</button>
+                </div>
+
+                <div style = "width:50px;float:left;margin:-15px 0 0 20px;"">
+                    <form class="form-inline" action="/action_page.php">
+                      <input id = "value" type="text" name="Time" placeholder = "0~152" class="form-control" style = "width:75px"">
                     </form>
-                    <div style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none;margin:20px 0 20px 0;">
-                    <button id= "setnode">Set</button>
+                    <div class="btn-group-vertical" style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none;margin:10px 0 20px 0;">
+                    <button id= "setnode" class="btn btn-default">Set Key</button>
                     <!-- function: setnode -->
-                    <button id= "deletenode">Delete</button>
+                    <button id= "deletenode" class="btn btn-default">Delete</button>
                     </div>
 
+
+                    <div class="btn-group-vertical" style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none;margin:10px 0 51px 0;">
+                    <button id="clearOne" onclick="clearOne()" class="btn btn-default" style="width:75px"">Clear</button>
+                    <button id="clearAll" onclick="clearCurve()" class="btn btn-default" style="width:75px"">Clear All</button>
+                    </div>
                 <!-- <div style="float:left;margin:30px 0 0 40px"> -->
                 </div>
 
 
                 <div class="canvas-container" style="float:center">
-                    <canvas id="task-5" width="820" height="150" style="margin:0 30px 0 0; border: 1px solid black;"></canvas>
-                </div>
-
-                <div style="text-align: center; user-select: none; -webkit-user-select: none; -moz-user-select: none;">
-                    <form>
-                        <input type="Submit" value = "Clear Canvas" style="margin:20px 0 0 0">
-                    </form>
-                    <button id= "clear" onclick="clearCurve(4);">Clear Canvas</button>
+                    <canvas id="task-5" width="820" height="150" style="margin:0 40px 0 0; border: 1px solid black;"></canvas>
                 </div>
             </div>
             <!-- ================================================================= -->
@@ -144,35 +155,61 @@
         var meshid = -1; 
         var sliderflag = false;   
 
-        var x_nodes = new Array();
-        var x_tangents = new Array();
+        var tx_nodes = new Array();
+        var tx_tangents = new Array();
 
-        var y_nodes = new Array();
-        var y_tangents = new Array();
+        var ty_nodes = new Array();
+        var ty_tangents = new Array();
         
-        var z_nodes = new Array();
-        var z_tangents = new Array();
+        var tz_nodes = new Array();
+        var tz_tangents = new Array();
+
+
+        var rx_nodes = new Array();
+        var rx_tangents = new Array();
+
+        var ry_nodes = new Array();
+        var ry_tangents = new Array();
         
+        var rz_nodes = new Array();
+        var rz_tangents = new Array();
+
+        var j7_nodes = new Array();
+        var j7_tangent = new Array();
+        
+        var j8_nodes = new Array();
+        var j8_tangent = new Array();
+
+
         function loadarm() {
             sliderflag = true;
-            window.location.reload();
-            console.log("reload for arm");
+            clearCurve();
+            task_main = setupAssignment();
         }
 
-        function loadm() {
+        function loadm(idx) {
             if(sliderflag){
                 sliderflag = false;
-                window.location.reload();
-
+                clearCurve();
+                task_main = setupAssignment();
+                task_main.selectModel(idx);
             }
         }
         
         function setupAssignment() {
             if(sliderflag){
-                 setupTask("task-1", Task2);
+                var x = document.getElementById("mesh_dof");
+                var y = document.getElementById("arm_dof");
+                x.style.display = "none";
+                y.style.display = "block";
+                task_main = setupTask("task-1", Task4);
                  console.log("arm shows");
             }else{
-                setupTask("task-1", Task3);
+                var x = document.getElementById("mesh_dof");
+                var y = document.getElementById("arm_dof");
+                x.style.display = "block";
+                y.style.display = "none";
+                task_main = setupTask("task-1", Task3);
                 console.log("mesh shows");
             }
 
@@ -180,6 +217,7 @@
             task5Curve = new CatmullRomSpline("task-5");
             // Call the draw function
             draw();
+            return task_main;
         }
         
         function draw() {
@@ -190,9 +228,68 @@
             });
         }
         
-        function clearCurve(canvasId) {
-            if(canvasId == 5)
-                task5Curve = new CatmullRomSpline("task-5");
+        function clearCurve() {
+            tx_nodes = new Array();
+            tx_tangents = new Array();
+            ty_nodes = new Array();
+            ty_tangents = new Array();
+            tz_nodes = new Array();
+            tz_tangents = new Array();
+            rx_nodes = new Array();
+            rx_tangents = new Array();
+            ry_nodes = new Array();
+            ry_tangents = new Array();
+            rz_nodes = new Array();
+            rz_tangents = new Array();
+            j7_nodes = new Array();
+            j7_tangent = new Array();
+            j8_nodes = new Array();
+            j8_tangent = new Array();
+            task5Curve = new CatmullRomSpline("task-5");
+        }
+
+        function clearOne() {
+            if (axis == 1) {
+                tx_nodes = new Array();
+                tx_tangents = new Array();
+            }
+
+            if (axis == 2) {
+                ty_nodes = new Array();
+                ty_tangents = new Array();
+            }
+
+            if (axis == 3) {
+                tz_nodes = new Array();
+                tz_tangents = new Array();
+            }
+
+            if (axis == 4) {
+                rx_nodes = new Array();
+                rx_tangents = new Array();
+            }
+
+            if (axis == 5) {
+                ry_nodes = new Array();
+                ry_tangents = new Array();
+            }
+
+            if (axis == 6) {
+                rz_nodes = new Array();
+                rz_tangents = new Array();
+            }
+
+            if (axis == 7) {
+                j7_nodes = new Array();
+                j7_tangent = new Array();
+            }
+
+            if (axis == 8) {
+                j8_nodes = new Array();
+                j8_tangent = new Array();
+            }
+
+            task5Curve = new CatmullRomSpline("task-5");
         }
         
         window.requestAnimFrame = (function(callback) {
@@ -234,9 +331,6 @@
                 }
             }
         }
-
-        
-
 
     }
 

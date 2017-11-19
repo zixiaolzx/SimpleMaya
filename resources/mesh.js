@@ -168,16 +168,21 @@ Task3.prototype.render = function(gl, w, h) {
 
 
     translate_transform = Matrix.translate(this.translate[0], this.translate[1], this.translate[2]);
-    transform = view.multiply(translate_transform);
+    rotationX_transform = Matrix.rotate(this.rotation[0], 1, 0, 0);
+    rotationY_transform = Matrix.rotate(this.rotation[1], 0, 1, 0);
+    rotationZ_transform = Matrix.rotate(this.rotation[2], 0, 0, 1);
+    rotation_transform = rotationX_transform.multiply(rotationY_transform).multiply(rotationZ_transform);
+    transform = translate_transform.multiply(rotation_transform);
+    transformed_view = view.multiply(transform);
 
 
     var model = new Matrix();
 
     if (this.subdivisionLevel > 0)
-        this.baseMeshes[this.selectedModel].render(gl, model, transform, projection, false, true, new Vector(0.7, 0.7, 0.7));
+        this.baseMeshes[this.selectedModel].render(gl, model, transformed_view, projection, false, true, new Vector(0.7, 0.7, 0.7));
 
 
-    this.mesh.render(gl, model, transform, projection);
+    this.mesh.render(gl, model, transformed_view, projection);
 }
 
 
@@ -207,6 +212,13 @@ Task3.prototype.setTranslation = function(x, y, z) {
     if (y != 0) y = -5 + y / 130 * 10;
     if (z != 0) z = -5 + z / 130 * 10;
     this.translate = [x, y, z];
+}
+
+Task3.prototype.setRotation = function(x, y, z) {
+    if (x != 0) x = x/152 * 360;
+    if (y != 0) y = y/152 * 360;
+    if (z != 0) z = z/152 * 360;
+    this.rotation = [x, y, z];
 }
 
  

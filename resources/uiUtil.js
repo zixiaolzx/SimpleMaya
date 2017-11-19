@@ -35,6 +35,7 @@ Slider = function(targetId, minValue, maxValue, initialValue, hasLabel, callback
         
     this.sliderBackground = document.createElement("div");
     this.sliderBackground.className = "slider";
+    this.sliderBackground.setAttribute('id', 'slider');
     
     this.minValue = minValue;
     this.maxValue = maxValue;
@@ -81,7 +82,7 @@ Slider.prototype.mouseMove = function(event) {
 
 Slider.prototype.setTimer = function(time) {
     var rect = timer.sliderBackground.getBoundingClientRect();
-    timer.setPosition(time/720);
+    this.setPosition(time/720);
 
 }
 
