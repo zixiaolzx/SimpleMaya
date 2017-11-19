@@ -61,11 +61,11 @@
                         <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" id="myDropdown">
-                            <li><a id="load0" onclick="loadm()" >Cube</a></li>
-                            <li><a id="load1" onclick="loadm()" >Torus</a></li>
-                            <li><a id="load2" onclick="loadm()" >Sphere</a></li>
-                            <li><a id="load3" onclick="loadm()" >Icosahedron</a></li>
-                            <li><a id="load4" onclick="loadm()" >Octahedron</a></li>
+                            <li><a id="load0" onclick="loadm(0)" >Cube</a></li>
+                            <li><a id="load1" onclick="loadm(1)" >Torus</a></li>
+                            <li><a id="load2" onclick="loadm(2)" >Sphere</a></li>
+                            <li><a id="load3" onclick="loadm(3)" >Icosahedron</a></li>
+                            <li><a id="load4" onclick="loadm(4)" >Octahedron</a></li>
                             <li class="divider"></li>
                             <li><a id="load5" onclick="loadarm()" >Arm</a></li>
                         </ul>
@@ -163,24 +163,23 @@
         
         function loadarm() {
             sliderflag = true;
-            // window.location.reload();
-            setupAssignment();
+            task_main = setupAssignment();
         }
 
-        function loadm() {
+        function loadm(idx) {
             if(sliderflag){
                 sliderflag = false;
-                // window.location.reload();
-                setupAssignment();
+                task_main = setupAssignment();
+                task_main.selectModel(idx);
             }
         }
         
         function setupAssignment() {
             if(sliderflag){
-                 setupTask("task-1", Task2);
+                 task_main = setupTask("task-1", Task2);
                  console.log("arm shows");
             }else{
-                setupTask("task-1", Task3);
+                task_main = setupTask("task-1", Task3);
                 console.log("mesh shows");
             }
 
@@ -188,6 +187,7 @@
             task5Curve = new CatmullRomSpline("task-5");
             // Call the draw function
             draw();
+            return task_main;
         }
         
         function draw() {

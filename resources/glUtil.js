@@ -126,27 +126,37 @@ function setupTask(canvasId, taskFunction) {
 
 
     document.getElementById("load0").addEventListener('click', function(event) {
-        task.selectModel(0);
+        if (task.name == "mesh") {
+            task.selectModel(0);
+        }
         console.log("load cube");
     });
 
     document.getElementById("load1").addEventListener('click', function(event) {
-        task.selectModel(1);
+        if (task.name == "mesh") {
+            task.selectModel(1);
+        }
         console.log("load Torus");
     });
 
     document.getElementById("load2").addEventListener('click', function(event) {
-        task.selectModel(2);
+        if (task.name == "mesh") {
+            task.selectModel(2);
+        }
         console.log("load Sphere");
     });
 
     document.getElementById("load3").addEventListener('click', function(event) {
-        task.selectModel(3);
+        if (task.name == "mesh") {
+            task.selectModel(3);
+        }
         console.log("load Icosahedron");
     });
 
     document.getElementById("load4").addEventListener('click', function(event) {
-        task.selectModel(4);
+        if (task.name == "mesh") {
+            task.selectModel(4);
+        }
         console.log("load Octahedron");
     });
 
