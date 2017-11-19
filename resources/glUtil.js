@@ -280,9 +280,22 @@ function setupTask(canvasId, taskFunction) {
         }
 
         if (task.name == "arms") {
-            value_tx = 153 - task5Curve.getValueByAxis(time, tx_nodes, tx_tangents);
-            console.log(value_tx);
-            task.setJointAngle(1, value_tx);
+            value_0 = 153 - task5Curve.getValueByAxis(time, tx_nodes, tx_tangents);
+            value_1 = 153 - task5Curve.getValueByAxis(time, ty_nodes, ty_tangents);
+            value_2 = 153 - task5Curve.getValueByAxis(time, tz_nodes, tz_tangents);
+            value_3 = 153 - task5Curve.getValueByAxis(time, rx_nodes, rx_tangents);
+            value_4 = 153 - task5Curve.getValueByAxis(time, ry_nodes, ry_tangents);
+            value_5 = 153 - task5Curve.getValueByAxis(time, rz_nodes, rz_tangents);
+            value_6 = 153 - task5Curve.getValueByAxis(time, j7_nodes, j7_tangent);
+            value_7 = 153 - task5Curve.getValueByAxis(time, j8_nodes, j8_tangent);
+            task.setJointAngle(0, value_0);
+            task.setJointAngle(1, value_1);
+            task.setJointAngle(2, value_2);
+            task.setJointAngle(3, value_3);
+            task.setJointAngle(4, value_4);
+            task.setJointAngle(5, value_5);
+            task.setJointAngle(6, value_6);
+            task.setJointAngle(7, value_7);
         }
         else {
             task.setTranslation(value_tx, value_ty, value_tz);
