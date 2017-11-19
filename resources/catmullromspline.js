@@ -81,33 +81,37 @@ CatmullRomSpline.prototype.mousePress = function(event) {
 		for (var i = 0; i < this.nodes.length; i++) {
 			if (this.nodes[i].isInside(pos.x,pos.y)) {
 				this.activeNode = this.nodes[i];
-				// console.log("acnode" + this.activeID);
+				
 				if(this.activeID == -1){
 					this.activeID = i;
-				}else if(this.activeID == i){
-					this.activeID = -1;
 				}
-				// console.log("acID" + this.activeID);
-				
-				//this.ctx.clearRect(0, 0, this.dCanvas.width, this.dCanvas.height);
+				console.log("acnode" + this.activeID);
 				this.activeTangent = this.tangents[i];
 				break;
 			}
 		} 
-	}
 
-	// No node selected: add a new node
-	if (this.activeNode == null) {
-		this.addNode(pos.x,pos.y);
-		this.activeNode = this.nodes[this.nodes.length-1];
-	}
-
-	this.cvState = CVSTATE.SelectPoint;
-	event.preventDefault();
+	
+		// No node selected: add a new node
+		if (this.activeNode == null) {
+			this.addNode(pos.x,pos.y);
+			this.activeNode = this.nodes[this.nodes.length-1];
+		}
+			
+		this.cvState = CVSTATE.SelectPoint;
+		event.preventDefault();
+		}
+		// else if(event.button == 2){
+		// 	if(this.activeID != -1){
+		// 		this.activeID = -1;
+		// 		this.activeNode = null;
+		// 	}
+		// }
 }
 
 CatmullRomSpline.prototype.mouseMove = function(event) {
 	if (event.button == 0) {
+		console.log("right click");
 		if (this.cvState == CVSTATE.SelectPoint || this.cvState == CVSTATE.MovePoint) {
 			var pos = getMousePos(event);
 			if (this.activeTangent) {
