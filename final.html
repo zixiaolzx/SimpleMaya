@@ -182,19 +182,18 @@
         var j8_tangent = new Array();
 
 
-        
         function loadarm() {
             sliderflag = true;
-            task_main = setupAssignment();
             clearCurve();
+            task_main = setupAssignment();
         }
 
         function loadm(idx) {
             if(sliderflag){
                 sliderflag = false;
+                clearCurve();
                 task_main = setupAssignment();
                 task_main.selectModel(idx);
-                clearCurve();
             }
         }
         
