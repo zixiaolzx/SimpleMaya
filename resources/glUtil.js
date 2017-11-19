@@ -34,20 +34,28 @@ function setupTask(canvasId, taskFunction) {
         task.dragCamera(event.screenX - lastMouseX, event.screenY - lastMouseY);
         lastMouseX = event.screenX;
         lastMouseY = event.screenY;
+        //console.log("::");
     };
     canvas.addEventListener('mousedown', function(event) {
-        if (!mouseDown && event.button == 0) {
-            mouseDown = true;
+        if (!mouseDown){
+            if(event.button == 0 || event.button == 2){
+                mouseDown = true;
             lastMouseX = event.screenX;
             lastMouseY = event.screenY;
             document.addEventListener('mousemove', mouseMoveListener);
+            }
         }
+
         event.preventDefault();
     });
+
     document.addEventListener('mouseup', function(event) {
-        if (mouseDown && event.button == 0) {
-            mouseDown = false;
-            document.removeEventListener('mousemove', mouseMoveListener);
+        //if (mouseDown && event.button == 0) {
+        if (!mouseDown){
+            if(event.button == 0 || event.button == 2){
+                mouseDown = false;
+                document.removeEventListener('mousemove', mouseMoveListener);
+            }
         }
     });
 

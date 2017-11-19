@@ -34,6 +34,9 @@ var CatmullRomSpline = function(canvasId)
 	//setup active node
 	this.activeID = -1;
 
+	var rightclick = false;
+	var leftclick = false;
+
 	// Event listeners
 	this.dCanvas.addEventListener('mousedown', function(event) {
         that.mousePress(event);
@@ -73,7 +76,11 @@ CatmullRomSpline.prototype.setNumSegments = function(val)
 }
 
 CatmullRomSpline.prototype.mousePress = function(event) {
-	if (event.button == 0) {
+	if (event.button == 0 || event.button == 2) {
+		if(event.button == 2){
+			this.rightclick = true;
+		}
+		
 		this.activeNode = null;
 		var pos = getMousePos(event);
 
@@ -81,33 +88,44 @@ CatmullRomSpline.prototype.mousePress = function(event) {
 		for (var i = 0; i < this.nodes.length; i++) {
 			if (this.nodes[i].isInside(pos.x,pos.y)) {
 				this.activeNode = this.nodes[i];
-				// console.log("acnode" + this.activeID);
-				if(this.activeID == -1){
-					this.activeID = i;
-				}else if(this.activeID == i){
-					this.activeID = -1;
-				}
-				// console.log("acID" + this.activeID);
 				
-				//this.ctx.clearRect(0, 0, this.dCanvas.width, this.dCanvas.height);
+				// if(this.activeID == -1){
+					this.activeID = i;
+				// }
+				console.log("acnode" + this.activeNode);
 				this.activeTangent = this.tangents[i];
 				break;
 			}
 		} 
-	}
 
-	// No node selected: add a new node
-	if (this.activeNode == null) {
-		this.addNode(pos.x,pos.y);
-		this.activeNode = this.nodes[this.nodes.length-1];
+	
+		// No node selected: add a new node
+		if (this.activeNode == null && !this.rightclick) {
+			this.addNode(pos.x,pos.y);
+			this.activeNode = this.nodes[this.nodes.length-1];
+		}
+		console.log(this.activeID + "rc "+ this.rightclick);
+		if(this.activeID != -1 && this.rightclick && !this.nodes[this.activeID].isInside(pos.x,pos.y)){
+				this.activeID = -1;
+				this.activeNode = null;
+		
+		} 
+			
+		this.cvState = CVSTATE.SelectPoint;
+		event.preventDefault();
 	}
-
-	this.cvState = CVSTATE.SelectPoint;
-	event.preventDefault();
+		// else if(event.button == 2){
+		// 	if(this.activeID != -1){
+		// 		this.activeID = -1;
+		// 		this.activeNode = null;
+		// 	}
+		// }
 }
 
 CatmullRomSpline.prototype.mouseMove = function(event) {
-	if (event.button == 0) {
+	
+	if (this.rightclick) {
+		
 		if (this.cvState == CVSTATE.SelectPoint || this.cvState == CVSTATE.MovePoint) {
 			var pos = getMousePos(event);
 			if (this.activeTangent) {
@@ -124,11 +142,17 @@ CatmullRomSpline.prototype.mouseMove = function(event) {
 				}
 				temp_x = temp_x / temp_norm * (150 + 300*(1-cosTheta));
 				temp_y = temp_y / temp_norm * (150 + 300*(1-cosTheta));
-				console.log(norm, temp_y);
+				//console.log(norm, temp_y);
 				this.activeTangent.setPos(temp_x, temp_y);
 			}
 		} else {
 			// No button pressed. Ignore movement.
+		}
+	}else if(event.button == 0){
+		if (this.cvState == CVSTATE.SelectPoint || this.cvState == CVSTATE.MovePoint) {
+			var pos = getMousePos(event);
+			this.activeNode.x = pos.x;
+			this.activeNode.y = pos.y;
 		}
 	}
 }
@@ -138,6 +162,7 @@ CatmullRomSpline.prototype.mouseRelease = function(event)
 	this.cvState = CVSTATE.Idle;
 	this.activeNode = null;
 	this.activeTangent = null;
+	this.rightclick = false;
 }
 
 CatmullRomSpline.prototype.computeCanvasSize = function()
