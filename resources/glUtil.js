@@ -51,12 +51,20 @@ function setupTask(canvasId, taskFunction) {
         }
     });
 
-    var uiContainer = div();
+
+    var uiContainer = document.getElementById("slider_test");
+    if (uiContainer) {
+        uiContainer.innerHTML = "";
+    }
+    if (!uiContainer) {
+        var uiContainer = div();
+        uiContainer.setAttribute('id', 'slider_test');
+    }
+
     var weightSelector = ["Save"];
     var sliderTarget = div();
     var jointName = "a";
     var jointId = 1;
-
 
     uiContainer.appendChild(div('slider-container', sliderTarget));    
 
@@ -117,11 +125,6 @@ function setupTask(canvasId, taskFunction) {
     });
 
 
-
-
-
-
-
     document.getElementById("load0").addEventListener('click', function(event) {
         task.selectModel(0);
         console.log("load cube");
@@ -157,6 +160,7 @@ function setupTask(canvasId, taskFunction) {
     document.getElementById("keyFile").addEventListener('change', readFile, false);
 
 
+
     timer = new Slider(sliderTarget, 0, 720, play_time, true, function(jointId, jointName, time) {
         play_time = time;
         value = 0;
@@ -187,6 +191,11 @@ function setupTask(canvasId, taskFunction) {
         this.setLabel(time + ' frame');
         
     }, [jointId, jointName]);
+
+
+
+
+
 
 
     document.getElementById("play").addEventListener('click', function(event) {
