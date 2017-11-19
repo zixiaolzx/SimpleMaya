@@ -378,4 +378,26 @@ CatmullRomSpline.prototype.saveCurves = function(curve, axis) {
         tz_nodes = curve.nodes;
         tz_tangents = curve.tangents;
     }
+
+    if (axis == 4) {
+        rx_nodes = curve.nodes;
+        rx_tangents = curve.tangents;
+    }
+    if (axis == 5) {
+        ry_nodes = curve.nodes;
+        ry_tangents = curve.tangents;
+    }
+    if (axis == 6) {
+        rz_nodes = curve.nodes;
+        rz_tangents = curve.tangents;
+    }
+
+    if (axis == 7) {
+        j7_nodes = curve.nodes;
+        j7_tangent = curve.tangents;
+    }
+    if (axis == 8) {
+        j8_nodes = curve.nodes;
+        j8_tangent = curve.tangents;
+    }
 }

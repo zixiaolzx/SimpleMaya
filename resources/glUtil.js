@@ -125,45 +125,133 @@ function setupTask(canvasId, taskFunction) {
     });
 
 
+
+
+
+
+
+
+    document.getElementById("joint_0").addEventListener('click', function(event) {
+        if (axis != 1) {
+            axis = 1;
+            task5Curve.nodes = tx_nodes;
+            task5Curve.tangents = tx_tangents;
+        }
+        changeBtnColor(axis);
+    });
+
+    document.getElementById("joint_1").addEventListener('click', function(event) {
+        if (axis != 2) {
+            axis = 2;
+            task5Curve.nodes = ty_nodes;
+            task5Curve.tangents = ty_tangents;
+        }
+        changeBtnColor(axis);
+    });
+
+    document.getElementById("joint_2").addEventListener('click', function(event) {
+        if (axis != 3) {
+            axis = 3;
+            task5Curve.nodes = tz_nodes;
+            task5Curve.tangents = tz_tangents;
+        }
+        changeBtnColor(axis);
+    });
+
+
+    document.getElementById("joint_3").addEventListener('click', function(event) {
+        if (axis != 4) {
+            axis = 4;
+            task5Curve.nodes = rx_nodes;
+            task5Curve.tangents = rx_tangents;
+        }
+        changeBtnColor(axis);
+    });
+
+    document.getElementById("joint_4").addEventListener('click', function(event) {
+        if (axis != 5) {
+            axis = 5;
+            task5Curve.nodes = ry_nodes;
+            task5Curve.tangents = ry_tangents;
+        }
+        changeBtnColor(axis);
+    });
+
+    document.getElementById("joint_5").addEventListener('click', function(event) {
+        if (axis != 6) {
+            axis = 6;
+            task5Curve.nodes = rz_nodes;
+            task5Curve.tangents = rz_tangents;
+        }
+        changeBtnColor(axis);
+    });
+
+    document.getElementById("joint_6").addEventListener('click', function(event) {
+        if (axis != 7) {
+            axis = 7;
+            task5Curve.nodes = j7_nodes;
+            task5Curve.tangents = j7_tangent;
+        }
+        changeBtnColor(axis);
+    });
+
+    document.getElementById("joint_7").addEventListener('click', function(event) {
+        if (axis != 8) {
+            axis = 8;
+            task5Curve.nodes = j8_nodes;
+            task5Curve.tangents = j8_tangent;
+        }
+        changeBtnColor(axis);
+    });
+
+
+
+
+
+
+
+
+
+
     document.getElementById("load0").addEventListener('click', function(event) {
         if (task.name == "mesh") {
             task.selectModel(0);
         }
-        console.log("load cube");
+        // console.log("load cube");
     });
 
     document.getElementById("load1").addEventListener('click', function(event) {
         if (task.name == "mesh") {
             task.selectModel(1);
         }
-        console.log("load Torus");
+        // console.log("load Torus");
     });
 
     document.getElementById("load2").addEventListener('click', function(event) {
         if (task.name == "mesh") {
             task.selectModel(2);
         }
-        console.log("load Sphere");
+        // console.log("load Sphere");
     });
 
     document.getElementById("load3").addEventListener('click', function(event) {
         if (task.name == "mesh") {
             task.selectModel(3);
         }
-        console.log("load Icosahedron");
+        // console.log("load Icosahedron");
     });
 
     document.getElementById("load4").addEventListener('click', function(event) {
         if (task.name == "mesh") {
             task.selectModel(4);
         }
-        console.log("load Octahedron");
+        // console.log("load Octahedron");
     });
 
 
-    document.getElementById("saveKey").addEventListener('click', function(event) {
+    $("#saveKey").unbind("click").click(function(){
+    // document.getElementById("saveKey").addEventListener('click', function(event) {
         writeFile();
-        // console.log("save key");
         // window.alert("You saved the keys!");
     });
 
@@ -192,7 +280,9 @@ function setupTask(canvasId, taskFunction) {
         }
 
         if (task.name == "arms") {
-            task.setJointAngle(jointId, value);
+            value_tx = 153 - task5Curve.getValueByAxis(time, tx_nodes, tx_tangents);
+            console.log(value_tx);
+            task.setJointAngle(1, value_tx);
         }
         else {
             task.setTranslation(value_tx, value_ty, value_tz);
@@ -329,6 +419,7 @@ TriangleMesh2.prototype.render = function(gl, model, view, projection, drawFaces
 
 
 var writeFile = function() {
+    console.log("save file");
      var data = {
         mesh: meshid,
         translate_x: tx_nodes,
@@ -347,7 +438,13 @@ var writeFile = function() {
         rotate_y_tangent: ry_tangents,
 
         rotate_z: rz_nodes,
-        rotate_z_tangent: rz_tangents
+        rotate_z_tangent: rz_tangents,
+
+        j7: j7_nodes,
+        j7_t: j7_tangent,
+
+        j8: j8_nodes,
+        j8_t: j8_tangent
         }
 
     var jsonData = JSON.stringify(data);
@@ -368,6 +465,8 @@ var readFile = function(evt) {
         try {
             var loadedData = JSON.parse(e.target.result)
             meshid = loadedData.mesh;
+
+            if (!sliderflag) {
             tx_nodes = convertToNode(loadedData.translate_x);
             tx_tangents = convertToNode(loadedData.translate_x_tangent);
             ty_nodes = convertToNode(loadedData.translate_y);
@@ -381,6 +480,26 @@ var readFile = function(evt) {
             ry_tangents = convertToNode(loadedData.rotate_y_tangent);
             rz_nodes = convertToNode(loadedData.rotate_z);
             rz_tangents = convertToNode(loadedData.rotate_z_tangent);
+            }
+
+            else {
+            tx_nodes = convertToNode(loadedData.translate_x);
+            tx_tangents = convertToNode(loadedData.translate_x_tangent);
+            ty_nodes = convertToNode(loadedData.translate_y);
+            ty_tangents = convertToNode(loadedData.translate_y_tangent);
+            tz_nodes = convertToNode(loadedData.translate_z);
+            tz_tangents = convertToNode(loadedData.translate_z_tangent);
+            rx_nodes = convertToNode(loadedData.rotate_x);
+            rx_tangents = convertToNode(loadedData.rotate_x_tangent);
+            ry_nodes = convertToNode(loadedData.rotate_y);
+            ry_tangents = convertToNode(loadedData.rotate_y_tangent);
+            rz_nodes = convertToNode(loadedData.rotate_z);
+            rz_tangents = convertToNode(loadedData.rotate_z_tangent);
+            j7_nodes = convertToNode(loadedData.j7);
+            j7_tangent = convertToNode(loadedData.j7_t);
+            j8_nodes = convertToNode(loadedData.j8);
+            j8_tangent = convertToNode(loadedData.j8_t);
+            }
 
             axis = 1;
             task5Curve.nodes = tx_nodes;
@@ -399,6 +518,9 @@ var readFile = function(evt) {
 
 var convertToNode = function(list) {
     nodes = new Array();
+    if (!list) {
+        return nodes
+    }
     for (var i = 0; i < list.length; i++) {
         nodes.push(new Node(list[i].x, list[i].y))
     }
@@ -414,6 +536,15 @@ var changeBtnColor = function(id) {
     document.getElementById("axis_ry").className = 'btn btn-default'
     document.getElementById("axis_rz").className = 'btn btn-default'
 
+    document.getElementById("joint_0").className = 'btn btn-default'
+    document.getElementById("joint_1").className = 'btn btn-default'
+    document.getElementById("joint_2").className = 'btn btn-default'
+    document.getElementById("joint_3").className = 'btn btn-default'
+    document.getElementById("joint_4").className = 'btn btn-default'
+    document.getElementById("joint_5").className = 'btn btn-default'
+    document.getElementById("joint_6").className = 'btn btn-default'
+    document.getElementById("joint_7").className = 'btn btn-default'
+
     if (id == 1) 
         document.getElementById("axis_tx").className = 'btn btn-primary'
     if (id == 2)
@@ -426,4 +557,22 @@ var changeBtnColor = function(id) {
         document.getElementById("axis_ry").className = 'btn btn-primary'
     if (id == 6)
         document.getElementById("axis_rz").className = 'btn btn-primary'
+
+
+    if (id == 1) 
+        document.getElementById("joint_0").className = 'btn btn-primary'
+    if (id == 2)
+        document.getElementById("joint_1").className = 'btn btn-primary'
+    if (id == 3)
+        document.getElementById("joint_2").className = 'btn btn-primary'
+    if (id == 4)
+        document.getElementById("joint_3").className = 'btn btn-primary'
+    if (id == 5)
+        document.getElementById("joint_4").className = 'btn btn-primary'
+    if (id == 6)
+        document.getElementById("joint_5").className = 'btn btn-primary'
+    if (id == 7)
+        document.getElementById("joint_6").className = 'btn btn-primary'
+    if (id == 8)
+        document.getElementById("joint_7").className = 'btn btn-primary'
 }
