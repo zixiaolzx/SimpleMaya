@@ -164,6 +164,7 @@
         function loadarm() {
             sliderflag = true;
             task_main = setupAssignment();
+            clearCurve();
         }
 
         function loadm(idx) {
@@ -171,6 +172,7 @@
                 sliderflag = false;
                 task_main = setupAssignment();
                 task_main.selectModel(idx);
+                clearCurve();
             }
         }
         

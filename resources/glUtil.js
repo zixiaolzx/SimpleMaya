@@ -204,13 +204,8 @@ function setupTask(canvasId, taskFunction) {
 
 
 
-
-
-
-
-    document.getElementById("play").addEventListener('click', function(event) {
+    $("#play").unbind("click").click(function(){
         animation_play = !animation_play;
-
     if (animation_play) {
         i = play_time;
         interval = setInterval(function(){
@@ -254,7 +249,6 @@ function setupTask(canvasId, taskFunction) {
             }
 
     });
-
 
     canvas.parentNode.appendChild(uiContainer);
     this.angle = 1;
