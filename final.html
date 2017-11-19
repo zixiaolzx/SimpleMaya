@@ -100,7 +100,7 @@
 
             <div style ="margin:0 0 0 0">
 
-                <div id="mesh_dof" class="btn-group-vertical" style="float:left;margin:-15px 0px 0px 20px">
+                <div id="mesh_dof" class="btn-group-vertical" style="float:left;margin:-8px 0px 0px 20px">
                     <button id="axis_tx" class="btn btn-primary">translation X</button>
                     <button id="axis_ty" class="btn btn-default">translation Y</button>
                     <button id="axis_tz" class="btn btn-default">translation Z</button>
@@ -124,13 +124,17 @@
                     <form class="form-inline" action="/action_page.php">
                       <input id = "value" type="text" name="Time" placeholder = "0~152" class="form-control" style = "width:75px"">
                     </form>
-                    <div class="btn-group-vertical" style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none;margin:10px 0 51px 0;">
+                    <div class="btn-group-vertical" style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none;margin:10px 0 20px 0;">
                     <button id= "setnode" class="btn btn-default">Set Key</button>
                     <!-- function: setnode -->
                     <button id= "deletenode" class="btn btn-default">Delete</button>
                     </div>
 
-                    <button id="clearAll" onclick="clearCurve()" class="btn btn-default" style="width:75px"">Clear</button>
+
+                    <div class="btn-group-vertical" style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none;margin:10px 0 51px 0;">
+                    <button id="clearOne" onclick="clearOne()" class="btn btn-default" style="width:75px"">Clear</button>
+                    <button id="clearAll" onclick="clearCurve()" class="btn btn-default" style="width:75px"">Clear All</button>
+                    </div>
                 <!-- <div style="float:left;margin:30px 0 0 40px"> -->
                 </div>
 
@@ -226,7 +230,7 @@
             });
         }
         
-        function clearCurve(canvasId) {
+        function clearCurve() {
             tx_nodes = new Array();
             tx_tangents = new Array();
             ty_nodes = new Array();
@@ -243,6 +247,50 @@
             j7_tangent = new Array();
             j8_nodes = new Array();
             j8_tangent = new Array();
+            task5Curve = new CatmullRomSpline("task-5");
+        }
+
+        function clearOne() {
+            if (axis == 1) {
+                tx_nodes = new Array();
+                tx_tangents = new Array();
+            }
+
+            if (axis == 2) {
+                ty_nodes = new Array();
+                ty_tangents = new Array();
+            }
+
+            if (axis == 3) {
+                tz_nodes = new Array();
+                tz_tangents = new Array();
+            }
+
+            if (axis == 4) {
+                rx_nodes = new Array();
+                rx_tangents = new Array();
+            }
+
+            if (axis == 5) {
+                ry_nodes = new Array();
+                ry_tangents = new Array();
+            }
+
+            if (axis == 6) {
+                rz_nodes = new Array();
+                rz_tangents = new Array();
+            }
+
+            if (axis == 7) {
+                j7_nodes = new Array();
+                j7_tangent = new Array();
+            }
+
+            if (axis == 8) {
+                j8_nodes = new Array();
+                j8_tangent = new Array();
+            }
+
             task5Curve = new CatmullRomSpline("task-5");
         }
         
