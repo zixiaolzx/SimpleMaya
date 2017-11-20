@@ -104,7 +104,7 @@
 
             <div style ="margin:0 0 0 0">
 
-                <div id="mesh_dof" class="btn-group-vertical" style="float:left; margin:-8px 0px 0px 20px">
+                <div id="mesh_dof" class="btn-group-vertical" style="float:left; margin:-8px 0px 0px 19px">
                     <button id="axis_tx" class="btn btn-primary">translation X</button>
                     <button id="axis_ty" class="btn btn-default">translation Y</button>
                     <button id="axis_tz" class="btn btn-default">translation Z</button>
@@ -113,7 +113,7 @@
                     <button id="axis_rz" class="btn btn-default">rotation Z</button>
                 </div>
 
-                <div id="arm_dof" class="btn-group-vertical" style="float:left; margin:-50px 0px 0px 20px">
+                <div id="arm_dof" class="btn-group-vertical" style="float:left; margin:-50px 0px 0px 29px">
                     <button id="joint_0" class="btn btn-primary">Upper Arm</button>
                     <button id="joint_1" class="btn btn-default">Forearm</button>
                     <button id="joint_2" class="btn btn-default">Hand</button>
@@ -149,7 +149,7 @@
                     <canvas id="task-5" width="820" height="150" style="margin:0 40px 0 0; border: 1px solid black;"></canvas>
                 </div>
 
-                <div id="axis_labels" class="ct-chart ct-perfect-fourth" style="margin:-210px 0px 0px 0px; pointer-events: none;">
+                <div id="axis_labels" class="ct-chart ct-perfect-fourth" style="margin:-210px 0px 0px 0px; pointer-events: none; width:200px; height:200px">
                 </div>
 
                 
@@ -198,6 +198,12 @@
             sliderflag = true;
             clearCurve();
             task_main = setupAssignment();
+            options.axisY.high = 2;
+            options.axisY.low = -2;
+            options.axisY.scaleMinSpace = 20;
+            options.axisY.labelInterpolationFnc = function(value) {
+                    return value + " π";};
+            chart.update(data, options, true);
         }
 
         function loadm(idx) {
@@ -206,6 +212,22 @@
                 clearCurve();
                 task_main = setupAssignment();
                 task_main.selectModel(idx);
+                if (axis == 1 || axis == 2 || axis == 3) {
+                    options.axisY.high = 5;
+                    options.axisY.low = -5;
+                    options.axisY.scaleMinSpace = 10;
+                    options.axisY.labelInterpolationFnc = function(value) {
+                        return value;};
+                    chart.update(data, options, true);
+                }
+                else {
+                    options.axisY.high = 2;
+                    options.axisY.low = -2;
+                    options.axisY.scaleMinSpace = 20;
+                    options.axisY.labelInterpolationFnc = function(value) {
+                        return value + " π";};
+                    chart.update(data, options, true);
+                }
             }
         }
         
@@ -347,7 +369,6 @@
         }
 
 
-
         y_axis_labels = new Array();
         for (var i = 0; i < 721; i++) {
             if (i % 40 == 0) {
@@ -366,18 +387,30 @@
             height: 205,
 
              axisY: {
-                high: 100,
-                low: -100,
+                labelOffset: {
+                    x: 0,
+                    y: 5
+                },
+                labelInterpolationFnc: function(value) {
+                    return value;
+                },
+                scaleMinSpace: 10,
+                high: 5,
+                low: -5,
                 offset: 267
             },
 
              axisX: {
+                labelOffset: {
+                    x: -5,
+                    y: 0
+                },
+                scaleMinSpace: 10,
                 high: 720,
                 low: 0
             }
         };
-        new Chartist.Line('.ct-chart', data, options);
-
+        chart = new Chartist.Line('.ct-chart', data, options);
 
 
     </script>
