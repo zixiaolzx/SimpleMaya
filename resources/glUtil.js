@@ -426,7 +426,7 @@ function setupTask(canvasId, taskFunction) {
             value = 0
             timer.setTimer(play_time);
             timer.setLabel(i + ' frame');
-            i = (i + 1) % 720;
+            i = (i + 3) % 720;
             play_time = i;
         }, 1);
     }
