@@ -50,12 +50,11 @@ function setupTask(canvasId, taskFunction) {
     });
 
     document.addEventListener('mouseup', function(event) {
+        console.log("test");
         //if (mouseDown && event.button == 0) {
-        if (!mouseDown){
             if(event.button == 0 || event.button == 2){
                 mouseDown = false;
                 document.removeEventListener('mousemove', mouseMoveListener);
-            }
         }
     });
 

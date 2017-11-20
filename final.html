@@ -104,7 +104,7 @@
 
             <div style ="margin:0 0 0 0">
 
-                <div id="mesh_dof" class="btn-group-vertical" style="float:left;margin:-8px 0px 0px 20px">
+                <div id="mesh_dof" class="btn-group-vertical" style="float:left; margin:-8px 0px 0px 20px">
                     <button id="axis_tx" class="btn btn-primary">translation X</button>
                     <button id="axis_ty" class="btn btn-default">translation Y</button>
                     <button id="axis_tz" class="btn btn-default">translation Z</button>
@@ -113,7 +113,7 @@
                     <button id="axis_rz" class="btn btn-default">rotation Z</button>
                 </div>
 
-                <div id="arm_dof" class="btn-group-vertical" style="float:left;margin:-50px 0px 0px 20px">
+                <div id="arm_dof" class="btn-group-vertical" style="float:left; margin:-50px 0px 0px 20px">
                     <button id="joint_0" class="btn btn-primary">Upper Arm</button>
                     <button id="joint_1" class="btn btn-default">Forearm</button>
                     <button id="joint_2" class="btn btn-default">Hand</button>
@@ -143,9 +143,19 @@
                 </div>
 
 
+
+
                 <div class="canvas-container" style="float:center">
                     <canvas id="task-5" width="820" height="150" style="margin:0 40px 0 0; border: 1px solid black;"></canvas>
                 </div>
+
+                <div id="axis_labels" class="ct-chart ct-perfect-fourth" style="margin:-210px 0px 0px 0px; pointer-events: none;">
+                </div>
+
+                
+
+
+
             </div>
             <!-- ================================================================= -->
         </div>
@@ -183,7 +193,6 @@
         
         var j8_nodes = new Array();
         var j8_tangent = new Array();
-
 
         function loadarm() {
             sliderflag = true;
@@ -336,6 +345,40 @@
                 }
             }
         }
+
+
+
+        y_axis_labels = new Array();
+        for (var i = 0; i < 721; i++) {
+            if (i % 40 == 0) {
+                y_axis_labels.push(i);
+            }
+        }
+        var data = {
+            labels: y_axis_labels
+        };
+        var options = {
+            fullWidth: true,
+            chartPadding: {
+                right: 40
+            },
+            width: 1039,
+            height: 205,
+
+             axisY: {
+                high: 100,
+                low: -100,
+                offset: 267
+            },
+
+             axisX: {
+                high: 720,
+                low: 0
+            }
+        };
+        new Chartist.Line('.ct-chart', data, options);
+
+
 
     </script>
 </body>
