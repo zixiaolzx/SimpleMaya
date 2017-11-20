@@ -79,6 +79,8 @@ function setupTask(canvasId, taskFunction) {
 
     document.getElementById("axis_tx").addEventListener('click', function(event) {
         if (axis != 1) {
+            task5Curve.activeID = -1;
+            task5Curve.activeNode = null;
             axis = 1;
             options.axisY.high = 5;
             options.axisY.low = -5;
@@ -94,6 +96,8 @@ function setupTask(canvasId, taskFunction) {
 
     document.getElementById("axis_ty").addEventListener('click', function(event) {
         if (axis != 2) {
+            task5Curve.activeID = -1;
+            task5Curve.activeNode = null;
             axis = 2;
             options.axisY.high = 5;
             options.axisY.low = -5;
@@ -109,6 +113,8 @@ function setupTask(canvasId, taskFunction) {
 
     document.getElementById("axis_tz").addEventListener('click', function(event) {
         if (axis != 3) {
+            task5Curve.activeID = -1;
+            task5Curve.activeNode = null;
             axis = 3;
             options.axisY.high = 5;
             options.axisY.low = -5;
@@ -125,6 +131,8 @@ function setupTask(canvasId, taskFunction) {
 
     document.getElementById("axis_rx").addEventListener('click', function(event) {
         if (axis != 4) {
+            task5Curve.activeID = -1;
+            task5Curve.activeNode = null;
             axis = 4;
             options.axisY.high = 1;
             options.axisY.low = -1;
@@ -140,6 +148,8 @@ function setupTask(canvasId, taskFunction) {
 
     document.getElementById("axis_ry").addEventListener('click', function(event) {
         if (axis != 5) {
+            task5Curve.activeID = -1;
+            task5Curve.activeNode = null;
             axis = 5;
             options.axisY.high = 1;
             options.axisY.low = -1;
@@ -155,6 +165,8 @@ function setupTask(canvasId, taskFunction) {
 
     document.getElementById("axis_rz").addEventListener('click', function(event) {
         if (axis != 6) {
+            task5Curve.activeID = -1;
+            task5Curve.activeNode = null;
             axis = 6;
             options.axisY.high = 1;
             options.axisY.low = -1;
@@ -177,6 +189,8 @@ function setupTask(canvasId, taskFunction) {
 
     document.getElementById("joint_0").addEventListener('click', function(event) {
         if (axis != 1) {
+            task5Curve.activeID = -1;
+            task5Curve.activeNode = null;
             axis = 1;
             options.axisY.high = 0.5;
             options.axisY.low = -0.5;
@@ -192,6 +206,8 @@ function setupTask(canvasId, taskFunction) {
 
     document.getElementById("joint_1").addEventListener('click', function(event) {
         if (axis != 2) {
+            task5Curve.activeID = -1;
+            task5Curve.activeNode = null;
             axis = 2;
             options.axisY.high = 1;
             options.axisY.low = 0;
@@ -207,6 +223,8 @@ function setupTask(canvasId, taskFunction) {
 
     document.getElementById("joint_2").addEventListener('click', function(event) {
         if (axis != 3) {
+            task5Curve.activeID = -1;
+            task5Curve.activeNode = null;
             axis = 3;
             options.axisY.high = 0.5;
             options.axisY.low = -0.5;
@@ -223,6 +241,8 @@ function setupTask(canvasId, taskFunction) {
 
     document.getElementById("joint_3").addEventListener('click', function(event) {
         if (axis != 4) {
+            task5Curve.activeID = -1;
+            task5Curve.activeNode = null;
             axis = 4;
             options.axisY.high = 1;
             options.axisY.low = -0.5;
@@ -238,6 +258,8 @@ function setupTask(canvasId, taskFunction) {
 
     document.getElementById("joint_4").addEventListener('click', function(event) {
         if (axis != 5) {
+            task5Curve.activeID = -1;
+            task5Curve.activeNode = null;
             axis = 5;
             options.axisY.high = 1;
             options.axisY.low = -0.5;
@@ -253,6 +275,8 @@ function setupTask(canvasId, taskFunction) {
 
     document.getElementById("joint_5").addEventListener('click', function(event) {
         if (axis != 6) {
+            task5Curve.activeID = -1;
+            task5Curve.activeNode = null;
             axis = 6;
             options.axisY.high = 1;
             options.axisY.low = -0.5;
@@ -268,6 +292,8 @@ function setupTask(canvasId, taskFunction) {
 
     document.getElementById("joint_6").addEventListener('click', function(event) {
         if (axis != 7) {
+            task5Curve.activeID = -1;
+            task5Curve.activeNode = null;
             axis = 7;
             options.axisY.high = 1;
             options.axisY.low = -0.5;
@@ -283,6 +309,8 @@ function setupTask(canvasId, taskFunction) {
 
     document.getElementById("joint_7").addEventListener('click', function(event) {
         if (axis != 8) {
+            task5Curve.activeID = -1;
+            task5Curve.activeNode = null;
             axis = 8;
             options.axisY.high = 1;
             options.axisY.low = -0.5;
