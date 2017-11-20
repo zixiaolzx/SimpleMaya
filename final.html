@@ -7,10 +7,13 @@
 
     <title>Animation Graph Editor</title>
 
-    <link href="resources/bootstrap.min.css" rel="stylesheet">
-    <link href="resources/custom2016.css" rel="stylesheet">
-    <script src="resources/jquery.min.js"></script>
-    <script src="resources/bootstrap.min.js"></script>
+    <link href="resources/lib/bootstrap.min.css" rel="stylesheet">
+    <link href="resources/lib/custom2016.css" rel="stylesheet">
+    <script src="resources/lib/jquery.min.js"></script>
+    <script src="resources/lib/bootstrap.min.js"></script>
+
+    <link href="resources/lib/chartist.min.css" rel="stylesheet" >
+    <script src="resources/lib/chartist.min.js"></script>
     
 	<script src="resources/common.js"></script>
     <script src="resources/glUtil.js"></script>
@@ -32,6 +35,7 @@
     <script src="resources/geometry.js"></script>
     <script src="resources/mesh.js"></script>
     <script src="resources/record.js"></script>
+
 
 <style>
 
@@ -106,7 +110,7 @@
 
             <div style ="margin:0 0 0 0">
 
-                <div id="mesh_dof" class="btn-group-vertical" style="float:left;margin:-8px 0px 0px 20px">
+                <div id="mesh_dof" class="btn-group-vertical" style="float:left; margin:-8px 0px 0px 19px">
                     <button id="axis_tx" class="btn btn-primary">translation X</button>
                     <button id="axis_ty" class="btn btn-default">translation Y</button>
                     <button id="axis_tz" class="btn btn-default">translation Z</button>
@@ -115,7 +119,7 @@
                     <button id="axis_rz" class="btn btn-default">rotation Z</button>
                 </div>
 
-                <div id="arm_dof" class="btn-group-vertical" style="float:left;margin:-50px 0px 0px 20px">
+                <div id="arm_dof" class="btn-group-vertical" style="float:left; margin:-50px 0px 0px 29px">
                     <button id="joint_0" class="btn btn-primary">Upper Arm</button>
                     <button id="joint_1" class="btn btn-default">Forearm</button>
                     <button id="joint_2" class="btn btn-default">Hand</button>
@@ -145,9 +149,19 @@
                 </div>
 
 
+
+
                 <div class="canvas-container" style="float:center">
                     <canvas id="task-5" width="820" height="150" style="margin:0 40px 0 0; border: 1px solid black;"></canvas>
                 </div>
+
+                <div id="axis_labels" class="ct-chart ct-perfect-fourth" style="margin:-210px 0px 0px 0px; pointer-events: none; width:200px; height:200px">
+                </div>
+
+                
+
+
+
             </div>
             <!-- ================================================================= -->
         </div>
@@ -186,11 +200,16 @@
         var j8_nodes = new Array();
         var j8_tangent = new Array();
 
-
         function loadarm() {
             sliderflag = true;
             clearCurve();
             task_main = setupAssignment();
+            options.axisY.high = 2;
+            options.axisY.low = -2;
+            options.axisY.scaleMinSpace = 20;
+            options.axisY.labelInterpolationFnc = function(value) {
+                    return value + " π";};
+            chart.update(data, options, true);
         }
 
         function loadm(idx) {
@@ -199,6 +218,22 @@
                 clearCurve();
                 task_main = setupAssignment();
                 task_main.selectModel(idx);
+                if (axis == 1 || axis == 2 || axis == 3) {
+                    options.axisY.high = 5;
+                    options.axisY.low = -5;
+                    options.axisY.scaleMinSpace = 10;
+                    options.axisY.labelInterpolationFnc = function(value) {
+                        return value;};
+                    chart.update(data, options, true);
+                }
+                else {
+                    options.axisY.high = 2;
+                    options.axisY.low = -2;
+                    options.axisY.scaleMinSpace = 20;
+                    options.axisY.labelInterpolationFnc = function(value) {
+                        return value + " π";};
+                    chart.update(data, options, true);
+                }
             }
         }
         
@@ -327,18 +362,62 @@
 
         // Close the dropdown if the user clicks outside of it
         window.onclick = function(event) {
-        if (!event.target.matches('.dropbtn')) {
-            var dropdowns = document.getElementsByClassName("dropdown-content");
-            var i;
-            for (i = 0; i < dropdowns.length; i++) {
-                var openDropdown = dropdowns[i];
-                if (openDropdown.classList.contains('show')) {
-                    openDropdown.classList.remove('show');
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
                 }
             }
         }
 
-    }
+
+        y_axis_labels = new Array();
+        for (var i = 0; i < 721; i++) {
+            if (i % 40 == 0) {
+                y_axis_labels.push(i);
+            }
+        }
+        var data = {
+            labels: y_axis_labels
+        };
+        var options = {
+            fullWidth: true,
+            chartPadding: {
+                right: 40
+            },
+            width: 1039,
+            height: 205,
+
+             axisY: {
+                labelOffset: {
+                    x: 0,
+                    y: 5
+                },
+                labelInterpolationFnc: function(value) {
+                    return value;
+                },
+                scaleMinSpace: 10,
+                high: 5,
+                low: -5,
+                offset: 267
+            },
+
+             axisX: {
+                labelOffset: {
+                    x: -5,
+                    y: 0
+                },
+                scaleMinSpace: 10,
+                high: 720,
+                low: 0
+            }
+        };
+        chart = new Chartist.Line('.ct-chart', data, options);
+
 
     </script>
 </body>

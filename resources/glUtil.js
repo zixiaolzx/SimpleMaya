@@ -55,7 +55,6 @@ function setupTask(canvasId, taskFunction) {
             if(event.button == 0 || event.button == 2){
                 mouseDown = false;
                 document.removeEventListener('mousemove', mouseMoveListener);
-            }
         }
     });
 
@@ -80,6 +79,12 @@ function setupTask(canvasId, taskFunction) {
     document.getElementById("axis_tx").addEventListener('click', function(event) {
         if (axis != 1) {
             axis = 1;
+            options.axisY.high = 5;
+            options.axisY.low = -5;
+            options.axisY.scaleMinSpace = 10;
+            options.axisY.labelInterpolationFnc = function(value) {
+                    return value;};
+            chart.update(data, options, true);
             task5Curve.nodes = tx_nodes;
             task5Curve.tangents = tx_tangents;
         }
@@ -89,6 +94,12 @@ function setupTask(canvasId, taskFunction) {
     document.getElementById("axis_ty").addEventListener('click', function(event) {
         if (axis != 2) {
             axis = 2;
+            options.axisY.high = 5;
+            options.axisY.low = -5;
+            options.axisY.scaleMinSpace = 10;
+            options.axisY.labelInterpolationFnc = function(value) {
+                    return value;};
+            chart.update(data, options, true);
             task5Curve.nodes = ty_nodes;
             task5Curve.tangents = ty_tangents;
         }
@@ -98,6 +109,12 @@ function setupTask(canvasId, taskFunction) {
     document.getElementById("axis_tz").addEventListener('click', function(event) {
         if (axis != 3) {
             axis = 3;
+            options.axisY.high = 5;
+            options.axisY.low = -5;
+            options.axisY.scaleMinSpace = 10;
+            options.axisY.labelInterpolationFnc = function(value) {
+                    return value;};
+            chart.update(data, options, true);
             task5Curve.nodes = tz_nodes;
             task5Curve.tangents = tz_tangents;
         }
@@ -108,6 +125,12 @@ function setupTask(canvasId, taskFunction) {
     document.getElementById("axis_rx").addEventListener('click', function(event) {
         if (axis != 4) {
             axis = 4;
+            options.axisY.high = 2;
+            options.axisY.low = -2;
+            options.axisY.scaleMinSpace = 20;
+            options.axisY.labelInterpolationFnc = function(value) {
+                    return value + " π";};
+            chart.update(data, options, true);
             task5Curve.nodes = rx_nodes;
             task5Curve.tangents = rx_tangents;
         }
@@ -117,6 +140,12 @@ function setupTask(canvasId, taskFunction) {
     document.getElementById("axis_ry").addEventListener('click', function(event) {
         if (axis != 5) {
             axis = 5;
+            options.axisY.high = 2;
+            options.axisY.low = -2;
+            options.axisY.scaleMinSpace = 20;
+            options.axisY.labelInterpolationFnc = function(value) {
+                    return value + " π";};
+            chart.update(data, options, true);
             task5Curve.nodes = ry_nodes;
             task5Curve.tangents = ry_tangents;
         }
@@ -126,6 +155,12 @@ function setupTask(canvasId, taskFunction) {
     document.getElementById("axis_rz").addEventListener('click', function(event) {
         if (axis != 6) {
             axis = 6;
+            options.axisY.high = 2;
+            options.axisY.low = -2;
+            options.axisY.scaleMinSpace = 20;
+            options.axisY.labelInterpolationFnc = function(value) {
+                    return value + " π";};
+            chart.update(data, options, true);
             task5Curve.nodes = rz_nodes;
             task5Curve.tangents = rz_tangents;
         }
@@ -142,6 +177,12 @@ function setupTask(canvasId, taskFunction) {
     document.getElementById("joint_0").addEventListener('click', function(event) {
         if (axis != 1) {
             axis = 1;
+            options.axisY.high = 2;
+            options.axisY.low = -2;
+            options.axisY.scaleMinSpace = 20;
+            options.axisY.labelInterpolationFnc = function(value) {
+                    return value + " π";};
+            chart.update(data, options, true);
             task5Curve.nodes = tx_nodes;
             task5Curve.tangents = tx_tangents;
         }
@@ -151,6 +192,12 @@ function setupTask(canvasId, taskFunction) {
     document.getElementById("joint_1").addEventListener('click', function(event) {
         if (axis != 2) {
             axis = 2;
+            options.axisY.high = 2;
+            options.axisY.low = -2;
+            options.axisY.scaleMinSpace = 20;
+            options.axisY.labelInterpolationFnc = function(value) {
+                    return value + " π";};
+            chart.update(data, options, true);
             task5Curve.nodes = ty_nodes;
             task5Curve.tangents = ty_tangents;
         }
@@ -160,6 +207,12 @@ function setupTask(canvasId, taskFunction) {
     document.getElementById("joint_2").addEventListener('click', function(event) {
         if (axis != 3) {
             axis = 3;
+            options.axisY.high = 2;
+            options.axisY.low = -2;
+            options.axisY.scaleMinSpace = 20;
+            options.axisY.labelInterpolationFnc = function(value) {
+                    return value + " π";};
+            chart.update(data, options, true);
             task5Curve.nodes = tz_nodes;
             task5Curve.tangents = tz_tangents;
         }
@@ -170,6 +223,12 @@ function setupTask(canvasId, taskFunction) {
     document.getElementById("joint_3").addEventListener('click', function(event) {
         if (axis != 4) {
             axis = 4;
+            options.axisY.high = 2;
+            options.axisY.low = -2;
+            options.axisY.scaleMinSpace = 20;
+            options.axisY.labelInterpolationFnc = function(value) {
+                    return value + " π";};
+            chart.update(data, options, true);
             task5Curve.nodes = rx_nodes;
             task5Curve.tangents = rx_tangents;
         }
@@ -179,6 +238,12 @@ function setupTask(canvasId, taskFunction) {
     document.getElementById("joint_4").addEventListener('click', function(event) {
         if (axis != 5) {
             axis = 5;
+            options.axisY.high = 2;
+            options.axisY.low = -2;
+            options.axisY.scaleMinSpace = 20;
+            options.axisY.labelInterpolationFnc = function(value) {
+                    return value + " π";};
+            chart.update(data, options, true);
             task5Curve.nodes = ry_nodes;
             task5Curve.tangents = ry_tangents;
         }
@@ -188,6 +253,12 @@ function setupTask(canvasId, taskFunction) {
     document.getElementById("joint_5").addEventListener('click', function(event) {
         if (axis != 6) {
             axis = 6;
+            options.axisY.high = 2;
+            options.axisY.low = -2;
+            options.axisY.scaleMinSpace = 20;
+            options.axisY.labelInterpolationFnc = function(value) {
+                    return value + " π";};
+            chart.update(data, options, true);
             task5Curve.nodes = rz_nodes;
             task5Curve.tangents = rz_tangents;
         }
@@ -197,6 +268,12 @@ function setupTask(canvasId, taskFunction) {
     document.getElementById("joint_6").addEventListener('click', function(event) {
         if (axis != 7) {
             axis = 7;
+            options.axisY.high = 2;
+            options.axisY.low = -2;
+            options.axisY.scaleMinSpace = 20;
+            options.axisY.labelInterpolationFnc = function(value) {
+                    return value + " π";};
+            chart.update(data, options, true);
             task5Curve.nodes = j7_nodes;
             task5Curve.tangents = j7_tangent;
         }
@@ -206,6 +283,12 @@ function setupTask(canvasId, taskFunction) {
     document.getElementById("joint_7").addEventListener('click', function(event) {
         if (axis != 8) {
             axis = 8;
+            options.axisY.high = 2;
+            options.axisY.low = -2;
+            options.axisY.scaleMinSpace = 20;
+            options.axisY.labelInterpolationFnc = function(value) {
+                    return value + " π";};
+            chart.update(data, options, true);
             task5Curve.nodes = j8_nodes;
             task5Curve.tangents = j8_tangent;
         }
