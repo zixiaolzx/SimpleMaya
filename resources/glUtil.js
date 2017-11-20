@@ -51,7 +51,7 @@ function setupTask(canvasId, taskFunction) {
 
     document.addEventListener('mouseup', function(event) {
         //if (mouseDown && event.button == 0) {
-        if (!mouseDown){
+        if (mouseDown){
             if(event.button == 0 || event.button == 2){
                 mouseDown = false;
                 document.removeEventListener('mousemove', mouseMoveListener);

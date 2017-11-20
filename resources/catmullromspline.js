@@ -145,7 +145,7 @@ CatmullRomSpline.prototype.mouseMove = function(event) {
 				//console.log(norm, temp_y);
 				this.activeTangent.setPos(temp_x, temp_y);
 			}
-		} else {
+		}else {
 			// No button pressed. Ignore movement.
 		}
 	}else if(event.button == 0){
@@ -153,6 +153,8 @@ CatmullRomSpline.prototype.mouseMove = function(event) {
 			var pos = getMousePos(event);
 			this.activeNode.x = pos.x;
 			this.activeNode.y = pos.y;
+		}else {
+			// No button pressed. Ignore movement.
 		}
 	}
 }
