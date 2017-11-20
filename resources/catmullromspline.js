@@ -7,6 +7,10 @@ var CatmullRomSpline = function(canvasId)
 	this.dCanvas.addEventListener('resize', this.computeCanvasSize());
 	this.computeCanvasSize();
 
+	this.dCanvas.oncontextmenu = function (e) {
+    	e.preventDefault();
+	};
+
 	// Setup all the data related to the actual curve.
 	this.nodes = new Array();
 	// this.nodes.push(new Node(0, 153))
