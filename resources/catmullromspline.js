@@ -7,6 +7,10 @@ var CatmullRomSpline = function(canvasId)
 	this.dCanvas.addEventListener('resize', this.computeCanvasSize());
 	this.computeCanvasSize();
 
+	this.dCanvas.oncontextmenu = function (e) {
+    	e.preventDefault();
+	};
+
 	// Setup all the data related to the actual curve.
 	this.nodes = new Array();
 	// this.nodes.push(new Node(0, 153))
@@ -92,7 +96,7 @@ CatmullRomSpline.prototype.mousePress = function(event) {
 				// if(this.activeID == -1){
 					this.activeID = i;
 				// }
-				console.log("acnode" + this.activeNode);
+				// console.log("acnode" + this.activeNode);
 				this.activeTangent = this.tangents[i];
 				break;
 			}
@@ -104,7 +108,7 @@ CatmullRomSpline.prototype.mousePress = function(event) {
 			this.addNode(pos.x,pos.y);
 			this.activeNode = this.nodes[this.nodes.length-1];
 		}
-		console.log(this.activeID + "rc "+ this.rightclick);
+		// console.log(this.activeID + "rc "+ this.rightclick);
 		if(this.activeID != -1 && this.rightclick && !this.nodes[this.activeID].isInside(pos.x,pos.y)){
 				this.activeID = -1;
 				this.activeNode = null;
@@ -175,26 +179,9 @@ CatmullRomSpline.prototype.computeCanvasSize = function()
     this.dCanvas.height = renderHeight;
 }
 
-// CatmullRomSpline.prototype.drawControlPolygon = function()
-// {
-// 	for (var i = 0; i < this.nodes.length-1; i++)
-// 		drawLine(this.ctx, this.nodes[i].x, this.nodes[i].y,
-// 					  this.nodes[i+1].x, this.nodes[i+1].y);
-// }
-
-// CatmullRomSpline.prototype.drawControlPoints = function()
-// {
-// 	for (var i = 0; i < this.nodes.length; i++)
-// 		this.nodes[i].draw(this.ctx);
-// }
 
 CatmullRomSpline.prototype.drawTangents = function()
 {
-	// TODO: Task 4
-	// Note: Tangents are available only for 2,..,n-1 nodes. The tangent is not defined for 1st and nth node.
-    // Compute tangents from (i+1) and (i-1) node
-    // Normalize tangent and compute a line of length 'x' pixels from the current control point.
-    // Draw the tangent using drawLine() function
 	for (var i = 0; i < this.nodes.length; i++) {
 		tangent = this.tangents[i].normalize();
         setColors(this.ctx,'rgb(250,0,0)');
@@ -208,11 +195,6 @@ CatmullRomSpline.prototype.drawTangents = function()
 
 CatmullRomSpline.prototype.draw = function()
 {
-	// TODO: Task 5
-	//NOTE: You can either implement the equal parameter split strategy or recursive bezier draw for drawing the spline segments
-    //NOTE: If you're a grad student, you will have to employ the tension parameter to draw the curve (see assignment description for more details)
-    //Hint: Once you've computed the segments of the curve, draw them using the drawLine() function
-    
     for (var i = 1; i < this.nodes.length; i++) {
 		// ch15.5.5 p363: the cardinal matrix to compute a0, a1, a2, a3
 		var s = this.tension; 
@@ -227,7 +209,6 @@ CatmullRomSpline.prototype.draw = function()
 		c = v0
 		d = p0
 
-		// f(u) = a0 + a1u + a2u^2 + a3u^3
 		p = p0;
 		for (var seg = 0; seg <= this.numSegments; seg++) {
 			u = seg / this.numSegments;
@@ -272,7 +253,8 @@ CatmullRomSpline.prototype.getValue = function(time)
 
 
 CatmullRomSpline.prototype.getValueByAxis = function(time, axis_nodes, axis_tangents) {
-	p = new Node(153, 153);
+	p = new Node(-1, -1);
+
     for (var i = 1; i < axis_nodes.length; i++) {
 
     	if (time >= axis_nodes[i-1].x && time < axis_nodes[i].x) {
@@ -349,24 +331,19 @@ CatmullRomSpline.prototype.drawTask5 = function(time)
 
 // Add a contro point to the Bezier curve
 CatmullRomSpline.prototype.addNode = function(x,y)
-{
+{	
 	var n = this.nodes.length;
-	if( n == 0){
+	if(n == 0){
 		this.nodes.push(new Node(x, y));
-		//console.log(x);
-		//console.log(y);
 	}else{
 		for(var i = 0; i < n; i++){
 			if(x < this.nodes[i].x){
 				this.nodes.splice(i,0,new Node(x,y));
-				//console.log(x);
-				//console.log(this.nodes[i].x);
 				break;
 			}
 			if(i == n - 1){
 				this.nodes.push(new Node(x, y));
 			}
-			//console.log("i = " + i);
 		}	
 	}
 	
@@ -429,39 +406,3 @@ CatmullRomSpline.prototype.saveCurves = function(curve, axis) {
     }
 }
 
-
-
-CatmullRomSpline.prototype.chartAsix = function(xmin, xmax, xt, ymin, ymax, yt) {
-	var myLineChart = new Chart(this, {
-	    type: 'line',
-	    data: {
-	        labels: ["January", "February", "March", "April", "May", "June", "July"],
-	        datasets: [
-	            {
-	                label: "My First dataset",
-	                fillColor: "rgba(220,220,220,0.2)",
-	                strokeColor: "rgba(220,220,220,1)",
-	                pointColor: "rgba(220,220,220,1)",
-	                pointStrokeColor: "#fff",
-	                pointHighlightFill: "#fff",
-	                pointHighlightStroke: "rgba(220,220,220,1)",
-	                data: [65, 59, 80, 81, 56, 55, 40]
-	            },
-	            {
-	                label: "My Second dataset",
-	                fillColor: "rgba(151,187,205,0.2)",
-	                strokeColor: "rgba(151,187,205,1)",
-	                pointColor: "rgba(151,187,205,1)",
-	                pointStrokeColor: "#fff",
-	                pointHighlightFill: "#fff",
-	                pointHighlightStroke: "rgba(151,187,205,1)",
-	                data: [28, 48, 40, 19, 86, 27, 90]
-	            }
-	        ]
-	    },
-	    options: {
-	        responsive: true
-	    }    
-	});
-
-}
