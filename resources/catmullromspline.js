@@ -101,11 +101,10 @@ CatmullRomSpline.prototype.mousePress = function(event) {
 				break;
 			}
 		} 
-
-	
 		// No node selected: add a new node
 		if (this.activeNode == null && !this.rightclick) {
 			this.addNode(pos.x,pos.y);
+			console.log("add node");
 			this.activeNode = this.nodes[this.nodes.length-1];
 		}
 		// console.log(this.activeID + "rc "+ this.rightclick);
@@ -154,9 +153,13 @@ CatmullRomSpline.prototype.mouseMove = function(event) {
 		}
 	}else if(event.button == 0){
 		if (this.cvState == CVSTATE.SelectPoint || this.cvState == CVSTATE.MovePoint) {
-			var pos = getMousePos(event);
-			this.activeNode.x = pos.x;
-			this.activeNode.y = pos.y;
+			if(this.activeID != -1){
+				var pos = getMousePos(event);
+				console.log("change node "+ this.activeID);
+				this.activeNode.x = pos.x;
+				this.activeNode.y = pos.y;
+			}
+			
 		}else {
 			// No button pressed. Ignore movement.
 		}
