@@ -102,6 +102,11 @@ function videoRecord(canvasId) {
     }
 
     function download() {
+      if (!recordedBlobs) {
+        alert("You have not record anything!");
+      }
+      else {
+
       var blob = new Blob(recordedBlobs, {type: 'video/webm'});
       var url = window.URL.createObjectURL(blob);
       var a = document.createElement('a');
@@ -114,6 +119,8 @@ function videoRecord(canvasId) {
       //   document.body.removeChild(a);
       //   window.URL.revokeObjectURL(url);
       // }, 200);
+
+      }
     }
 
 }
