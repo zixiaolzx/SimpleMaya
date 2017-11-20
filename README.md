@@ -1,11 +1,7 @@
 # final
-1. tangent -> curve prop. to distance (annie)
-2. rotation manipulator 
 
 
-
-# presentation
-features:
+# features
 
 1. load mesh (zizi)
 2. save/load keys (annie)

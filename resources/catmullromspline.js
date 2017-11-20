@@ -143,8 +143,13 @@ CatmullRomSpline.prototype.mouseMove = function(event) {
 				if (cosTheta != cosTheta) {
 					cosTheta = 0.01;
 				}
-				temp_x = temp_x / temp_norm * (150 + 300*(1-cosTheta));
-				temp_y = temp_y / temp_norm * (150 + 300*(1-cosTheta));
+				pre_node = this.nodes[this.activeID - 1];
+				next_node = this.nodes[this.activeID + 1];
+				if (!pre_node) pre_x = 0; else pre_x = pre_node.x;
+				if (!next_node) next_x = 720; else next_x = next_node.x;
+				dis_curve = (next_x - pre_x)/720*500;
+				temp_x = temp_x / temp_norm * (dis_curve + 300*(1-cosTheta));
+				temp_y = temp_y / temp_norm * (dis_curve + 300*(1-cosTheta));
 				//console.log(norm, temp_y);
 				this.activeTangent.setPos(temp_x, temp_y);
 			}
@@ -335,15 +340,19 @@ CatmullRomSpline.prototype.drawTask5 = function(time)
 // Add a contro point to the Bezier curve
 CatmullRomSpline.prototype.addNode = function(x,y)
 {	
+	inbetween_index = -1;
+
 	this.activeID = -1;
 	this.activeNode = null;
 	var n = this.nodes.length;
 	if(n == 0){
 		this.nodes.push(new Node(x, y));
-	}else{
+	}
+	else{
 		for(var i = 0; i < n; i++){
 			if(x < this.nodes[i].x){
-				this.nodes.splice(i,0,new Node(x,y));
+				inbetween_index = i;
+				this.nodes.splice(i, 0, new Node(x,y));
 				break;
 			}
 			if(i == n - 1){
@@ -359,7 +368,12 @@ CatmullRomSpline.prototype.addNode = function(x,y)
 		new Node((this.nodes[i].x - this.nodes[i-2].x)/2, 
 			     (this.nodes[i].y - this.nodes[i-2].y)/2);
 	}
-	this.tangents.push(tangent);
+	if (inbetween_index == -1) {
+		this.tangents.push(tangent);
+	}
+	else {
+		this.tangents.splice(inbetween_index, 0, tangent);
+	}
 	//console.log(this.nodes.length);
 
 
