@@ -16,16 +16,16 @@
 'use strict';
 
 function videoRecord(canvasId) {
-    console.log("before");
+    // console.log("before");
     var mediaSource = new MediaSource();
-    console.log("after");
+    // console.log("after");
     mediaSource.addEventListener('sourceopen', handleSourceOpen, false);
     var mediaRecorder;
     var recordedBlobs;
     var sourceBuffer;
 
     var canvas = document.getElementById(canvasId);
-    console.log("canvas "+canvas);
+    // console.log("canvas "+canvas);
     var recordButton = document.getElementById("record");
     
     var downloadButton = document.querySelector('button#download');
@@ -33,12 +33,12 @@ function videoRecord(canvasId) {
     downloadButton.onclick = download;
 
     var stream = canvas.captureStream(); // frames per second
-    console.log('Started stream capture from canvas element: ', stream);
+    // console.log('Started stream capture from canvas element: ', stream);
 
     function handleSourceOpen(event) {
-      console.log('MediaSource opened');
+      // console.log('MediaSource opened');
       sourceBuffer = mediaSource.addSourceBuffer('video/webm; codecs="vp8"');
-      console.log('Source buffer: ', sourceBuffer);
+      // console.log('Source buffer: ', sourceBuffer);
     }
 
     function handleDataAvailable(event) {
@@ -48,11 +48,11 @@ function videoRecord(canvasId) {
     }
 
     function handleStop(event) {
-      console.log('Recorder stopped: ', event);
+      // console.log('Recorder stopped: ', event);
     }
 
     function toggleRecording() {
-      console.log("recordbutton "+ recordButton.textContent);
+      // console.log("recordbutton "+ recordButton.textContent);
       if (recordButton.textContent === 'Record') {
         startRecording();
       } else {

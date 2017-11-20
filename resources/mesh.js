@@ -192,32 +192,11 @@ Task3.prototype.dragCamera = function(dx, dy) {
 }
 
 
-Task3.prototype.setJointAngle = function(id, value) {
-    if (value) {
-        t = -5 + value / 130 * 10;
-        if (axis == 1) {
-            this.translate = [t, 0, 0];
-        }
-        else if (axis == 2) {
-            this.translate = [0, t, 0];
-        }
-        else if (axis == 3) {
-            this.translate = [0, 0, t];
-        }
-    }
-}
-
 Task3.prototype.setTranslation = function(x, y, z) {
-    if (x != 0) x = -5 + x / 130 * 10;
-    if (y != 0) y = -5 + y / 130 * 10;
-    if (z != 0) z = -5 + z / 130 * 10;
     this.translate = [x, y, z];
 }
 
 Task3.prototype.setRotation = function(x, y, z) {
-    if (x != 0) x = x/152 * 360;
-    if (y != 0) y = y/152 * 360;
-    if (z != 0) z = z/152 * 360;
     this.rotation = [x, y, z];
 }
 
