@@ -335,6 +335,8 @@ CatmullRomSpline.prototype.drawTask5 = function(time)
 // Add a contro point to the Bezier curve
 CatmullRomSpline.prototype.addNode = function(x,y)
 {	
+	this.activeID = -1;
+	this.activeNode = null;
 	var n = this.nodes.length;
 	if(n == 0){
 		this.nodes.push(new Node(x, y));
