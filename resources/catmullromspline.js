@@ -253,7 +253,7 @@ CatmullRomSpline.prototype.getValue = function(time)
 
 
 CatmullRomSpline.prototype.getValueByAxis = function(time, axis_nodes, axis_tangents) {
-	p = new Node(153/2, 153/2);
+	p = new Node(-1, -1);
 
     for (var i = 1; i < axis_nodes.length; i++) {
 
@@ -331,24 +331,19 @@ CatmullRomSpline.prototype.drawTask5 = function(time)
 
 // Add a contro point to the Bezier curve
 CatmullRomSpline.prototype.addNode = function(x,y)
-{
+{	
 	var n = this.nodes.length;
-	if( n == 0){
+	if(n == 0){
 		this.nodes.push(new Node(x, y));
-		//console.log(x);
-		//console.log(y);
 	}else{
 		for(var i = 0; i < n; i++){
 			if(x < this.nodes[i].x){
 				this.nodes.splice(i,0,new Node(x,y));
-				//console.log(x);
-				//console.log(this.nodes[i].x);
 				break;
 			}
 			if(i == n - 1){
 				this.nodes.push(new Node(x, y));
 			}
-			//console.log("i = " + i);
 		}	
 	}
 	

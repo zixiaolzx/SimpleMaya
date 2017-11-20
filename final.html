@@ -135,7 +135,7 @@
 
                 <div style = "width:50px;float:left;margin:-15px 0 0 20px;"">
                     <form class="form-inline" action="/action_page.php">
-                      <input id = "value" type="text" name="Time" placeholder = "0~152" class="form-control" style = "width:75px"">
+                      <input id = "value" type="text" name="Time" placeholder = "value" class="form-control" style = "width:75px"">
                     </form>
                     <div class="btn-group-vertical" style="text-align: center;user-select: none; -webkit-user-select: none; -moz-user-select: none;margin:10px 0 20px 0;">
                     <button id= "setnode" class="btn btn-default">Set Key</button>
@@ -206,10 +206,12 @@
         function loadarm() {
             sliderflag = true;
             clearCurve();
+            axis = 1;
+            changeBtnColor(axis);
             task_main = setupAssignment();
-            options.axisY.high = 2;
-            options.axisY.low = -2;
-            options.axisY.scaleMinSpace = 20;
+            options.axisY.high = 0.5;
+            options.axisY.low = -0.5;
+            options.axisY.scaleMinSpace = 10;
             options.axisY.labelInterpolationFnc = function(value) {
                     return value + " π";};
             chart.update(data, options, true);
@@ -219,6 +221,8 @@
             if(sliderflag){
                 sliderflag = false;
                 clearCurve();
+                axis = 1;
+                changeBtnColor(axis);
                 task_main = setupAssignment();
                 task_main.selectModel(idx);
                 if (axis == 1 || axis == 2 || axis == 3) {
@@ -265,7 +269,7 @@
         }
         
         function draw() {
-            task5Curve.drawTask5();
+            task5Curve.drawTask5(play_time);
             
             requestAnimFrame(function() {
                 draw();

@@ -126,8 +126,8 @@ function setupTask(canvasId, taskFunction) {
     document.getElementById("axis_rx").addEventListener('click', function(event) {
         if (axis != 4) {
             axis = 4;
-            options.axisY.high = 2;
-            options.axisY.low = -2;
+            options.axisY.high = 1;
+            options.axisY.low = -1;
             options.axisY.scaleMinSpace = 20;
             options.axisY.labelInterpolationFnc = function(value) {
                     return value + " π";};
@@ -141,8 +141,8 @@ function setupTask(canvasId, taskFunction) {
     document.getElementById("axis_ry").addEventListener('click', function(event) {
         if (axis != 5) {
             axis = 5;
-            options.axisY.high = 2;
-            options.axisY.low = -2;
+            options.axisY.high = 1;
+            options.axisY.low = -1;
             options.axisY.scaleMinSpace = 20;
             options.axisY.labelInterpolationFnc = function(value) {
                     return value + " π";};
@@ -156,8 +156,8 @@ function setupTask(canvasId, taskFunction) {
     document.getElementById("axis_rz").addEventListener('click', function(event) {
         if (axis != 6) {
             axis = 6;
-            options.axisY.high = 2;
-            options.axisY.low = -2;
+            options.axisY.high = 1;
+            options.axisY.low = -1;
             options.axisY.scaleMinSpace = 20;
             options.axisY.labelInterpolationFnc = function(value) {
                     return value + " π";};
@@ -178,9 +178,9 @@ function setupTask(canvasId, taskFunction) {
     document.getElementById("joint_0").addEventListener('click', function(event) {
         if (axis != 1) {
             axis = 1;
-            options.axisY.high = 2;
-            options.axisY.low = -2;
-            options.axisY.scaleMinSpace = 20;
+            options.axisY.high = 0.5;
+            options.axisY.low = -0.5;
+            options.axisY.scaleMinSpace = 10;
             options.axisY.labelInterpolationFnc = function(value) {
                     return value + " π";};
             chart.update(data, options, true);
@@ -193,8 +193,8 @@ function setupTask(canvasId, taskFunction) {
     document.getElementById("joint_1").addEventListener('click', function(event) {
         if (axis != 2) {
             axis = 2;
-            options.axisY.high = 2;
-            options.axisY.low = -2;
+            options.axisY.high = 1;
+            options.axisY.low = 0;
             options.axisY.scaleMinSpace = 20;
             options.axisY.labelInterpolationFnc = function(value) {
                     return value + " π";};
@@ -208,9 +208,9 @@ function setupTask(canvasId, taskFunction) {
     document.getElementById("joint_2").addEventListener('click', function(event) {
         if (axis != 3) {
             axis = 3;
-            options.axisY.high = 2;
-            options.axisY.low = -2;
-            options.axisY.scaleMinSpace = 20;
+            options.axisY.high = 0.5;
+            options.axisY.low = -0.5;
+            options.axisY.scaleMinSpace = 10;
             options.axisY.labelInterpolationFnc = function(value) {
                     return value + " π";};
             chart.update(data, options, true);
@@ -224,8 +224,8 @@ function setupTask(canvasId, taskFunction) {
     document.getElementById("joint_3").addEventListener('click', function(event) {
         if (axis != 4) {
             axis = 4;
-            options.axisY.high = 2;
-            options.axisY.low = -2;
+            options.axisY.high = 1;
+            options.axisY.low = -0.5;
             options.axisY.scaleMinSpace = 20;
             options.axisY.labelInterpolationFnc = function(value) {
                     return value + " π";};
@@ -239,8 +239,8 @@ function setupTask(canvasId, taskFunction) {
     document.getElementById("joint_4").addEventListener('click', function(event) {
         if (axis != 5) {
             axis = 5;
-            options.axisY.high = 2;
-            options.axisY.low = -2;
+            options.axisY.high = 1;
+            options.axisY.low = -0.5;
             options.axisY.scaleMinSpace = 20;
             options.axisY.labelInterpolationFnc = function(value) {
                     return value + " π";};
@@ -254,8 +254,8 @@ function setupTask(canvasId, taskFunction) {
     document.getElementById("joint_5").addEventListener('click', function(event) {
         if (axis != 6) {
             axis = 6;
-            options.axisY.high = 2;
-            options.axisY.low = -2;
+            options.axisY.high = 1;
+            options.axisY.low = -0.5;
             options.axisY.scaleMinSpace = 20;
             options.axisY.labelInterpolationFnc = function(value) {
                     return value + " π";};
@@ -269,8 +269,8 @@ function setupTask(canvasId, taskFunction) {
     document.getElementById("joint_6").addEventListener('click', function(event) {
         if (axis != 7) {
             axis = 7;
-            options.axisY.high = 2;
-            options.axisY.low = -2;
+            options.axisY.high = 1;
+            options.axisY.low = -0.5;
             options.axisY.scaleMinSpace = 20;
             options.axisY.labelInterpolationFnc = function(value) {
                     return value + " π";};
@@ -284,8 +284,8 @@ function setupTask(canvasId, taskFunction) {
     document.getElementById("joint_7").addEventListener('click', function(event) {
         if (axis != 8) {
             axis = 8;
-            options.axisY.high = 2;
-            options.axisY.low = -2;
+            options.axisY.high = 1;
+            options.axisY.low = -0.5;
             options.axisY.scaleMinSpace = 20;
             options.axisY.labelInterpolationFnc = function(value) {
                     return value + " π";};
@@ -353,50 +353,33 @@ function setupTask(canvasId, taskFunction) {
 
     timer = new Slider(sliderTarget, 0, 720, play_time, true, function(jointId, jointName, time) {
         play_time = time;
-        value = 0;
-        value_tx = 0;
-        value_ty = 0;
-        value_tz = 0;
-        value_rx = 0;
-        value_ry = 0;
-        value_rz = 0;
-        value_0 = 0;
-        value_1 = 0;
-        value_2 = 0;
-        value_3 = 0;
-        value_4 = 0;
-        value_5 = 0;
-        value_6 = 0;
-        value_7 = 0;
-        value_8 = 0;
         if (task5Curve) {
             task5Curve.drawTask5(time)
             if (task.name == "arms") {
-                console.log(task5Curve.getValueByAxis(time, tx_nodes, tx_tangents))
-                value_0 = -180 + 360 * (153 - task5Curve.getValueByAxis(time, tx_nodes, tx_tangents))/153;
-                value_1 = -180 + 360 * (153 - task5Curve.getValueByAxis(time, ty_nodes, ty_tangents))/153;
-                value_2 = -180 + 360 * (153 - task5Curve.getValueByAxis(time, tz_nodes, tz_tangents))/153;
-                value_3 = -180 + 360 * (153 - task5Curve.getValueByAxis(time, rx_nodes, rx_tangents))/153;
-                value_4 = -180 + 360 * (153 - task5Curve.getValueByAxis(time, ry_nodes, ry_tangents))/153;
-                value_5 = -180 + 360 * (153 - task5Curve.getValueByAxis(time, rz_nodes, rz_tangents))/153;
-                value_6 = -180 + 360 * (153 - task5Curve.getValueByAxis(time, j7_nodes, j7_tangent))/153;
-                value_7 = -180 + 360 * (153 - task5Curve.getValueByAxis(time, j8_nodes, j8_tangent))/153;
+                value_0 = convertValue(-45, 45, tx_nodes, tx_tangents, time);
+                value_1 = convertValue(  0, 90, ty_nodes, ty_tangents, time); 
+                value_2 = convertValue(-45, 45, tz_nodes, tz_tangents, time);
+                value_3 = convertValue(-45, 90, rx_nodes, rx_tangents, time); 
+                value_4 = convertValue(-45, 90, ry_nodes, ry_tangents, time); 
+                value_5 = convertValue(-45, 90, rz_nodes, rz_tangents, time); 
+                value_6 = convertValue(-45, 90, j7_nodes, j7_tangent, time); 
+                value_7 = convertValue(-45, 90, j8_nodes, j8_tangent, time); 
                 task.setJointAngle(0, value_0);
                 task.setJointAngle(1, value_1);
                 task.setJointAngle(2, value_2);
                 task.setJointAngle(3, value_3);
-                task.setJointAngle(4, value_4);
-                task.setJointAngle(5, value_5);
-                task.setJointAngle(6, value_6);
-                task.setJointAngle(7, value_7);
+                task.setJointAngle(6, value_4);
+                task.setJointAngle(9, value_5);
+                task.setJointAngle(12, value_6);
+                task.setJointAngle(15, value_7);
             }
             else {
-                value_tx = -5 + 10*(153 - task5Curve.getValueByAxis(time, tx_nodes, tx_tangents))/153;
-                value_ty = -5 + 10*(153 - task5Curve.getValueByAxis(time, ty_nodes, ty_tangents))/153;
-                value_tz = -5 + 10*(153 - task5Curve.getValueByAxis(time, tz_nodes, tz_tangents))/153;
-                value_rx = -180 + 360 * (153 - task5Curve.getValueByAxis(time, rx_nodes, rx_tangents))/153;
-                value_ry = -180 + 360 * (153 - task5Curve.getValueByAxis(time, ry_nodes, ry_tangents))/153;
-                value_rz = -180 + 360 * (153 - task5Curve.getValueByAxis(time, rz_nodes, rz_tangents))/153;
+                value_tx = convertValue(-5, 5, tx_nodes, tx_tangents, time); 
+                value_ty = convertValue(-5, 5, ty_nodes, ty_tangents, time); 
+                value_tz = convertValue(-5, 5, tz_nodes, tz_tangents, time);
+                value_rx = convertValue(-180, 180, rx_nodes, rx_tangents, time); 
+                value_ry = convertValue(-180, 180, ry_nodes, ry_tangents, time); 
+                value_rz = convertValue(-180, 180, rz_nodes, rz_tangents, time); 
                 task.setTranslation(value_tx, value_ty, value_tz);
                 task.setRotation(value_rx, value_ry, value_rz);
             }
@@ -429,12 +412,12 @@ function setupTask(canvasId, taskFunction) {
 
     document.getElementById("setnode").addEventListener('click', function(event) {
         if (task5Curve) {
-                var v = 153 - parseInt(document.getElementById("value").value);
-               // task5Curve.drawTask5(1);
-               if (v) {
-                    task5Curve.addNode(play_time, v);
-               }
+            var v = parseFloat(document.getElementById("value").value);
+            var v_converted = convertValueBack(v);
+            if (v_converted || v_converted == 0) {
+                task5Curve.addNode(play_time, v_converted);
             }
+        }
 
     });
 
@@ -527,6 +510,53 @@ TriangleMesh2.prototype.render = function(gl, model, view, projection, drawFaces
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.edgeIndexIbo);
         gl.drawElements(gl.LINES, this.edgeIndexCount, gl.UNSIGNED_SHORT, 0);
     }
+}
+
+
+var convertValue = function(min, max, nodes, tangents, time) {
+    value_node = task5Curve.getValueByAxis(time, nodes, tangents);
+    if (value_node == -1) {
+        return 0;
+    }
+    else {
+        value = min + 
+                (Math.abs(min) + Math.abs(max)) * 
+                (153 - task5Curve.getValueByAxis(time, nodes, tangents))/153;
+        return value;
+    }
+}
+
+
+var convertValueBack = function(v) {
+    if (sliderflag == false) {
+        if (axis == 1 || axis == 2 || axis == 3) {
+            min = -5;
+            max = 5;
+            value = v;
+        }
+        else {
+            min = -180;
+            max = 180;
+            value = v * 180;
+        }
+    }
+    else {
+        if (axis == 1 || axis == 3) {
+            min = -45;
+            max = 45;
+        }
+        if (axis == 2) {
+            min = 0;
+            max = 90;
+        }
+        else {
+            min = -45;
+            max = 90;
+        }
+        value = v * 180;
+    }
+    axis_value = 153 - (value - min)*153 / (Math.abs(min) + Math.abs(max))
+    return axis_value;
 }
 
 
