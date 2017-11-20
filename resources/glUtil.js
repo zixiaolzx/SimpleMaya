@@ -55,6 +55,7 @@ function setupTask(canvasId, taskFunction) {
             if(event.button == 0 || event.button == 2){
                 mouseDown = false;
                 document.removeEventListener('mousemove', mouseMoveListener);
+            }
         }
     });
 
