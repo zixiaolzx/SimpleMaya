@@ -79,8 +79,10 @@ function setupTask(canvasId, taskFunction) {
 
     document.getElementById("axis_tx").addEventListener('click', function(event) {
         if (axis != 1) {
+            task5Curve.saveCurves(task5Curve, axis);
             task5Curve.activeID = -1;
             task5Curve.activeNode = null;
+            task5Curve.activeTangelt = null;
             axis = 1;
             options.axisY.high = 5;
             options.axisY.low = -5;
@@ -88,16 +90,18 @@ function setupTask(canvasId, taskFunction) {
             options.axisY.labelInterpolationFnc = function(value) {
                     return value;};
             chart.update(data, options, true);
-            task5Curve.nodes = tx_nodes;
-            task5Curve.tangents = tx_tangents;
+            task5Curve.nodes = tx_nodes.slice();
+            task5Curve.tangents = tx_tangents.slice();
         }
         changeBtnColor(axis);
     });
 
     document.getElementById("axis_ty").addEventListener('click', function(event) {
         if (axis != 2) {
+            task5Curve.saveCurves(task5Curve, axis);
             task5Curve.activeID = -1;
             task5Curve.activeNode = null;
+            task5Curve.activeTangelt = null;
             axis = 2;
             options.axisY.high = 5;
             options.axisY.low = -5;
@@ -105,16 +109,18 @@ function setupTask(canvasId, taskFunction) {
             options.axisY.labelInterpolationFnc = function(value) {
                     return value;};
             chart.update(data, options, true);
-            task5Curve.nodes = ty_nodes;
-            task5Curve.tangents = ty_tangents;
+            task5Curve.nodes = ty_nodes.slice();
+            task5Curve.tangents = ty_tangents.slice();
         }
         changeBtnColor(axis);
     });
 
     document.getElementById("axis_tz").addEventListener('click', function(event) {
         if (axis != 3) {
+            task5Curve.saveCurves(task5Curve, axis);
             task5Curve.activeID = -1;
             task5Curve.activeNode = null;
+            task5Curve.activeTangelt = null;
             axis = 3;
             options.axisY.high = 5;
             options.axisY.low = -5;
@@ -122,8 +128,8 @@ function setupTask(canvasId, taskFunction) {
             options.axisY.labelInterpolationFnc = function(value) {
                     return value;};
             chart.update(data, options, true);
-            task5Curve.nodes = tz_nodes;
-            task5Curve.tangents = tz_tangents;
+            task5Curve.nodes = tz_nodes.slice();
+            task5Curve.tangents = tz_tangents.slice();
         }
         changeBtnColor(axis);
     });
@@ -131,8 +137,10 @@ function setupTask(canvasId, taskFunction) {
 
     document.getElementById("axis_rx").addEventListener('click', function(event) {
         if (axis != 4) {
+            task5Curve.saveCurves(task5Curve, axis);
             task5Curve.activeID = -1;
             task5Curve.activeNode = null;
+            task5Curve.activeTangelt = null;
             axis = 4;
             options.axisY.high = 1;
             options.axisY.low = -1;
@@ -140,16 +148,18 @@ function setupTask(canvasId, taskFunction) {
             options.axisY.labelInterpolationFnc = function(value) {
                     return value + " π";};
             chart.update(data, options, true);
-            task5Curve.nodes = rx_nodes;
-            task5Curve.tangents = rx_tangents;
+            task5Curve.nodes = rx_nodes.slice();
+            task5Curve.tangents = rx_tangents.slice();
         }
         changeBtnColor(axis);
     });
 
     document.getElementById("axis_ry").addEventListener('click', function(event) {
         if (axis != 5) {
+            task5Curve.saveCurves(task5Curve, axis);
             task5Curve.activeID = -1;
             task5Curve.activeNode = null;
+            task5Curve.activeTangelt = null;
             axis = 5;
             options.axisY.high = 1;
             options.axisY.low = -1;
@@ -157,16 +167,18 @@ function setupTask(canvasId, taskFunction) {
             options.axisY.labelInterpolationFnc = function(value) {
                     return value + " π";};
             chart.update(data, options, true);
-            task5Curve.nodes = ry_nodes;
-            task5Curve.tangents = ry_tangents;
+            task5Curve.nodes = ry_nodes.slice();
+            task5Curve.tangents = ry_tangents.slice();
         }
         changeBtnColor(axis);
     });
 
     document.getElementById("axis_rz").addEventListener('click', function(event) {
         if (axis != 6) {
+            task5Curve.saveCurves(task5Curve, axis);
             task5Curve.activeID = -1;
             task5Curve.activeNode = null;
+            task5Curve.activeTangelt = null;
             axis = 6;
             options.axisY.high = 1;
             options.axisY.low = -1;
@@ -174,8 +186,8 @@ function setupTask(canvasId, taskFunction) {
             options.axisY.labelInterpolationFnc = function(value) {
                     return value + " π";};
             chart.update(data, options, true);
-            task5Curve.nodes = rz_nodes;
-            task5Curve.tangents = rz_tangents;
+            task5Curve.nodes = rz_nodes.slice();
+            task5Curve.tangents = rz_tangents.slice();
         }
         changeBtnColor(axis);
     });
@@ -189,8 +201,10 @@ function setupTask(canvasId, taskFunction) {
 
     document.getElementById("joint_0").addEventListener('click', function(event) {
         if (axis != 1) {
+            task5Curve.saveCurves(task5Curve, axis);
             task5Curve.activeID = -1;
             task5Curve.activeNode = null;
+            task5Curve.activeTangelt = null;
             axis = 1;
             options.axisY.high = 0.5;
             options.axisY.low = -0.5;
@@ -198,16 +212,19 @@ function setupTask(canvasId, taskFunction) {
             options.axisY.labelInterpolationFnc = function(value) {
                     return value + " π";};
             chart.update(data, options, true);
-            task5Curve.nodes = tx_nodes;
-            task5Curve.tangents = tx_tangents;
+            console.log(tx_nodes);
+            task5Curve.nodes = tx_nodes.slice();
+            task5Curve.tangents = tx_tangents.slice();
         }
         changeBtnColor(axis);
     });
 
     document.getElementById("joint_1").addEventListener('click', function(event) {
         if (axis != 2) {
+            task5Curve.saveCurves(task5Curve, axis);
             task5Curve.activeID = -1;
             task5Curve.activeNode = null;
+            task5Curve.activeTangelt = null;
             axis = 2;
             options.axisY.high = 1;
             options.axisY.low = 0;
@@ -215,16 +232,18 @@ function setupTask(canvasId, taskFunction) {
             options.axisY.labelInterpolationFnc = function(value) {
                     return value + " π";};
             chart.update(data, options, true);
-            task5Curve.nodes = ty_nodes;
-            task5Curve.tangents = ty_tangents;
+            task5Curve.nodes = ty_nodes.slice();
+            task5Curve.tangents = ty_tangents.slice();
         }
         changeBtnColor(axis);
     });
 
     document.getElementById("joint_2").addEventListener('click', function(event) {
         if (axis != 3) {
+            task5Curve.saveCurves(task5Curve, axis);
             task5Curve.activeID = -1;
             task5Curve.activeNode = null;
+            task5Curve.activeTangelt = null;
             axis = 3;
             options.axisY.high = 0.5;
             options.axisY.low = -0.5;
@@ -232,8 +251,8 @@ function setupTask(canvasId, taskFunction) {
             options.axisY.labelInterpolationFnc = function(value) {
                     return value + " π";};
             chart.update(data, options, true);
-            task5Curve.nodes = tz_nodes;
-            task5Curve.tangents = tz_tangents;
+            task5Curve.nodes = tz_nodes.slice();
+            task5Curve.tangents = tz_tangents.slice();
         }
         changeBtnColor(axis);
     });
@@ -241,8 +260,10 @@ function setupTask(canvasId, taskFunction) {
 
     document.getElementById("joint_3").addEventListener('click', function(event) {
         if (axis != 4) {
+            task5Curve.saveCurves(task5Curve, axis);
             task5Curve.activeID = -1;
             task5Curve.activeNode = null;
+            task5Curve.activeTangelt = null;
             axis = 4;
             options.axisY.high = 1;
             options.axisY.low = -0.5;
@@ -250,16 +271,18 @@ function setupTask(canvasId, taskFunction) {
             options.axisY.labelInterpolationFnc = function(value) {
                     return value + " π";};
             chart.update(data, options, true);
-            task5Curve.nodes = rx_nodes;
-            task5Curve.tangents = rx_tangents;
+            task5Curve.nodes = rx_nodes.slice();
+            task5Curve.tangents = rx_tangents.slice();
         }
         changeBtnColor(axis);
     });
 
     document.getElementById("joint_4").addEventListener('click', function(event) {
         if (axis != 5) {
+            task5Curve.saveCurves(task5Curve, axis);
             task5Curve.activeID = -1;
             task5Curve.activeNode = null;
+            task5Curve.activeTangelt = null;
             axis = 5;
             options.axisY.high = 1;
             options.axisY.low = -0.5;
@@ -267,16 +290,18 @@ function setupTask(canvasId, taskFunction) {
             options.axisY.labelInterpolationFnc = function(value) {
                     return value + " π";};
             chart.update(data, options, true);
-            task5Curve.nodes = ry_nodes;
-            task5Curve.tangents = ry_tangents;
+            task5Curve.nodes = ry_nodes.slice();
+            task5Curve.tangents = ry_tangents.slice();
         }
         changeBtnColor(axis);
     });
 
     document.getElementById("joint_5").addEventListener('click', function(event) {
         if (axis != 6) {
+            task5Curve.saveCurves(task5Curve, axis);
             task5Curve.activeID = -1;
             task5Curve.activeNode = null;
+            task5Curve.activeTangelt = null;
             axis = 6;
             options.axisY.high = 1;
             options.axisY.low = -0.5;
@@ -284,16 +309,18 @@ function setupTask(canvasId, taskFunction) {
             options.axisY.labelInterpolationFnc = function(value) {
                     return value + " π";};
             chart.update(data, options, true);
-            task5Curve.nodes = rz_nodes;
-            task5Curve.tangents = rz_tangents;
+            task5Curve.nodes = rz_nodes.slice();
+            task5Curve.tangents = rz_tangents.slice();
         }
         changeBtnColor(axis);
     });
 
     document.getElementById("joint_6").addEventListener('click', function(event) {
         if (axis != 7) {
+            task5Curve.saveCurves(task5Curve, axis);
             task5Curve.activeID = -1;
             task5Curve.activeNode = null;
+            task5Curve.activeTangelt = null;
             axis = 7;
             options.axisY.high = 1;
             options.axisY.low = -0.5;
@@ -301,16 +328,18 @@ function setupTask(canvasId, taskFunction) {
             options.axisY.labelInterpolationFnc = function(value) {
                     return value + " π";};
             chart.update(data, options, true);
-            task5Curve.nodes = j7_nodes;
-            task5Curve.tangents = j7_tangent;
+            task5Curve.nodes = j7_nodes.slice();
+            task5Curve.tangents = j7_tangent.slice();
         }
         changeBtnColor(axis);
     });
 
     document.getElementById("joint_7").addEventListener('click', function(event) {
         if (axis != 8) {
+            task5Curve.saveCurves(task5Curve, axis);
             task5Curve.activeID = -1;
             task5Curve.activeNode = null;
+            task5Curve.activeTangelt = null;
             axis = 8;
             options.axisY.high = 1;
             options.axisY.low = -0.5;
@@ -318,8 +347,8 @@ function setupTask(canvasId, taskFunction) {
             options.axisY.labelInterpolationFnc = function(value) {
                     return value + " π";};
             chart.update(data, options, true);
-            task5Curve.nodes = j8_nodes;
-            task5Curve.tangents = j8_tangent;
+            task5Curve.nodes = j8_nodes.slice();
+            task5Curve.tangents = j8_tangent.slice();
         }
         changeBtnColor(axis);
     });
@@ -638,43 +667,48 @@ var readFile = function(evt) {
             meshid = loadedData.mesh;
 
             if (!sliderflag) {
-            tx_nodes = convertToNode(loadedData.translate_x);
-            tx_tangents = convertToNode(loadedData.translate_x_tangent);
-            ty_nodes = convertToNode(loadedData.translate_y);
-            ty_tangents = convertToNode(loadedData.translate_y_tangent);
-            tz_nodes = convertToNode(loadedData.translate_z);
-            tz_tangents = convertToNode(loadedData.translate_z_tangent);
+            tx_nodes = convertToNode(loadedData.translate_x).slice();
+            tx_tangents = convertToNode(loadedData.translate_x_tangent).slice();
+            ty_nodes = convertToNode(loadedData.translate_y).slice();
+            ty_tangents = convertToNode(loadedData.translate_y_tangent).slice();
+            tz_nodes = convertToNode(loadedData.translate_z).slice();
+            tz_tangents = convertToNode(loadedData.translate_z_tangent).slice();
 
-            rx_nodes = convertToNode(loadedData.rotate_x);
-            rx_tangents = convertToNode(loadedData.rotate_x_tangent);
-            ry_nodes = convertToNode(loadedData.rotate_y);
-            ry_tangents = convertToNode(loadedData.rotate_y_tangent);
-            rz_nodes = convertToNode(loadedData.rotate_z);
-            rz_tangents = convertToNode(loadedData.rotate_z_tangent);
+            rx_nodes = convertToNode(loadedData.rotate_x).slice();
+            rx_tangents = convertToNode(loadedData.rotate_x_tangent).slice();
+            ry_nodes = convertToNode(loadedData.rotate_y).slice();
+            ry_tangents = convertToNode(loadedData.rotate_y_tangent).slice();
+            rz_nodes = convertToNode(loadedData.rotate_z).slice();
+            rz_tangents = convertToNode(loadedData.rotate_z_tangent).slice();
             }
 
             else {
-            tx_nodes = convertToNode(loadedData.translate_x);
-            tx_tangents = convertToNode(loadedData.translate_x_tangent);
-            ty_nodes = convertToNode(loadedData.translate_y);
-            ty_tangents = convertToNode(loadedData.translate_y_tangent);
-            tz_nodes = convertToNode(loadedData.translate_z);
-            tz_tangents = convertToNode(loadedData.translate_z_tangent);
-            rx_nodes = convertToNode(loadedData.rotate_x);
-            rx_tangents = convertToNode(loadedData.rotate_x_tangent);
-            ry_nodes = convertToNode(loadedData.rotate_y);
-            ry_tangents = convertToNode(loadedData.rotate_y_tangent);
-            rz_nodes = convertToNode(loadedData.rotate_z);
-            rz_tangents = convertToNode(loadedData.rotate_z_tangent);
-            j7_nodes = convertToNode(loadedData.j7);
-            j7_tangent = convertToNode(loadedData.j7_t);
-            j8_nodes = convertToNode(loadedData.j8);
-            j8_tangent = convertToNode(loadedData.j8_t);
+            tx_nodes = convertToNode(loadedData.translate_x).slice();
+            tx_tangents = convertToNode(loadedData.translate_x_tangent).slice();
+            ty_nodes = convertToNode(loadedData.translate_y).slice();
+            ty_tangents = convertToNode(loadedData.translate_y_tangent).slice();
+            tz_nodes = convertToNode(loadedData.translate_z).slice();
+            tz_tangents = convertToNode(loadedData.translate_z_tangent).slice();
+            rx_nodes = convertToNode(loadedData.rotate_x).slice();
+            rx_tangents = convertToNode(loadedData.rotate_x_tangent).slice();
+            ry_nodes = convertToNode(loadedData.rotate_y).slice();
+            ry_tangents = convertToNode(loadedData.rotate_y_tangent).slice();
+            rz_nodes = convertToNode(loadedData.rotate_z).slice();
+            rz_tangents = convertToNode(loadedData.rotate_z_tangent).slice();
+            j7_nodes = convertToNode(loadedData.j7).slice();
+            j7_tangent = convertToNode(loadedData.j7_t).slice();
+            j8_nodes = convertToNode(loadedData.j8).slice();
+            j8_tangent = convertToNode(loadedData.j8_t).slice();
             }
 
             axis = 1;
-            task5Curve.nodes = tx_nodes;
-            task5Curve.tangents = tx_tangents;
+            task5Curve.nodes = tx_nodes.slice();
+            task5Curve.tangents = tx_tangents.slice();
+
+            task5Curve.activeID = -1;
+            task5Curve.activeNode = null;
+            task5Curve.activeTangelt = null;
+
             changeBtnColor(axis);
 
             f = document.getElementById("keyFile");
@@ -688,14 +722,14 @@ var readFile = function(evt) {
 
 
 var convertToNode = function(list) {
-    nodes = new Array();
+    result_nodes = new Array();
     if (!list) {
-        return nodes
+        return result_nodes
     }
     for (var i = 0; i < list.length; i++) {
-        nodes.push(new Node(list[i].x, list[i].y))
+        result_nodes.push(new Node(list[i].x, list[i].y))
     }
-    return nodes;
+    return result_nodes;
 }
 
 
