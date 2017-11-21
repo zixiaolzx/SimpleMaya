@@ -47,3 +47,9 @@ Node.prototype.normalize = function() {
 	result.y /= norm;
 	return result; 
 }
+
+
+Node.prototype.distance = function(node) {
+	dis_node = new Node(this.x - node.x, this.y - node.y);
+	return dis_node.norm();
+}
